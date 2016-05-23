@@ -1,0 +1,34 @@
+data_vol:
+  volumes:
+    - "/vol/to/backup:/bak"
+
+backup_full:
+  image: innuendonh/duplicity
+  hostname: my.duplicity.local
+  volumes_from:
+    - data_vol
+  volumes:
+    - "./duplicity-tmp:/duplicity-tmp" # Not completely necessary, but will speed up repeated backups
+  environment:
+    FTP_PASSWORD: "put here YOUR FTP password"
+    PASSPHRASE: "PUT HERE your GPG passphrase" # https://xkpasswd.net/s/ rules!!
+    TMPDIR: "/duplicity-tmp"
+    BACKUP_FROM: "/bak"
+    BACKUP_TO: "ftp://user@email.com@my.backend.com:21/bak"
+  command: bash -c 'duplicity --allow-source-mismatch --tempdir=$TMPDIR full "$BACKUP_FROM" "$BACKUP_TO" && duplicity --allow-source-mismatch --tempdir=$TMPDIR remove-all-but-n-full 1 --force "$BACKUP_TO"'
+
+backup_incr:
+  image: innuendonh/duplicity
+  hostname: my.duplicity.local
+  volumes_from:
+    - data_vol
+  volumes:
+    - "./duplicity-tmp:/duplicity-tmp" # Not completely necessary, but will speed up repeated backups
+  environment:
+    FTP_PASSWORD: "put here YOUR FTP password"
+    PASSPHRASE: "PUT HERE your GPG passphrase" # https://xkpasswd.net/s/ rules!!
+    TMPDIR: "/duplicity-tmp"
+    BACKUP_FROM: "/bak"
+    BACKUP_TO: "ftp://user@email.com@my.backend.com:21/bak"
+  command: duplicity --allow-source-mismatch --tempdir=$TMPDIR incr "$BACKUP_FROM" "$BACKUP_TO"
+
