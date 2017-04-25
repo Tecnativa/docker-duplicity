@@ -66,7 +66,9 @@ Built-in jobs:
 
 ### `JOB_*_WHEN`
 
-Define when to execute the command you defined in the previous section.
+Define when to execute the command you defined in the previous section. If you
+need several values, you can separate them with spaces (example: `daily
+monthly`).
 
 Built-in jobs:
 

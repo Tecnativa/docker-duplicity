@@ -30,7 +30,7 @@ subject = environ.get("EMAIL_SUBJECT")
 to_run = dict()
 for key, when in environ.items():
     match = re.match(r"^JOB_(\d+)_WHEN$", key)
-    if match and when == periodicity:
+    if match and periodicity in when.split():
         njob = int(match.group(1))
         to_run[njob] = environ["JOB_{}_WHAT".format(njob)]
 
