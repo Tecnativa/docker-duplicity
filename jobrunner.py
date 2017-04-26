@@ -34,6 +34,10 @@ for key, when in environ.items():
         njob = int(match.group(1))
         to_run[njob] = environ["JOB_{}_WHAT".format(njob)]
 
+if not to_run:
+    logging.info("Nothing to do")
+    sys.exit()
+
 # Run commands in order
 message = [
     "From: {}".format(from_),
@@ -62,7 +66,7 @@ for njob, command in sorted(to_run.items()):
 
 
 # Report results
-if all((host, port, from_, to, subject)) and len(message) > 2:
+if all((host, port, from_, to, subject)):
     logging.info("Sending email report")
     message.insert(0, "Subject: {}".format(subject.format(
         periodicity=periodicity,
