@@ -43,6 +43,7 @@ RUN apk add --no-cache --virtual .build \
         librsync-dev \
         linux-headers \
         openssl-dev \
+        py-pip \
         python-dev \
     && pip install --no-cache-dir \
         azure-storage \
