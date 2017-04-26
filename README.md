@@ -61,7 +61,7 @@ Define a command that needs to be executed.
 
 Built-in jobs:
 
-- `JOB_300_WHAT`: `duplicity incremental $OPTIONS $SRC $DST`
+- `JOB_300_WHAT`: `duplicity $OPTIONS $SRC $DST`
 - `JOB_600_WHAT`: `duplicity full $OPTIONS $SRC $DST`
 
 ### `JOB_*_WHEN`
