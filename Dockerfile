@@ -5,7 +5,7 @@ ARG DUPLICITY_VERSION=0.7.12
 
 ENV DST='' \
     EMAIL_FROM='' \
-    EMAIL_SUBJECT='Cron [{periodicity}] report: [{result}]' \
+    EMAIL_SUBJECT='Backup report: {hostname} - {periodicity} - {result}' \
     EMAIL_TO='' \
     JOB_300_WHAT='duplicity $OPTIONS $SRC $DST' \
     JOB_300_WHEN='daily' \
@@ -14,7 +14,7 @@ ENV DST='' \
     OPTIONS='' \
     SMTP_HOST='smtp' \
     SMTP_PORT='25' \
-    SRC=''
+    SRC='/mnt/backup/src'
 
 CMD ["/usr/sbin/crond", "-fd8"]
 
@@ -32,10 +32,11 @@ RUN apk add --no-cache \
         lftp \
         libffi \
         librsync \
-        mariadb-client \
         openssl \
-        postgresql \
         python
+
+# Default backup source directory
+RUN mkdir -p "$SRC"
 
 # Build dependencies
 RUN apk add --no-cache --virtual .build \
