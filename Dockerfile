@@ -27,6 +27,7 @@ RUN ln -s /usr/local/bin/jobrunner.py /etc/periodic/monthly/jobrunner
 
 # Runtime dependencies and database clients
 RUN apk add --no-cache \
+        ca-certificates \
         gnupg \
         lftp \
         libffi \
