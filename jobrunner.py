@@ -47,8 +47,8 @@ for njob, command in sorted(to_run.items()):
         result = check_output(command, stderr=STDOUT, shell=True)
     except CalledProcessError as error:
         failed = True
-        logging.exception("Failed!")
         result = str(error) + "\n" + error.output
+        logging.exception("Failed! Command output:\n%s", result)
     end = datetime.now()
     message += [
         "",
