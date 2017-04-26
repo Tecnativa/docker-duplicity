@@ -70,7 +70,7 @@ if all((host, port, from_, to, subject)) and len(message) > 2:
     )))
     try:
         smtp = smtplib.SMTP(host, port)
-        smtp.sendmail(from_, to, message.join("\r\n"))
+        smtp.sendmail(from_, to, "\r\n".join(message))
     finally:
         smtp.quit()
 else:
