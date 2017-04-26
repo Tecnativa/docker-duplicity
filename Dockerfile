@@ -1,4 +1,4 @@
-FROM python:2-alpine
+FROM alpine
 MAINTAINER Tecnativa <info@tecnativa.com>
 
 ARG DUPLICITY_VERSION=0.7.12
@@ -33,7 +33,8 @@ RUN apk add --no-cache \
         librsync \
         mariadb-client \
         openssl \
-        postgresql-client
+        postgresql \
+        python
 
 # Build dependencies
 RUN apk add --no-cache --virtual .build \
@@ -42,6 +43,7 @@ RUN apk add --no-cache --virtual .build \
         librsync-dev \
         linux-headers \
         openssl-dev \
+        python-dev \
     && pip install --no-cache-dir \
         azure-storage \
         boto \
