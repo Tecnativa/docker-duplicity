@@ -124,6 +124,14 @@ execute:
 
     docker run -it --rm tecnativa/duplicity duplicity --help
 
+## Testing your configuration
+
+If you want to test how do your `daily` jobs work, just run:
+
+    docker exec -it your_backup_container /etc/periodic/daily/jobrunner
+
+Replace `daily` by any other periodicity to test it too.
+
 ## Prebuilt flavours
 
 Sometimes you need more than just copying a file here, pasting it there. That's
