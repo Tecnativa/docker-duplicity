@@ -124,7 +124,11 @@ execute:
 
     docker run -it --rm tecnativa/duplicity duplicity --help
 
-## Prebuilt configurations
+## Prebuilt flavours
+
+Sometimes you need more than just copying a file here, pasting it there. That's
+why we supply some special flavours of this image. Don't worry about disk, all
+of them share the same base layers!
 
 ### PostgreSQL
 
@@ -159,9 +163,64 @@ services:
             PASSPHRASE: example backkup encryption secret
 ```
 
+### Docker
+
+Imagine you need to run some command in another container to generate a backup
+file before actually backing it up in a remote place.
+
+If this is your case, you can use this version, which includes a prepackaged
+Docker client.
+
+See this `docker-compose.yaml` example, where we back up a Gitlab server using
+its [crappy official image][gitlab-ce]:
+
+```yaml
+services:
+    gitlab:
+        image: gitlab/gitlab-ce
+        hostname: gitlab
+        domainname: example.com
+        environment:
+            GITLAB_OMNIBUS_CONFIG: |
+                # Your Gitlab configuration here
+        ports:
+            - "22:22"
+            - "80:80"
+            - "443:443"
+        volumes:
+            - config:/etc/gitlab:z
+            - data:/var/opt/gitlab:z
+            - logs:/var/log/gitlab:z
+    backup:
+        image: tecnativa/duplicity:docker
+        hostname: backup
+        domainname: gitlab.example.com
+        privileged: true  # To speak with host's docker socket
+        volumes:
+            - config:/mnt/backup/src/config
+            - data:/mnt/backup/src/data
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        environment:
+            # Generate Gitlab backup before uploading it
+            JOB_200_WHAT:
+                docker exec projectname_gitlab_1
+                gitlab-rake gitlab:backup:create
+            JOB_200_WHEN: daily weekly
+
+            # Additional configurations for Duplicity
+            AWS_ACCESS_KEY_ID: example amazon s3 access key
+            AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
+            DST: s3://s3.amazonaws.com/mybucket/myfolder
+            EMAIL_FROM: backup@example.com
+            EMAIL_TO: alerts@example.com
+            OPTIONS: --s3-european-buckets --s3-use-new-style
+            PASSPHRASE: example backkup encryption secret
+```
+
 [Alpine]: https://alpinelinux.org/
 [Duplicity]: http://duplicity.nongnu.org/
 [env]: http://duplicity.nongnu.org/duplicity.1.html#sect6
+[gitlab-ce]: https://hub.docker.com/r/gitlab/gitlab-ce/
 [MariaDB]: https://mariadb.org/
 [odoobase]: https://hub.docker.com/r/tecnativa/odoo-base/builds/
 [options]: http://duplicity.nongnu.org/duplicity.1.html#sect5
