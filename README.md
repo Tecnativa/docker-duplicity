@@ -61,10 +61,7 @@ Email report recipient.
 
 Define a command that needs to be executed.
 
-Built-in jobs:
-
-- `JOB_300_WHAT`: `duplicity $OPTIONS $SRC $DST`
-- `JOB_600_WHAT`: `duplicity full $OPTIONS $SRC $DST`
+Check the `Dockerfile` to see built-in jobs.
 
 ### `JOB_*_WHEN`
 
@@ -72,10 +69,7 @@ Define when to execute the command you defined in the previous section. If you
 need several values, you can separate them with spaces (example: `daily
 monthly`).
 
-Built-in jobs:
-
-- `JOB_300_WHEN`: `daily`
-- `JOB_600_WHEN`: `weekly`
+Check the `Dockerfile` to see built-in jobs.
 
 ### `OPTIONS`
 
@@ -170,6 +164,8 @@ services:
             OPTIONS: --s3-european-buckets --s3-use-new-style
             PASSPHRASE: example backkup encryption secret
 ```
+
+Check the `postgres.Dockerfile` file to see additional built-in jobs.
 
 ### Docker
 
