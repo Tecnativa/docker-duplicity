@@ -11,6 +11,7 @@ import sys
 from datetime import datetime
 from os import environ, path
 from socket import gethostname
+from string import Template
 from subprocess import CalledProcessError, check_output, STDOUT
 
 
@@ -58,7 +59,8 @@ for njob, command in sorted(to_run.items()):
     message += [
         "",
         "===================================",
-        "Job {}: `{}`".format(njob, command),
+        "Job {}: `{}`".format(njob,
+                              Template(command).safe_substitute(environ)),
         "Started: {!s}".format(start),
         "Finished: {!s}".format(end),
         "",
