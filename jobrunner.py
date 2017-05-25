@@ -47,25 +47,30 @@ message = [
 ]
 failed = False
 for njob, command in sorted(to_run.items()):
+    expanded_command = Template(command).safe_substitute(environ)
     start = datetime.now()
     logging.info("Running job %d: `%s`", njob, command)
     try:
         result = check_output(command, stderr=STDOUT, shell=True)
+        success = True
     except CalledProcessError as error:
         failed = True
+        success = False
         result = str(error) + "\n" + error.output
-        logging.exception("Failed! Command output:\n%s", result)
+        logging.exception("Failed!")
     end = datetime.now()
-    message += [
+    log = [
         "",
         "===================================",
-        "Job {}: `{}`".format(njob,
-                              Template(command).safe_substitute(environ)),
+        "Job {}: `{}`".format(njob, expanded_command),
         "Started: {!s}".format(start),
         "Finished: {!s}".format(end),
+        "Success: {!s}".format(success),
         "",
         result,
     ]
+    logging.log(logging.INFO if success else logging.ERROR, "\n".join(log))
+    message += log
 
 
 # Report results
