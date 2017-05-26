@@ -126,13 +126,20 @@ If you want to test how do your `daily` jobs work, just run:
 
 Replace `daily` by any other periodicity to test it too.
 
-## Prebuilt flavours
+## Prebuilt flavors
 
 Sometimes you need more than just copying a file here, pasting it there. That's
-why we supply some special flavours of this image. Don't worry about disk, all
-of them share the same base layers!
+why we supply some special flavours of this image.
 
-### PostgreSQL
+### Normal (`latest`)
+
+This includes just the most basic packages to boot the cron and use Duplicity
+with any backend. All other images are built on top of this one, so downloading
+several flavours won't repeat the abse layers (disk-friendly!).
+
+Preconfigured to backup daily.
+
+### PostgreSQL (`postgres`)
 
 If you want to back up a PostgreSQL server, make sure you run this image in a
 fashion similar to this `docker-compose.yaml` definition:
@@ -167,7 +174,7 @@ services:
 
 Check the `postgres.Dockerfile` file to see additional built-in jobs.
 
-### Docker
+### Docker (`docker`)
 
 Imagine you need to run some command in another container to generate a backup
 file before actually backing it up in a remote place.
@@ -220,6 +227,13 @@ services:
             OPTIONS: --s3-european-buckets --s3-use-new-style
             PASSPHRASE: example backkup encryption secret
 ```
+
+### Amazon S3 (`*-s3`)
+
+Any of the other flavors has a special variant suffixed with `-s3`. It
+provides some opinionated defaults to make good use of S3 different storage
+types and its lifecycle rules and filters, assuming you want to keep 3 months
+of backups.
 
 [Alpine]: https://alpinelinux.org/
 [Duplicity]: http://duplicity.nongnu.org/
