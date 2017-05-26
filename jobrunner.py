@@ -49,7 +49,7 @@ failed = False
 for njob, command in sorted(to_run.items()):
     expanded_command = Template(command).safe_substitute(environ)
     start = datetime.now()
-    logging.info("Running job %d: `%s`", njob, command)
+    logging.info("Running job %d: `%s`", njob, expanded_command)
     try:
         result = check_output(command, stderr=STDOUT, shell=True)
         success = True
