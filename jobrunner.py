@@ -51,7 +51,7 @@ for njob, command in sorted(to_run.items()):
     start = datetime.now()
     logging.info("Running job %d: `%s`", njob, expanded_command)
     try:
-        result = check_output(command, stderr=STDOUT, shell=True)
+        result = check_output(expanded_command, stderr=STDOUT, shell=True)
         success = True
     except CalledProcessError as error:
         failed = True
