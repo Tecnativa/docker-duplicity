@@ -29,6 +29,7 @@ RUN apk add --no-cache \
         ca-certificates \
         dbus \
         gnupg \
+        krb5-libs \
         lftp \
         libffi \
         librsync \
@@ -44,6 +45,7 @@ RUN mkdir -p "$SRC"
 # Build dependencies
 RUN apk add --no-cache --virtual .build \
         build-base \
+        krb5-dev \
         libffi-dev \
         librsync-dev \
         linux-headers \
