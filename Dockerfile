@@ -27,11 +27,15 @@ RUN ln -s /usr/local/bin/jobrunner.py /etc/periodic/monthly/jobrunner
 # Runtime dependencies and database clients
 RUN apk add --no-cache \
         ca-certificates \
+        dbus \
         gnupg \
         lftp \
         libffi \
         librsync \
+        ncftp \
+        openssh \
         openssl \
+        py2-gobject3 \
         python
 
 # Default backup source directory
@@ -44,20 +48,26 @@ RUN apk add --no-cache --virtual .build \
         librsync-dev \
         linux-headers \
         openssl-dev \
-        py-pip \
+        py2-pip \
         python-dev \
     && pip install --no-cache-dir \
         azure-storage \
         boto \
+        dropbox \
+        gdata \
         lockfile \
         mediafire \
+        mega.py \
         paramiko \
+        pexpect \
         pycryptopp \
         PyDrive \
+        pykerberos \
+        pyrax \
         python-keystoneclient \
         python-swiftclient \
         requests \
-        requests_oauthlib \
+        requests-oauthlib \
         urllib3 \
         https://code.launchpad.net/duplicity/$(echo $DUPLICITY_VERSION | sed -r 's/^([0-9]+\.[0-9]+)([0-9\.]*)$/\1/')-series/$DUPLICITY_VERSION/+download/duplicity-$DUPLICITY_VERSION.tar.gz \
     && apk del .build
