@@ -16,6 +16,7 @@ from subprocess import CalledProcessError, check_output, STDOUT
 
 
 logging.basicConfig(level=logging.INFO)
+logging.root.name = "jobrunner"
 
 # Get expected periodicity from this script's placement
 periodicity = path.basename(path.dirname(path.abspath(__file__)))
