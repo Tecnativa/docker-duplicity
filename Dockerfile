@@ -7,7 +7,7 @@ ENV DST='' \
     EMAIL_FROM='' \
     EMAIL_SUBJECT='Backup report: {hostname} - {periodicity} - {result}' \
     EMAIL_TO='' \
-    JOB_300_WHAT='duplicity $OPTIONS $OPTIONS_EXTRA $SRC $DST' \
+    JOB_300_WHAT='dup $SRC $DST' \
     JOB_300_WHEN='daily' \
     OPTIONS='' \
     OPTIONS_EXTRA='' \
@@ -18,11 +18,11 @@ ENV DST='' \
 CMD ["/usr/sbin/crond", "-fd8"]
 
 # Link the job runner in all periodicities available
-RUN ln -s /usr/local/bin/jobrunner.py /etc/periodic/15min/jobrunner
-RUN ln -s /usr/local/bin/jobrunner.py /etc/periodic/hourly/jobrunner
-RUN ln -s /usr/local/bin/jobrunner.py /etc/periodic/daily/jobrunner
-RUN ln -s /usr/local/bin/jobrunner.py /etc/periodic/weekly/jobrunner
-RUN ln -s /usr/local/bin/jobrunner.py /etc/periodic/monthly/jobrunner
+RUN ln -s /usr/local/bin/jobrunner /etc/periodic/15min/jobrunner
+RUN ln -s /usr/local/bin/jobrunner /etc/periodic/hourly/jobrunner
+RUN ln -s /usr/local/bin/jobrunner /etc/periodic/daily/jobrunner
+RUN ln -s /usr/local/bin/jobrunner /etc/periodic/weekly/jobrunner
+RUN ln -s /usr/local/bin/jobrunner /etc/periodic/monthly/jobrunner
 
 # Runtime dependencies and database clients
 RUN apk add --no-cache \
@@ -73,8 +73,8 @@ RUN apk add --no-cache --virtual .build \
         urllib3 \
         https://code.launchpad.net/duplicity/$(echo $DUPLICITY_VERSION | sed -r 's/^([0-9]+\.[0-9]+)([0-9\.]*)$/\1/')-series/$DUPLICITY_VERSION/+download/duplicity-$DUPLICITY_VERSION.tar.gz \
     && apk del .build
-COPY *.py  /usr/local/bin/
-RUN chmod a+rx /usr/local/bin/*
+COPY bin/* /usr/local/bin/
+RUN chmod a+rx /usr/local/bin/* sync
 
 # Metadata
 ARG VCS_REF

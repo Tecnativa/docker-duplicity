@@ -1,6 +1,7 @@
 #!/bin/bash
 set -ex
 
+docker --version
 docker build \
     --build-arg VCS_REF="$GIT_SHA1" \
     --build-arg BUILD_DATE="$(date --rfc-3339 ns)" \

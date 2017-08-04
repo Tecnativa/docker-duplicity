@@ -123,6 +123,15 @@ execute:
 
     docker run -it --rm tecnativa/duplicity duplicity --help
 
+### Shortcuts
+
+You can use these bundled binaries to work faster:
+
+- `dup`: Executes duplicity prefixed with the options defined in `$OPTIONS`
+  and `$OPTIONS_EXTRA` (see above).
+- `backup`: Executes an immediate backup with default options.
+- `restore`: Restores immediately with default options.
+
 ## Testing your configuration
 
 If you want to test how do your `daily` jobs work, just run:
