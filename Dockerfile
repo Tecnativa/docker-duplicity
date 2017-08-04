@@ -74,7 +74,7 @@ RUN apk add --no-cache --virtual .build \
         https://code.launchpad.net/duplicity/$(echo $DUPLICITY_VERSION | sed -r 's/^([0-9]+\.[0-9]+)([0-9\.]*)$/\1/')-series/$DUPLICITY_VERSION/+download/duplicity-$DUPLICITY_VERSION.tar.gz \
     && apk del .build
 COPY bin/* /usr/local/bin/
-RUN chmod a+rx /usr/local/bin/* sync
+RUN chmod a+rx /usr/local/bin/* && sync
 
 # Metadata
 ARG VCS_REF
