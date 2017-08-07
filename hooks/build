@@ -5,4 +5,3 @@ docker image build \
     --build-arg VCS_REF="$GIT_SHA1" \
     --build-arg BUILD_DATE="$(date --rfc-3339 ns)" \
     --tag "$IMAGE_NAME" .
-docker image tag "$IMAGE_NAME" tecnativa/duplicity:latest

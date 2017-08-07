@@ -1,4 +1,4 @@
-FROM tecnativa/duplicity
+FROM index.docker.io/tecnativa/duplicity
 RUN apk add --no-cache postgresql
 ENV JOB_200_WHAT='pg_dump --no-owner --format c --file "$SRC/$PGDATABASE.pgdump"' \
     JOB_200_WHEN='daily monthly' \
