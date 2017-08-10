@@ -130,7 +130,8 @@ You can use these bundled binaries to work faster:
 - `dup`: Executes duplicity prefixed with the options defined in `$OPTIONS`
   and `$OPTIONS_EXTRA` (see above).
 - `backup`: Executes an immediate backup with default options.
-- `restore`: Restores immediately with default options.
+- `restore`: Restores immediately with default options. Most likely, you will
+  need to use it with `--force`.
 
 ## Testing your configuration
 
