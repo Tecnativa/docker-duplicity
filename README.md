@@ -240,7 +240,7 @@ services:
             EMAIL_FROM: backup@example.com
             EMAIL_TO: alerts@example.com
             OPTIONS: --s3-european-buckets --s3-use-new-style
-            PASSPHRASE: example backkup encryption secret
+            PASSPHRASE: example backup encryption secret
 ```
 
 ### Amazon S3 (`*-s3`)
