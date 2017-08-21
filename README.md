@@ -247,8 +247,9 @@ services:
 
 Any of the other flavors has a special variant suffixed with `-s3`. It
 provides some opinionated defaults to make good use of S3 different storage
-types and its lifecycle rules and filters, assuming you want to keep 3 months
-of backups.
+types and its lifecycle rules and filters, assuming you want to have weekly
+full backups. You should combine it with lifecycle and expiration rules at
+your will.
 
 [Alpine]: https://alpinelinux.org/
 [Duplicity]: http://duplicity.nongnu.org/
