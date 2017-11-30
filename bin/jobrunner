@@ -82,11 +82,15 @@ if all((host, port, from_, to, subject)):
         periodicity=periodicity,
         result="ERROR" if failed else "OK",
     )))
+    smtp = None
     try:
         smtp = smtplib.SMTP(host, port)
         smtp.sendmail(from_, to, "\r\n".join(message))
+    except:
+        logging.exception("Failed sending email")
     finally:
-        smtp.quit()
+        if smtp is not None:
+            smtp.quit()
 else:
     logging.info("Finished")
 
