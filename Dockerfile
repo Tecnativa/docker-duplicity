@@ -1,7 +1,7 @@
 FROM alpine
 MAINTAINER Tecnativa <info@tecnativa.com>
 
-ARG DUPLICITY_VERSION=0.7.13.1
+ARG DUPLICITY_VERSION=0.7.15
 
 ENV DST='' \
     EMAIL_FROM='' \
