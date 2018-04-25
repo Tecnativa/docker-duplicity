@@ -2,7 +2,12 @@ FROM alpine
 
 ARG DUPLICITY_VERSION=0.7.17
 
-ENV DST='' \
+ENV CRONTAB_15MIN='*/15 * * * *' \
+    CRONTAB_HOURLY='0 * * * *' \
+    CRONTAB_DAILY='0 2 * * MON-SAT' \
+    CRONTAB_WEEKLY='0 1 * * SUN' \
+    CRONTAB_MONTHLY='0 5 1 * *' \
+    DST='' \
     EMAIL_FROM='' \
     EMAIL_SUBJECT='Backup report: {hostname} - {periodicity} - {result}' \
     EMAIL_TO='' \
@@ -14,6 +19,7 @@ ENV DST='' \
     SMTP_PORT='25' \
     SRC='/mnt/backup/src'
 
+ENTRYPOINT [ "/usr/local/bin/entrypoint" ]
 CMD ["/usr/sbin/crond", "-fd8"]
 
 # Link the job runner in all periodicities available

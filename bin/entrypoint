@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Replace crontab with env-provided values
+cat > /var/spool/cron/crontabs/root <<END
+$CRONTAB_15MIN run-parts /etc/periodic/15min
+$CRONTAB_HOURLY run-parts /etc/periodic/hourly
+$CRONTAB_DAILY run-parts /etc/periodic/daily
+$CRONTAB_WEEKLY run-parts /etc/periodic/weekly
+$CRONTAB_MONTHLY run-parts /etc/periodic/monthly
+END
+
+# Continue work
+exec "$@"

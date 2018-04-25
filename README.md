@@ -27,6 +27,20 @@ variables into flexible cron jobs and sending an email report automatically.
 Apart from the [environment variables that Duplicity uses by default][env], you
 have others specific for this image.
 
+### `CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`
+
+Define the cron schedule to run jobs under such circumstances.
+
+Possibly non-obvious defaults:
+
+- Daily: 2 AM, from Monday to Saturday
+- Weekly: 1 AM, on Sundays
+- Monthly: 5 AM, 1st day of month
+
+**If you define any of these variables wrongly, your cron might not work!**
+
+You can use online tools such as https://crontab.guru to make it easy.
+
 ### `DST`
 
 Where to store the backup.
