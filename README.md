@@ -37,6 +37,8 @@ Possibly non-obvious defaults:
 - Weekly: 1 AM, on Sundays
 - Monthly: 5 AM, 1st day of month
 
+Hours are expressed in UTC.
+
 **If you define any of these variables wrongly, your cron might not work!**
 
 You can use online tools such as https://crontab.guru to make it easy.
