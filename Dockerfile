@@ -59,6 +59,7 @@ RUN apk add --no-cache --virtual .build \
         python-dev \
     && pip install --no-cache-dir \
         azure-storage \
+        b2 \
         boto \
         dropbox \
         gdata \
