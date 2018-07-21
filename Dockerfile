@@ -62,7 +62,7 @@ RUN apk add --no-cache --virtual .build \
         azure-storage \
         b2 \
         boto \
-        dropbox \
+        dropbox==6.9.0 \
         gdata \
         lockfile \
         mediafire \
