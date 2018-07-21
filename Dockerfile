@@ -15,6 +15,7 @@ ENV CRONTAB_15MIN='*/15 * * * *' \
     JOB_300_WHEN='daily' \
     OPTIONS='' \
     OPTIONS_EXTRA='' \
+    PYTHONUNBUFFERED='1' \
     SMTP_HOST='smtp' \
     SMTP_PASS='' \
     SMTP_PORT='25' \
