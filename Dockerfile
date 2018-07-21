@@ -16,7 +16,10 @@ ENV CRONTAB_15MIN='*/15 * * * *' \
     OPTIONS='' \
     OPTIONS_EXTRA='' \
     SMTP_HOST='smtp' \
+    SMTP_PASS='' \
     SMTP_PORT='25' \
+    SMTP_TLS='' \
+    SMTP_USER='' \
     SRC='/mnt/backup/src'
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint" ]
