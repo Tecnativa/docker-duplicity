@@ -23,8 +23,11 @@ periodicity = path.basename(path.dirname(path.abspath(__file__)))
 logging.info("%s UTC - Running %s jobs", datetime.utcnow(), periodicity)
 
 # Get email settings
-host = environ.get("SMTP_HOST")
-port = environ.get("SMTP_PORT")
+smtp_host = environ.get("SMTP_HOST")
+smtp_port = environ.get("SMTP_PORT")
+smtp_user = environ.get("SMTP_USER")
+smtp_pass = environ.get("SMTP_PASS", "")
+smtp_tls = environ.get("SMTP_TLS", "").lower() in {"1", "true"}
 from_ = environ.get("EMAIL_FROM")
 to = environ.get("EMAIL_TO")
 subject = environ.get("EMAIL_SUBJECT")
@@ -75,7 +78,7 @@ for njob, command in sorted(to_run.items()):
 
 
 # Report results
-if all((host, port, from_, to, subject)):
+if all((smtp_host, smtp_port, from_, to, subject)):
     logging.info("Sending email report")
     message.insert(0, "Subject: {}".format(subject.format(
         hostname=gethostname(),
@@ -84,7 +87,13 @@ if all((host, port, from_, to, subject)):
     )))
     smtp = None
     try:
-        smtp = smtplib.SMTP(host, port)
+        if smtp_tls:
+            smtp = smtplib.SMTP_SSL(smtp_host, smtp_port)
+        else:
+            smtp = smtplib.SMTP(smtp_host, smtp_port)
+        if smtp_user:
+            smtp.ehlo()
+            smtp.login(smtp_user, smtp_pass)
         smtp.sendmail(from_, to, "\r\n".join(message))
     except:
         logging.exception("Failed sending email")
