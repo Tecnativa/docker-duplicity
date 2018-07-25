@@ -1,3 +1,23 @@
-#!/bin/sh
-set -x
-exec duplicity $(eval echo $OPTIONS $OPTIONS_EXTRA) "$@"
+#!/usr/bin/env python
+from __future__ import print_function
+
+import os
+import subprocess
+import sys
+
+# Expand shell commands from environment options
+options = subprocess.check_output(
+    "echo " + os.environ["OPTIONS"],
+    shell=True,
+    stderr=subprocess.STDOUT,
+)
+options_extra = subprocess.check_output(
+    "echo " + os.environ["OPTIONS_EXTRA"],
+    shell=True,
+    stderr=subprocess.STDOUT,
+)
+
+# Execute via duplicity
+args = ["duplicity"] + options.split() + options_extra.split() + sys.argv[1:]
+print("Executing: {}".format(args))
+os.execvp(args[0], args)
