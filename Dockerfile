@@ -77,6 +77,7 @@ RUN apk add --no-cache --virtual .build \
         pyrax \
         python-keystoneclient \
         python-swiftclient \
+        PyNaCl==1.2.1 \
         requests \
         requests-oauthlib \
         urllib3 \
