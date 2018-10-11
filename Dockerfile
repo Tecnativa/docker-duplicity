@@ -1,4 +1,4 @@
-FROM alpine
+FROM python:2.7-alpine3.8 AS latest
 
 ARG DUPLICITY_VERSION=0.7.17
 
@@ -44,8 +44,7 @@ RUN apk add --no-cache \
         ncftp \
         openssh \
         openssl \
-        py2-gobject3 \
-        python
+        py2-gobject3
 
 # Default backup source directory
 RUN mkdir -p "$SRC"
@@ -58,7 +57,6 @@ RUN apk add --no-cache --virtual .build \
         librsync-dev \
         linux-headers \
         openssl-dev \
-        py2-pip \
         python-dev \
     && pip install --no-cache-dir \
         azure-storage \
@@ -95,3 +93,32 @@ LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.build-date="$BUILD_DATE" \
       org.label-schema.vcs-ref="$VCS_REF" \
       org.label-schema.vcs-url="https://github.com/Tecnativa/docker-duplicity"
+
+
+FROM latest AS latest-s3
+ENV JOB_500_WHAT='dup full $SRC $DST' \
+    JOB_500_WHEN='weekly' \
+    OPTIONS_EXTRA='--full-if-older-than 1W --file-prefix-archive archive-$(hostname)- --file-prefix-manifest manifest-$(hostname)- --file-prefix-signature signature-$(hostname)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
+
+
+FROM latest AS docker
+RUN apk add --no-cache docker
+
+
+FROM docker AS docker-s3
+ENV JOB_500_WHAT='dup full $SRC $DST' \
+    JOB_500_WHEN='weekly' \
+    OPTIONS_EXTRA='--full-if-older-than 1W --file-prefix-archive archive-$(hostname)- --file-prefix-manifest manifest-$(hostname)- --file-prefix-signature signature-$(hostname)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
+
+
+FROM latest AS postgres
+RUN apk add --no-cache postgresql
+ENV JOB_200_WHAT='pg_dump --no-owner --no-privileges --file "$SRC/$PGDATABASE.sql"' \
+    JOB_200_WHEN='daily weekly' \
+    PGHOST=db
+
+
+FROM postgres AS postgres-s3
+ENV JOB_500_WHAT='dup full $SRC $DST' \
+    JOB_500_WHEN='weekly' \
+    OPTIONS_EXTRA='--full-if-older-than 1W --file-prefix-archive archive-$(hostname)- --file-prefix-manifest manifest-$(hostname)- --file-prefix-signature signature-$(hostname)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
