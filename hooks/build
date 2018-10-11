@@ -1,7 +1,11 @@
 #!/bin/bash
 set -ex
 
-docker image build \
-    --build-arg VCS_REF="$GIT_SHA1" \
-    --build-arg BUILD_DATE="$(date --rfc-3339 ns)" \
-    --tag "$IMAGE_NAME" .
+for target in latest latest-s3 docker docker-s3 postgres postgres-s3; do
+    docker image build \
+        --build-arg VCS_REF="$GIT_SHA1" \
+        --build-arg BUILD_DATE="$(date --rfc-3339 ns)" \
+        --tag "$DOCKER_REPO:$target" \
+        --target "$target" \
+        .
+done
