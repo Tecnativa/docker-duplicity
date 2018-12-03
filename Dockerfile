@@ -49,6 +49,9 @@ RUN apk add --no-cache \
 # Default backup source directory
 RUN mkdir -p "$SRC"
 
+# Preserve cache among containers
+VOLUME [ "/root" ]
+
 # Build dependencies
 RUN apk add --no-cache --virtual .build \
         build-base \
