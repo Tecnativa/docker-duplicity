@@ -61,7 +61,7 @@ RUN apk add --no-cache --virtual .build \
         linux-headers \
         openssl-dev \
         python-dev \
-    && pip install --no-cache-dir \
+    && pip install --no-cache-dir --no-use-pep517 \
         azure-storage \
         b2 \
         boto \
