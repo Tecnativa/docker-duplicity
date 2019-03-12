@@ -115,7 +115,7 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
 
 
 FROM latest AS postgres
-RUN apk add --no-cache postgresql
+RUN apk add --no-cache postgresql --repository http://dl-cdn.alpinelinux.org/alpine/v3.9/main
 ENV JOB_200_WHAT='pg_dump --no-owner --no-privileges --file "$SRC/$PGDATABASE.sql"' \
     JOB_200_WHEN='daily weekly' \
     PGHOST=db
