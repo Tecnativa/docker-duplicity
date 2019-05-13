@@ -110,6 +110,14 @@ What to back up.
 
 Example: `file:///mnt/my_files`
 
+### `TZ`
+
+Define a valid timezone (i.e. `Europe/Madrid`) to make log hours match your
+local reality.
+
+This is achieved directly by bundling [the `tzdata` package][tzdata].
+Refer to its docs for more info.
+
 ## Set a custom hostname!
 
 Duplicity checks the host name that it backs up and aborts the process if it
@@ -276,3 +284,4 @@ your will.
 [odoobase]: https://hub.docker.com/r/tecnativa/odoo-base/builds/
 [options]: http://duplicity.nongnu.org/duplicity.1.html#sect5
 [PostgreSQL]: https://www.postgresql.org/
+[tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata

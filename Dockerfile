@@ -44,7 +44,9 @@ RUN apk add --no-cache \
         ncftp \
         openssh \
         openssl \
-        py2-gobject3
+        py2-gobject3 \
+        tzdata \
+    && sync
 
 # Default backup source directory
 RUN mkdir -p "$SRC"
