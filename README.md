@@ -266,6 +266,15 @@ services:
             OPTIONS: --s3-european-buckets --s3-use-new-style
             PASSPHRASE: example backup encryption secret
 ```
+### wait for availability of smtp
+
+When restart your mail stack during some backup steps, you may want to wait for it in front of sending the backup-status mail. This can be achieved by: (ensure to replace <MY_SMTPP_HOST>)
+```yaml
+  environment:
+    JOB_500_WHAT:
+      while true; do sleep 1 | telnet <MY_SMTP_HOST> 25 && break; done
+```
+Since the JOB_500 is executed after the backup JOB_200, the sleep loop ensures a valid connection to the smtp host in front of deploying the mail.
 
 ### Amazon S3 (`*-s3`)
 
