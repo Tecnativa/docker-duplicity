@@ -63,6 +63,7 @@ RUN apk add --no-cache --virtual .build \
         linux-headers \
         openssl-dev \
         python-dev \
+        busybox-extras \
     && pip install --no-cache-dir --no-use-pep517 \
         azure-storage \
         b2 \
