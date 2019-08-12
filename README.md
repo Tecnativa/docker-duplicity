@@ -66,8 +66,8 @@ Subject of the email report. You can use these placeholders:
 - `{result}` will be:
   - `OK` if all worked fine.
   - `ERROR` if any job failed.
-- `{hostname}` will be the container's host name, which you should explicitly
-  set.
+- `{hostname}` will be the container's host name, including the domainname
+  (a.k.a. FQDN).
 
 ### `EMAIL_TO`
 
@@ -123,7 +123,8 @@ Refer to its docs for more info.
 Duplicity checks the host name that it backs up and aborts the process if it
 detects a mismatch by default.
 
-Docker uses volatile host names, so you better add `--hostname` when running
+Docker uses volatile host names, so you better add `--hostname`
+(and maybe also `--domainname`) when running
 this container to make profit of this feature, or add `--allow-source-mismatch`
 to `OPTIONS` environment variable. Otherwise, you will get errors like:
 

@@ -10,7 +10,7 @@ import sys
 
 from datetime import datetime
 from os import environ, path
-from socket import gethostname
+from socket import getfqdn
 from string import Template
 from subprocess import CalledProcessError, check_output, STDOUT
 
@@ -81,7 +81,7 @@ for njob, command in sorted(to_run.items()):
 if all((smtp_host, smtp_port, from_, to, subject)):
     logging.info("Sending email report")
     message.insert(0, "Subject: {}".format(subject.format(
-        hostname=gethostname(),
+        hostname=getfqdn(),
         periodicity=periodicity,
         result="ERROR" if failed else "OK",
     )))
