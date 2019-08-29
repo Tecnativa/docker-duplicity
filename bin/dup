@@ -10,11 +10,13 @@ options = subprocess.check_output(
     "echo " + os.environ["OPTIONS"],
     shell=True,
     stderr=subprocess.STDOUT,
+    text=True,
 )
 options_extra = subprocess.check_output(
     "echo " + os.environ["OPTIONS_EXTRA"],
     shell=True,
     stderr=subprocess.STDOUT,
+    text=True,
 )
 
 # Execute via duplicity
