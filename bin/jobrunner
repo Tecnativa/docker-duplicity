@@ -59,7 +59,6 @@ for njob, command in sorted(to_run.items()):
             expanded_command,
             stderr=STDOUT,
             shell=True,
-            text=True,
         )
         success = True
     except CalledProcessError as error:

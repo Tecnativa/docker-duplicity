@@ -1,4 +1,4 @@
-FROM python:3-alpine AS latest
+FROM python:2-alpine AS latest
 
 ARG DUPLICITY_VERSION=0.8.03
 
@@ -63,7 +63,6 @@ RUN apk add --no-cache --virtual .build \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
-
     # Runtime dependencies, based on https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/view/head:/requirements.txt
     && pip install --no-cache-dir \
         # Basic dependencies
@@ -72,7 +71,6 @@ RUN apk add --no-cache --virtual .build \
         mock \
         requests \
         urllib3 \
-
         # Backend libraries
         azure \
         b2 \
@@ -86,7 +84,6 @@ RUN apk add --no-cache --virtual .build \
         pydrive \
         python-swiftclient \
         requests_oauthlib \
-
         # Duplicity from source code
         https://launchpad.net/duplicity/$(echo $DUPLICITY_VERSION | sed -r 's/^([0-9]+\.[0-9]+)([0-9\.]*)$/\1/')-series/$DUPLICITY_VERSION/+download/duplicity-$DUPLICITY_VERSION.tar.gz \
     && apk del .build
