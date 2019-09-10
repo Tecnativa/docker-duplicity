@@ -197,7 +197,6 @@ services:
         hostname: my.postgres.backup
         environment:
             # Postgres connection
-            PGDATABASE: mydb
             PGHOST: db  # This is the default
             PGPASSWORD: mypass
             PGUSER: myuser
@@ -211,6 +210,8 @@ services:
             OPTIONS: --s3-european-buckets --s3-use-new-style
             PASSPHRASE: example backkup encryption secret
 ```
+
+It will backup automatically all databases except templates and `postgres`.
 
 Check the `postgres.Dockerfile` file to see additional built-in jobs.
 
