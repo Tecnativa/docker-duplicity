@@ -39,6 +39,8 @@ Possibly non-obvious defaults:
 
 Hours are expressed in UTC.
 
+The container will run incremental daily backups, by default (JOB_300).
+
 **If you define any of these variables wrongly, your cron might not work!**
 
 You can use online tools such as https://crontab.guru to make it easy.
@@ -68,6 +70,8 @@ Subject of the email report. You can use these placeholders:
   - `ERROR` if any job failed.
 - `{hostname}` will be the container's host name, including the domainname
   (a.k.a. FQDN).
+
+This variable is optional; the default is `Backup report: {hostname} - {periodicity} - {result}`
 
 ### `EMAIL_TO`
 
@@ -104,15 +108,35 @@ Host used to send the email report.
 
 Port used to send the email report.
 
+### `SMTP_USER`
+
+If your mail server requires authentication, specify the user account to log in.
+
+### `SMTP_PASS`
+
+If your mail server requires authentication, specify the password for the SMTP_USER.
+
+### `SMTP_TLS`
+
+Force the email client to connect to the server using SLL/TLS.  Note that the client will utilize STARTTLS, regardless of this variable, if the server offers STARTTLS.
+
 ### `SRC`
 
 What to back up.
 
 Example: `file:///mnt/my_files`
 
+By default, SRC is set to /mnt/backup/src/ inside the container.  Simply mount any external directory as a volume to /mnt/backup/src/.  If you wish to include multiple directories, mount them as subdirectories of /mnt/backup/src/, like...
+
+```        
+volumes:
+            - /path/to/data/to/backup1:/mnt/backup/src/foldername1:ro
+            - /path/to/data/to/backup2:/mnt/backup/src/foldername2:ro
+```
+
 ### `TZ`
 
-Define a valid timezone (i.e. `Europe/Madrid`) to make log hours match your
+Define a valid timezone (i.e. `Europe/Madrid` or `America/New_York`) to make log hours match your
 local reality.
 
 This is achieved directly by bundling [the `tzdata` package][tzdata].
