@@ -97,6 +97,10 @@ if all((smtp_host, smtp_port, from_, to, subject)):
             smtp = smtplib.SMTP(smtp_host, smtp_port)
         if smtp_user:
             smtp.ehlo()
+            # If we can encrypt this session, do it
+            if smtp.has_extn('STARTTLS'):
+                smtp.starttls()
+                smtp.ehlo() # re-identify ourselves over TLS connection
             smtp.login(smtp_user, smtp_pass)
         smtp.sendmail(from_, to, "\r\n".join(message))
     except:
