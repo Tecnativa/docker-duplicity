@@ -1,6 +1,6 @@
 FROM python:2-alpine AS latest
 
-ARG DUPLICITY_VERSION=0.8.04
+ARG DUPLICITY_VERSION=0.8.05
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_HOURLY='0 * * * *' \
