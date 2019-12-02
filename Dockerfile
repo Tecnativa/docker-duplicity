@@ -119,7 +119,7 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
 
 
 FROM latest AS postgres
-RUN apk add --no-cache postgresql --repository http://dl-cdn.alpinelinux.org/alpine/v3.9/main
+RUN apk add --no-cache postgresql --repository http://dl-cdn.alpinelinux.org/alpine/edge/main
 ENV JOB_200_WHAT psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
 ENV JOB_200_WHEN='daily weekly' \
     PGHOST=db
