@@ -303,11 +303,11 @@ your will.
 
 [Alpine]: https://alpinelinux.org/
 [Duplicity]: http://duplicity.nongnu.org/
-[env]: http://duplicity.nongnu.org/duplicity.1.html#sect6
+[env]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect6
 [flavors]: #prebuilt-flavors
 [gitlab-ce]: https://hub.docker.com/r/gitlab/gitlab-ce/
 [MariaDB]: https://mariadb.org/
 [odoobase]: https://hub.docker.com/r/tecnativa/odoo-base/builds/
-[options]: http://duplicity.nongnu.org/duplicity.1.html#sect5
+[options]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect5
 [PostgreSQL]: https://www.postgresql.org/
 [tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata
