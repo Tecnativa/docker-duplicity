@@ -81,6 +81,7 @@ RUN apk add --no-cache --virtual .build \
         jottalib \
         mediafire \
         paramiko \
+        pexpect \
         pydrive \
         python-swiftclient \
         requests_oauthlib \
