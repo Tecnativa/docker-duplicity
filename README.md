@@ -31,7 +31,7 @@ have others specific for this image.
 
 Define the cron schedule to run jobs under such circumstances.
 
-Possibly non-obvious defaults:
+Possibly non-obvious [defaults][Dockerfile]:
 
 - Daily: 2 AM, from Monday to Saturday
 - Weekly: 1 AM, on Sundays
@@ -39,11 +39,19 @@ Possibly non-obvious defaults:
 
 Hours are expressed in UTC.
 
-The container will run incremental daily backups, by default (JOB_300).
-
 **If you define any of these variables wrongly, your cron might not work!**
 
 You can use online tools such as https://crontab.guru to make it easy.
+
+If you set these values in `.env` file, don't use quotes:
+
+```
+CRONTAB_15MIN=*/15 * * * *
+CRONTAB_HOURLY=0 * * * *
+CRONTAB_DAILY=0 2 * * MON-SAT
+CRONTAB_WEEKLY=0 1 * * SUN
+CRONTAB_MONTHLY=0 5 1 * *
+```
 
 ### `DST`
 
@@ -89,7 +97,7 @@ Define when to execute the command you defined in the previous section. If you
 need several values, you can separate them with spaces (example: `daily
 monthly`).
 
-Check the `Dockerfile` to see built-in jobs.
+[Prebuilt flavors][flavors] provide built-in jobs. You can disable those jobs by setting corresponding `JOB_*_WHEN` to value `never`.
 
 ### `OPTIONS`
 
@@ -181,6 +189,9 @@ You can use these bundled binaries to work faster:
 - `backup`: Executes an immediate backup with default options.
 - `restore`: Restores immediately with default options. Most likely, you will
   need to use it with `--force`.
+- `/etc/periodic/daily/jobrunner`: execute immediately all jobs scheduled for daily backups.
+  Change `daily` for other periodicity if you want to run those instead.
+
 
 ## Testing your configuration
 
@@ -201,7 +212,12 @@ This includes just the most basic packages to boot the cron and use Duplicity
 with any backend. All other images are built on top of this one, so downloading
 several flavours won't repeat the abse layers (disk-friendly!).
 
-Preconfigured to backup daily.
+It's [preconfigured][Dockerfile] to backup daily:
+
+```
+# Incremental backup of all files
+JOB_300_WHEN=daily
+```
 
 ### PostgreSQL (`postgres`)
 
@@ -235,9 +251,13 @@ services:
             PASSPHRASE: example backkup encryption secret
 ```
 
-It will backup automatically all databases except templates and `postgres`.
+It will make [dumps automatically][Dockerfile]:
 
-Check the `postgres.Dockerfile` file to see additional built-in jobs.
+```
+# Makes postgres dumps for all databases except to templates and "postgres". 
+# They are uploaded by JOB_300_WHEN
+JOB_200_WHEN=daily weekly
+```
 
 ### Docker (`docker`)
 
@@ -297,11 +317,22 @@ services:
 
 Any of the other flavors has a special variant suffixed with `-s3`. It
 provides some opinionated defaults to make good use of S3 different storage
-types and its lifecycle rules and filters, assuming you want to have weekly
-full backups. You should combine it with lifecycle and expiration rules at
-your will.
+types and its lifecycle rules and filters, assuming you want to have 
+[weekly full backups][Dockerfile]. You should combine it with lifecycle and 
+expiration rules at your will.
+
+```
+# Full backup of all files
+JOB_500_WHEN=weekly
+```
+
+Note, that for `DST` variable you have to use *old S3 URI style*, i.e. something
+like `s3://s3.amazonaws.com/bucketname`. See this
+[discussion](https://github.com/Tecnativa/doodba-scaffolding/pull/64) for more
+information.
 
 [Alpine]: https://alpinelinux.org/
+[Dockerfile]: https://github.com/Tecnativa/docker-duplicity/blob/master/Dockerfile
 [Duplicity]: http://duplicity.nongnu.org/
 [env]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect6
 [flavors]: #prebuilt-flavors
