@@ -18,6 +18,10 @@ options_extra = subprocess.check_output(
 )
 
 # Execute via duplicity
-args = ["duplicity"] + options.split() + options_extra.split() + sys.argv[1:]
-print("Executing: {}".format(args))
-os.execvp(args[0], args)
+command = "duplicity {} {} {}".format(
+    options,
+    options_extra,
+    " ".join(sys.argv[1:])
+)
+print("Executing: {}".format(command))
+os.execlp("sh", "-c", command)
