@@ -9,6 +9,7 @@ import smtplib
 import sys
 
 from datetime import datetime
+from email.utils import formatdate
 from os import environ, path
 from socket import getfqdn
 from string import Template
@@ -47,7 +48,9 @@ if not to_run:
 # Run commands in order
 message = [
     "From: {}".format(from_),
-    "To: {}\r\n".format(to),
+    "To: {}".format(to),
+    "Date: {}".format(formatdate()),
+    "",
 ]
 failed = False
 for njob, command in sorted(to_run.items()):
