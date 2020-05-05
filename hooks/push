@@ -1,6 +1,0 @@
-#!/bin/bash
-set -ex
-
-for target in latest latest-s3 docker docker-s3 postgres postgres-s3; do
-    docker push "$DOCKER_REPO:$target"
-done

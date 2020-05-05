@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "dchanco.vsc-invoke",
+    "EditorConfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "ms-azuretools.vscode-docker",
+    "ms-python.python"
+  ]
+}
