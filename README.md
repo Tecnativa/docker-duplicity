@@ -1,37 +1,76 @@
-# [Duplicity][] Cron Runner
+# Duplicity Cron Runner
 
 [![](https://images.microbadger.com/badges/version/tecnativa/duplicity:latest.svg)](https://microbadger.com/images/tecnativa/duplicity:latest "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/image/tecnativa/duplicity:latest.svg)](https://microbadger.com/images/tecnativa/duplicity:latest "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/commit/tecnativa/duplicity:latest.svg)](https://microbadger.com/images/tecnativa/duplicity:latest "Get your own commit badge on microbadger.com")
 [![](https://images.microbadger.com/badges/license/tecnativa/duplicity.svg)](https://microbadger.com/images/tecnativa/duplicity "Get your own license badge on microbadger.com")
 
+<details>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<summary>Table of contents</summary>
+
+- [What?](#what)
+- [Why?](#why)
+- [How?](#how)
+- [Environment variables available](#environment-variables-available)
+  - [`CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`](#crontab_15minhourlydailyweeklymonthly)
+  - [`DST`](#dst)
+  - [`EMAIL_FROM`](#email_from)
+  - [`EMAIL_SUBJECT`](#email_subject)
+  - [`EMAIL_TO`](#email_to)
+  - [`JOB_*_WHAT`](#job__what)
+  - [`JOB_*_WHEN`](#job__when)
+  - [`OPTIONS`](#options)
+  - [`OPTIONS_EXTRA`](#options_extra)
+  - [`SMTP_HOST`](#smtp_host)
+  - [`SMTP_PORT`](#smtp_port)
+  - [`SMTP_USER`](#smtp_user)
+  - [`SMTP_PASS`](#smtp_pass)
+  - [`SMTP_TLS`](#smtp_tls)
+  - [`SRC`](#src)
+  - [`TZ`](#tz)
+- [Set a custom hostname!](#set-a-custom-hostname)
+- [Pre and post scripts](#pre-and-post-scripts)
+- [Using Duplicity](#using-duplicity)
+  - [Shortcuts](#shortcuts)
+- [Testing your configuration](#testing-your-configuration)
+- [Prebuilt flavors](#prebuilt-flavors)
+  - [Normal (`latest`)](#normal-latest)
+  - [PostgreSQL (`postgres`)](#postgresql-postgres)
+  - [Docker (`docker`)](#docker-docker)
+  - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+</details>
+
 ## What?
 
-This image includes Duplicity ready to make backups of whatever you need,
+This image includes [Duplicity][] ready to make backups of whatever you need,
 cron-based.
 
 ## Why?
 
-Because you need to back things up regularly, and Duplicity is one of the
-best tools available for such a purpose.
+Because you need to back things up regularly, and Duplicity is one of the best tools
+available for such a purpose.
 
 ## How?
 
-Installing every possible Duplicity dependency to support all of its backends
-inside an [Alpine][] system that is very lightweight by itself, and a little
-job runner Python script that takes care of converting some environment
-variables into flexible cron jobs and sending an email report automatically.
+Installing every possible Duplicity dependency to support all of its backends inside an
+[Alpine][] system that is very lightweight by itself, and a little job runner Python
+script that takes care of converting some environment variables into flexible cron jobs
+and sending an email report automatically.
 
 ## Environment variables available
 
-Apart from the [environment variables that Duplicity uses by default][env], you
-have others specific for this image.
+Apart from the [environment variables that Duplicity uses by default][env], you have
+others specific for this image.
 
 ### `CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`
 
 Define the cron schedule to run jobs under such circumstances.
 
-Possibly non-obvious [defaults][Dockerfile]:
+Possibly non-obvious [defaults][dockerfile]:
 
 - Daily: 2 AM, from Monday to Saturday
 - Weekly: 1 AM, on Sundays
@@ -76,10 +115,11 @@ Subject of the email report. You can use these placeholders:
 - `{result}` will be:
   - `OK` if all worked fine.
   - `ERROR` if any job failed.
-- `{hostname}` will be the container's host name, including the domainname
-  (a.k.a. FQDN).
+- `{hostname}` will be the container's host name, including the domainname (a.k.a.
+  FQDN).
 
-This variable is optional; the default is `Backup report: {hostname} - {periodicity} - {result}`
+This variable is optional; the default is
+`Backup report: {hostname} - {periodicity} - {result}`
 
 ### `EMAIL_TO`
 
@@ -93,11 +133,11 @@ Check the `Dockerfile` to see built-in jobs.
 
 ### `JOB_*_WHEN`
 
-Define when to execute the command you defined in the previous section. If you
-need several values, you can separate them with spaces (example: `daily
-monthly`).
+Define when to execute the command you defined in the previous section. If you need
+several values, you can separate them with spaces (example: `daily monthly`).
 
-[Prebuilt flavors][flavors] provide built-in jobs. You can disable those jobs by setting corresponding `JOB_*_WHEN` to value `never`.
+[Prebuilt flavors][flavors] provide built-in jobs. You can disable those jobs by setting
+corresponding `JOB_*_WHEN` to value `never`.
 
 ### `OPTIONS`
 
@@ -105,8 +145,8 @@ String to let you define [options for duplicity][options].
 
 ### `OPTIONS_EXTRA`
 
-String that some [prebuilt flavors][flavors] use to add custom options required
-for that flavor. You should never need to use this variable.
+String that some [prebuilt flavors][flavors] use to add custom options required for that
+flavor. You should never need to use this variable.
 
 ### `SMTP_HOST`
 
@@ -126,7 +166,8 @@ If your mail server requires authentication, specify the password for the SMTP_U
 
 ### `SMTP_TLS`
 
-Force the email client to connect to the server using SLL/TLS.  Note that the client will utilize STARTTLS, regardless of this variable, if the server offers STARTTLS.
+Force the email client to connect to the server using SLL/TLS. Note that the client will
+utilize STARTTLS, regardless of this variable, if the server offers STARTTLS.
 
 ### `SRC`
 
@@ -134,9 +175,11 @@ What to back up.
 
 Example: `file:///mnt/my_files`
 
-By default, SRC is set to /mnt/backup/src/ inside the container.  Simply mount any external directory as a volume to /mnt/backup/src/.  If you wish to include multiple directories, mount them as subdirectories of /mnt/backup/src/, like...
+By default, SRC is set to /mnt/backup/src/ inside the container. Simply mount any
+external directory as a volume to /mnt/backup/src/. If you wish to include multiple
+directories, mount them as subdirectories of /mnt/backup/src/, like...
 
-```        
+```
 volumes:
             - /path/to/data/to/backup1:/mnt/backup/src/foldername1:ro
             - /path/to/data/to/backup2:/mnt/backup/src/foldername2:ro
@@ -144,21 +187,21 @@ volumes:
 
 ### `TZ`
 
-Define a valid timezone (i.e. `Europe/Madrid` or `America/New_York`) to make log hours match your
-local reality.
+Define a valid timezone (i.e. `Europe/Madrid` or `America/New_York`) to make log hours
+match your local reality.
 
-This is achieved directly by bundling [the `tzdata` package][tzdata].
-Refer to its docs for more info.
+This is achieved directly by bundling [the `tzdata` package][tzdata]. Refer to its docs
+for more info.
 
 ## Set a custom hostname!
 
-Duplicity checks the host name that it backs up and aborts the process if it
-detects a mismatch by default.
+Duplicity checks the host name that it backs up and aborts the process if it detects a
+mismatch by default.
 
-Docker uses volatile host names, so you better add `--hostname`
-(and maybe also `--domainname`) when running
-this container to make profit of this feature, or add `--allow-source-mismatch`
-to `OPTIONS` environment variable. Otherwise, you will get errors like:
+Docker uses volatile host names, so you better add `--hostname` (and maybe also
+`--domainname`) when running this container to make profit of this feature, or add
+`--allow-source-mismatch` to `OPTIONS` environment variable. Otherwise, you will get
+errors like:
 
     Fatal Error: Backup source host has changed.
     Current hostname: 414e54ed20fb
@@ -175,8 +218,7 @@ Add jobs through environment variable pairs. The order will be followed.
 
 ## Using Duplicity
 
-Refer to [Duplicity man page](http://duplicity.nongnu.org/duplicity.1.html), or
-execute:
+Refer to [Duplicity man page](http://duplicity.nongnu.org/duplicity.1.html), or execute:
 
     docker run -it --rm tecnativa/duplicity duplicity --help
 
@@ -184,14 +226,13 @@ execute:
 
 You can use these bundled binaries to work faster:
 
-- `dup`: Executes duplicity prefixed with the options defined in `$OPTIONS`
-  and `$OPTIONS_EXTRA` (see above).
+- `dup`: Executes duplicity prefixed with the options defined in `$OPTIONS` and
+  `$OPTIONS_EXTRA` (see above).
 - `backup`: Executes an immediate backup with default options.
-- `restore`: Restores immediately with default options. Most likely, you will
-  need to use it with `--force`.
-- `/etc/periodic/daily/jobrunner`: execute immediately all jobs scheduled for daily backups.
-  Change `daily` for other periodicity if you want to run those instead.
-
+- `restore`: Restores immediately with default options. Most likely, you will need to
+  use it with `--force`.
+- `/etc/periodic/daily/jobrunner`: execute immediately all jobs scheduled for daily
+  backups. Change `daily` for other periodicity if you want to run those instead.
 
 ## Testing your configuration
 
@@ -203,16 +244,16 @@ Replace `daily` by any other periodicity to test it too.
 
 ## Prebuilt flavors
 
-Sometimes you need more than just copying a file here, pasting it there. That's
-why we supply some special flavours of this image.
+Sometimes you need more than just copying a file here, pasting it there. That's why we
+supply some special flavours of this image.
 
 ### Normal (`latest`)
 
-This includes just the most basic packages to boot the cron and use Duplicity
-with any backend. All other images are built on top of this one, so downloading
-several flavours won't repeat the abse layers (disk-friendly!).
+This includes just the most basic packages to boot the cron and use Duplicity with any
+backend. All other images are built on top of this one, so downloading several flavours
+won't repeat the abse layers (disk-friendly!).
 
-It's [preconfigured][Dockerfile] to backup daily:
+It's [preconfigured][dockerfile] to backup daily:
 
 ```
 # Incremental backup of all files
@@ -221,124 +262,121 @@ JOB_300_WHEN=daily
 
 ### PostgreSQL (`postgres`)
 
-If you want to back up a PostgreSQL server, make sure you run this image in a
-fashion similar to this `docker-compose.yaml` definition:
+If you want to back up a PostgreSQL server, make sure you run this image in a fashion
+similar to this `docker-compose.yaml` definition:
 
 ```yaml
 services:
-    db:
-        image: postgres:9.6-alpine
-        environment:
-            POSTGRES_PASSWORD: mypass
-            POSTGRES_USER: myuser
-            POSTGRES_DB: mydb
-    backup:
-        image: tecnativa/duplicity:postgres
-        hostname: my.postgres.backup
-        environment:
-            # Postgres connection
-            PGHOST: db  # This is the default
-            PGPASSWORD: mypass
-            PGUSER: myuser
+  db:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_USER: myuser
+      POSTGRES_DB: mydb
+  backup:
+    image: tecnativa/duplicity:postgres
+    hostname: my.postgres.backup
+    environment:
+      # Postgres connection
+      PGHOST: db # This is the default
+      PGPASSWORD: mypass
+      PGUSER: myuser
 
-            # Additional configurations for Duplicity
-            AWS_ACCESS_KEY_ID: example amazon s3 access key
-            AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
-            DST: s3://s3.amazonaws.com/mybucket/myfolder
-            EMAIL_FROM: backup@example.com
-            EMAIL_TO: alerts@example.com
-            OPTIONS: --s3-european-buckets --s3-use-new-style
-            PASSPHRASE: example backkup encryption secret
+      # Additional configurations for Duplicity
+      AWS_ACCESS_KEY_ID: example amazon s3 access key
+      AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
+      DST: s3://s3.amazonaws.com/mybucket/myfolder
+      EMAIL_FROM: backup@example.com
+      EMAIL_TO: alerts@example.com
+      OPTIONS: --s3-european-buckets --s3-use-new-style
+      PASSPHRASE: example backkup encryption secret
 ```
 
-It will make [dumps automatically][Dockerfile]:
+It will make [dumps automatically][dockerfile]:
 
 ```
-# Makes postgres dumps for all databases except to templates and "postgres". 
+# Makes postgres dumps for all databases except to templates and "postgres".
 # They are uploaded by JOB_300_WHEN
 JOB_200_WHEN=daily weekly
 ```
 
 ### Docker (`docker`)
 
-Imagine you need to run some command in another container to generate a backup
-file before actually backing it up in a remote place.
+Imagine you need to run some command in another container to generate a backup file
+before actually backing it up in a remote place.
 
-If this is your case, you can use this version, which includes a prepackaged
-Docker client.
+If this is your case, you can use this version, which includes a prepackaged Docker
+client.
 
-See this `docker-compose.yaml` example, where we back up a Gitlab server using
-its [crappy official image][gitlab-ce]:
+See this `docker-compose.yaml` example, where we back up a Gitlab server using its
+[crappy official image][gitlab-ce]:
 
 ```yaml
 services:
-    gitlab:
-        image: gitlab/gitlab-ce
-        hostname: gitlab
-        domainname: example.com
-        environment:
-            GITLAB_OMNIBUS_CONFIG: |
-                # Your Gitlab configuration here
-        ports:
-            - "22:22"
-            - "80:80"
-            - "443:443"
-        volumes:
-            - config:/etc/gitlab:z
-            - data:/var/opt/gitlab:z
-            - logs:/var/log/gitlab:z
-    backup:
-        image: tecnativa/duplicity:docker
-        hostname: backup
-        domainname: gitlab.example.com
-        privileged: true  # To speak with host's docker socket
-        volumes:
-            - config:/mnt/backup/src/config
-            - data:/mnt/backup/src/data
-            - /var/run/docker.sock:/var/run/docker.sock:ro
-        environment:
-            # Generate Gitlab backup before uploading it
-            JOB_200_WHAT:
-                docker exec projectname_gitlab_1
-                gitlab-rake gitlab:backup:create
-            JOB_200_WHEN: daily weekly
+  gitlab:
+    image: gitlab/gitlab-ce
+    hostname: gitlab
+    domainname: example.com
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        # Your Gitlab configuration here
+    ports:
+      - "22:22"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - config:/etc/gitlab:z
+      - data:/var/opt/gitlab:z
+      - logs:/var/log/gitlab:z
+  backup:
+    image: tecnativa/duplicity:docker
+    hostname: backup
+    domainname: gitlab.example.com
+    privileged: true # To speak with host's docker socket
+    volumes:
+      - config:/mnt/backup/src/config
+      - data:/mnt/backup/src/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      # Generate Gitlab backup before uploading it
+      JOB_200_WHAT: docker exec projectname_gitlab_1 gitlab-rake gitlab:backup:create
+      JOB_200_WHEN: daily weekly
 
-            # Additional configurations for Duplicity
-            AWS_ACCESS_KEY_ID: example amazon s3 access key
-            AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
-            DST: s3://s3.amazonaws.com/mybucket/myfolder
-            EMAIL_FROM: backup@example.com
-            EMAIL_TO: alerts@example.com
-            OPTIONS: --s3-european-buckets --s3-use-new-style
-            PASSPHRASE: example backup encryption secret
+      # Additional configurations for Duplicity
+      AWS_ACCESS_KEY_ID: example amazon s3 access key
+      AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
+      DST: s3://s3.amazonaws.com/mybucket/myfolder
+      EMAIL_FROM: backup@example.com
+      EMAIL_TO: alerts@example.com
+      OPTIONS: --s3-european-buckets --s3-use-new-style
+      PASSPHRASE: example backup encryption secret
 ```
 
 ### Amazon S3 (`*-s3`)
 
-Any of the other flavors has a special variant suffixed with `-s3`. It
-provides some opinionated defaults to make good use of S3 different storage
-types and its lifecycle rules and filters, assuming you want to have 
-[weekly full backups][Dockerfile]. You should combine it with lifecycle and 
-expiration rules at your will.
+Any of the other flavors has a special variant suffixed with `-s3`. It provides some
+opinionated defaults to make good use of S3 different storage types and its lifecycle
+rules and filters, assuming you want to have [weekly full backups][dockerfile]. You
+should combine it with lifecycle and expiration rules at your will.
 
 ```
 # Full backup of all files
 JOB_500_WHEN=weekly
 ```
 
-Note, that for `DST` variable you have to use *old S3 URI style*, i.e. something
-like `s3://s3.amazonaws.com/bucketname`. See this
+Note, that for `DST` variable you have to use _old S3 URI style_, i.e. something like
+`s3://s3.amazonaws.com/bucketname`. See this
 [discussion](https://github.com/Tecnativa/doodba-scaffolding/pull/64) for more
 information.
 
-[Alpine]: https://alpinelinux.org/
-[Dockerfile]: https://github.com/Tecnativa/docker-duplicity/blob/master/Dockerfile
-[Duplicity]: http://duplicity.nongnu.org/
+[alpine]: https://alpinelinux.org/
+[dockerfile]: https://github.com/Tecnativa/docker-duplicity/blob/master/Dockerfile
+[duplicity]: http://duplicity.nongnu.org/
 [env]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect6
 [flavors]: #prebuilt-flavors
 [gitlab-ce]: https://hub.docker.com/r/gitlab/gitlab-ce/
-[MariaDB]: https://mariadb.org/
+[mariadb]: https://mariadb.org/
 [odoobase]: https://hub.docker.com/r/tecnativa/odoo-base/builds/
 [options]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect5
-[PostgreSQL]: https://www.postgresql.org/
+[postgresql]: https://www.postgresql.org/
 [tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata

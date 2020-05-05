@@ -7,14 +7,12 @@ import logging
 import re
 import smtplib
 import sys
-
 from datetime import datetime
 from email.utils import formatdate
 from os import environ, path
 from socket import getfqdn
 from string import Template
-from subprocess import CalledProcessError, check_output, STDOUT
-
+from subprocess import STDOUT, CalledProcessError, check_output
 
 logging.basicConfig(level=logging.INFO)
 logging.root.name = "jobrunner"
@@ -58,11 +56,7 @@ for njob, command in sorted(to_run.items()):
     start = datetime.now()
     logging.info("Running job %d: `%s`", njob, expanded_command)
     try:
-        result = check_output(
-            expanded_command,
-            stderr=STDOUT,
-            shell=True,
-        )
+        result = check_output(expanded_command, stderr=STDOUT, shell=True,)
         success = True
     except CalledProcessError as error:
         failed = True
@@ -87,11 +81,16 @@ for njob, command in sorted(to_run.items()):
 # Report results
 if all((smtp_host, smtp_port, from_, to, subject)):
     logging.info("Sending email report")
-    message.insert(0, "Subject: {}".format(subject.format(
-        hostname=getfqdn(),
-        periodicity=periodicity,
-        result="ERROR" if failed else "OK",
-    )))
+    message.insert(
+        0,
+        "Subject: {}".format(
+            subject.format(
+                hostname=getfqdn(),
+                periodicity=periodicity,
+                result="ERROR" if failed else "OK",
+            )
+        ),
+    )
     smtp = None
     try:
         if smtp_tls:
@@ -101,12 +100,12 @@ if all((smtp_host, smtp_port, from_, to, subject)):
         if smtp_user:
             smtp.ehlo()
             # If we can encrypt this session, do it
-            if smtp.has_extn('STARTTLS'):
+            if smtp.has_extn("STARTTLS"):
                 smtp.starttls()
-                smtp.ehlo() # re-identify ourselves over TLS connection
+                smtp.ehlo()  # re-identify ourselves over TLS connection
             smtp.login(smtp_user, smtp_pass)
         smtp.sendmail(from_, to, "\r\n".join(message))
-    except:
+    except Exception:
         logging.exception("Failed sending email")
     finally:
         if smtp is not None:
