@@ -1,9 +1,8 @@
 # Duplicity Cron Runner
 
-[![](https://images.microbadger.com/badges/version/tecnativa/duplicity:latest.svg)](https://microbadger.com/images/tecnativa/duplicity:latest "Get your own version badge on microbadger.com")
-[![](https://images.microbadger.com/badges/image/tecnativa/duplicity:latest.svg)](https://microbadger.com/images/tecnativa/duplicity:latest "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/commit/tecnativa/duplicity:latest.svg)](https://microbadger.com/images/tecnativa/duplicity:latest "Get your own commit badge on microbadger.com")
-[![](https://images.microbadger.com/badges/license/tecnativa/duplicity.svg)](https://microbadger.com/images/tecnativa/duplicity "Get your own license badge on microbadger.com")
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/tecnativa/duplicity)](https://hub.docker.com/r/tecnativa/duplicity/)
+![MicroBadger Layers](https://img.shields.io/microbadger/layers/tecnativa/duplicity)
+![GitHub](https://img.shields.io/github/license/tecnativa/docker-duplicity)
 
 <details>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
