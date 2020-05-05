@@ -1,0 +1,31 @@
+{
+  // Language-specific settings
+  "[dockerfile]": {
+    "editor.formatOnSave": false
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // General settings
+  "editor.formatOnSave": true,
+  "markdown.extension.toc.updateOnSave": false,
+  "python.formatting.blackArgs": [],
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "python.linting.pylintEnabled": true,
+  "restructuredtext.confPath": "",
+  "search.followSymlinks": false
+}

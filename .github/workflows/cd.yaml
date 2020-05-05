@@ -1,0 +1,128 @@
+name: cd
+
+on:
+  push:
+    branches: [master]
+
+env:
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  build-and-push-stable:
+    runs-on: ubuntu-latest
+    needs: pre-commit
+    steps:
+      - uses: actions/checkout@v2
+      # TODO Use YAML anchors when available
+      # Build and push stable images as GitHub packages
+      - name:
+          Build and push
+          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:docker-s3
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ github.actor }}
+          tags: docker-s3
+          target: docker-s3
+      - name:
+          Build and push
+          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:postgres-s3
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ github.actor }}
+          tags: postgres-s3
+          target: postgres-s3
+      - name:
+          Build and push
+          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:docker
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ github.actor }}
+          tags: docker
+          target: docker
+      - name:
+          Build and push
+          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:postgres
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ github.actor }}
+          tags: postgres
+          target: postgres
+      - name:
+          Build and push
+          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:latest
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ github.actor }}
+          tags: latest
+          target: latest
+      # Build and push stable images to Docker Hub
+      - name: Build and push docker://docker.io/tecnativa/duplicity:docker-s3
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: docker.io
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          tags: docker-s3
+          target: docker-s3
+      - name: Build and push docker://docker.io/tecnativa/duplicity:postgres-s3
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: docker.io
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          tags: postgres-s3
+          target: postgres-s3
+      - name: Build and push docker://docker.io/tecnativa/duplicity:docker
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: docker.io
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          tags: docker
+          target: docker
+      - name: Build and push docker://docker.io/tecnativa/duplicity:postgres
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: docker.io
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          tags: postgres
+          target: postgres
+      - name: Build and push docker://docker.io/tecnativa/duplicity:latest
+        uses: docker/build-push-action@v1.1.0
+        with:
+          add_git_labels: true
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: docker.io
+          repository: tecnativa/docker-duplicity/stable
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          tags: latest
+          target: latest

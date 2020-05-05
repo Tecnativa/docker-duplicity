@@ -1,6 +1,4 @@
-FROM python:2-alpine AS latest
-
-ARG DUPLICITY_VERSION=0.8.05
+FROM python:3-alpine AS latest
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_HOURLY='0 * * * *' \
@@ -36,6 +34,7 @@ RUN ln -s /usr/local/bin/jobrunner /etc/periodic/monthly/jobrunner
 RUN apk add --no-cache \
         ca-certificates \
         dbus \
+        gettext \
         gnupg \
         krb5-libs \
         lftp \
@@ -44,7 +43,6 @@ RUN apk add --no-cache \
         ncftp \
         openssh \
         openssl \
-        py2-gobject3 \
         tzdata \
     && sync
 
@@ -72,7 +70,7 @@ RUN apk add --no-cache --virtual .build \
         requests \
         urllib3 \
         # Backend libraries
-        azure \
+        azure-mgmt-storage \
         b2 \
         b2sdk \
         boto \
@@ -86,22 +84,11 @@ RUN apk add --no-cache --virtual .build \
         python-swiftclient \
         requests_oauthlib \
         # Duplicity from source code
-        https://launchpad.net/duplicity/$(echo $DUPLICITY_VERSION | sed -r 's/^([0-9]+\.[0-9]+)([0-9\.]*)$/\1/')-series/$DUPLICITY_VERSION/+download/duplicity-$DUPLICITY_VERSION.tar.gz \
+        https://launchpad.net/duplicity/0.8-series/0.8.12/+download/duplicity-0.8.12.1612.tar.gz \
     && apk del .build
 
 COPY bin/* /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/* && sync
-
-# Metadata
-ARG VCS_REF
-ARG BUILD_DATE
-LABEL org.label-schema.schema-version="1.0" \
-      org.label-schema.vendor=Tecnativa \
-      org.label-schema.license=Apache-2.0 \
-      org.label-schema.build-date="$BUILD_DATE" \
-      org.label-schema.vcs-ref="$VCS_REF" \
-      org.label-schema.vcs-url="https://github.com/Tecnativa/docker-duplicity"
-
 
 FROM latest AS latest-s3
 ENV JOB_500_WHAT='dup full $SRC $DST' \
@@ -120,7 +107,7 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
 
 
 FROM latest AS postgres
-RUN apk add --no-cache postgresql --repository http://dl-cdn.alpinelinux.org/alpine/edge/main
+RUN apk add --no-cache postgresql
 ENV JOB_200_WHAT psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
 ENV JOB_200_WHEN='daily weekly' \
     PGHOST=db
