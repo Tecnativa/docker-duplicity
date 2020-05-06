@@ -81,7 +81,7 @@ jobs:
           add_git_labels: true
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           registry: docker.io
-          repository: tecnativa/docker-duplicity/stable
+          repository: tecnativa/duplicity
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           tags: docker-s3
           target: docker-s3
@@ -91,7 +91,7 @@ jobs:
           add_git_labels: true
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           registry: docker.io
-          repository: tecnativa/docker-duplicity/stable
+          repository: tecnativa/duplicity
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           tags: postgres-s3
           target: postgres-s3
@@ -101,7 +101,7 @@ jobs:
           add_git_labels: true
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           registry: docker.io
-          repository: tecnativa/docker-duplicity/stable
+          repository: tecnativa/duplicity
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           tags: docker
           target: docker
@@ -111,7 +111,7 @@ jobs:
           add_git_labels: true
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           registry: docker.io
-          repository: tecnativa/docker-duplicity/stable
+          repository: tecnativa/duplicity
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           tags: postgres
           target: postgres
@@ -121,7 +121,7 @@ jobs:
           add_git_labels: true
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           registry: docker.io
-          repository: tecnativa/docker-duplicity/stable
+          repository: tecnativa/duplicity
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           tags: latest
           target: latest

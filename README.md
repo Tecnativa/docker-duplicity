@@ -63,8 +63,9 @@ and sending an email report automatically.
 
 ## Where?
 
-- Source code: https://github.com/Tecnativa/docker-duplicity
-- Prebuilt images in Docker Hub: https://hub.docker.com/r/tecnativa/duplicity
+- [Source code](https://github.com/Tecnativa/docker-duplicity).
+- [Prebuilt images in GitHub package registry](https://github.com/Tecnativa/docker-duplicity/packages/212851).
+- [Prebuilt images in Docker Hub](https://hub.docker.com/r/tecnativa/duplicity).
 
 ## Environment variables available
 
