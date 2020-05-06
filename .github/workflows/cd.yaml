@@ -10,7 +10,6 @@ env:
 jobs:
   build-and-push-stable:
     runs-on: ubuntu-latest
-    needs: pre-commit
     steps:
       - uses: actions/checkout@v2
       # TODO Use YAML anchors when available
