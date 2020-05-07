@@ -185,10 +185,10 @@ By default, SRC is set to /mnt/backup/src/ inside the container. Simply mount an
 external directory as a volume to /mnt/backup/src/. If you wish to include multiple
 directories, mount them as subdirectories of /mnt/backup/src/, like...
 
-```
+```yaml
 volumes:
-            - /path/to/data/to/backup1:/mnt/backup/src/foldername1:ro
-            - /path/to/data/to/backup2:/mnt/backup/src/foldername2:ro
+  - /path/to/data/to/backup1:/mnt/backup/src/foldername1:ro
+  - /path/to/data/to/backup2:/mnt/backup/src/foldername2:ro
 ```
 
 ### `TZ`
