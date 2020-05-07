@@ -7,13 +7,16 @@ import sys
 
 # Expand shell commands from environment options
 options = subprocess.check_output(
-    "echo " + os.environ["OPTIONS"], shell=True, stderr=subprocess.STDOUT,
+    "echo -n " + os.environ["OPTIONS"], shell=True, stderr=subprocess.STDOUT, text=True
 )
 options_extra = subprocess.check_output(
-    "echo " + os.environ["OPTIONS_EXTRA"], shell=True, stderr=subprocess.STDOUT,
+    "echo -n " + os.environ["OPTIONS_EXTRA"],
+    shell=True,
+    stderr=subprocess.STDOUT,
+    text=True,
 )
 
 # Execute via duplicity
 command = "duplicity {} {} {}".format(options, options_extra, " ".join(sys.argv[1:]))
 print("Executing: {}".format(command))
-os.execlp("sh", "-c", command)
+os.execlp("sh", "sh", "-c", command)
