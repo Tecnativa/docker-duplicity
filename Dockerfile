@@ -70,7 +70,12 @@ RUN apk add --no-cache --virtual .build \
         requests \
         urllib3 \
         # Backend libraries
+        azure-storage \
         azure-mgmt-storage \
+        azure-storage-blob \
+        azure-storage-common \
+        azure-storage-file \
+        azure-storage-queue \
         b2 \
         b2sdk \
         boto \
