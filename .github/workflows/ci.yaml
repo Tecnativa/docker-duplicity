@@ -37,6 +37,7 @@ jobs:
         with:
           add_git_labels: true
           password: ${{ secrets.GITHUB_TOKEN }}
+          push: ${{ github.event.pull_request.author_association == 'MEMBER' }}
           registry: docker.pkg.github.com
           repository: tecnativa/docker-duplicity/testing-pr-${{ github.event.number }}
           username: ${{ github.actor }}
@@ -50,6 +51,7 @@ jobs:
         with:
           add_git_labels: true
           password: ${{ secrets.GITHUB_TOKEN }}
+          push: ${{ github.event.pull_request.author_association == 'MEMBER' }}
           registry: docker.pkg.github.com
           repository: tecnativa/docker-duplicity/testing-pr-${{ github.event.number }}
           username: ${{ github.actor }}
@@ -63,6 +65,7 @@ jobs:
         with:
           add_git_labels: true
           password: ${{ secrets.GITHUB_TOKEN }}
+          push: ${{ github.event.pull_request.author_association == 'MEMBER' }}
           registry: docker.pkg.github.com
           repository: tecnativa/docker-duplicity/testing-pr-${{ github.event.number }}
           username: ${{ github.actor }}
@@ -76,6 +79,7 @@ jobs:
         with:
           add_git_labels: true
           password: ${{ secrets.GITHUB_TOKEN }}
+          push: ${{ github.event.pull_request.author_association == 'MEMBER' }}
           registry: docker.pkg.github.com
           repository: tecnativa/docker-duplicity/testing-pr-${{ github.event.number }}
           username: ${{ github.actor }}
@@ -89,6 +93,7 @@ jobs:
         with:
           add_git_labels: true
           password: ${{ secrets.GITHUB_TOKEN }}
+          push: ${{ github.event.pull_request.author_association == 'MEMBER' }}
           registry: docker.pkg.github.com
           repository: tecnativa/docker-duplicity/testing-pr-${{ github.event.number }}
           username: ${{ github.actor }}
