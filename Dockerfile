@@ -81,6 +81,7 @@ RUN apk add --no-cache --virtual .build \
         paramiko \
         pexpect \
         pydrive \
+        python-keystoneclient \
         python-swiftclient \
         requests_oauthlib \
         # Duplicity from source code
