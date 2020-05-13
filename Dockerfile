@@ -54,6 +54,7 @@ VOLUME [ "/root" ]
 
 # Build dependencies
 RUN apk add --no-cache --virtual .build \
+        linux-headers \
         build-base \
         krb5-dev \
         libffi-dev \
@@ -61,6 +62,7 @@ RUN apk add --no-cache --virtual .build \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
+        python-dev \
     # Runtime dependencies, based on https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/view/head:/requirements.txt
     && pip install --no-cache-dir \
         # Basic dependencies
@@ -81,6 +83,7 @@ RUN apk add --no-cache --virtual .build \
         paramiko \
         pexpect \
         pydrive \
+        python-keystoneclient \
         python-swiftclient \
         requests_oauthlib \
         # Duplicity from source code
