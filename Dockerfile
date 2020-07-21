@@ -61,31 +61,27 @@ RUN apk add --no-cache --virtual .build \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
-    # Runtime dependencies, based on https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/view/head:/requirements.txt
+    # Runtime dependencies, based on https://gitlab.com/duplicity/duplicity/-/blob/master/requirements.txt
     && pip install --no-cache-dir \
-        # Basic dependencies
-        fasteners \
-        future \
-        mock \
-        requests \
-        urllib3 \
         # Backend libraries
         azure-mgmt-storage \
         b2 \
         b2sdk \
         boto \
-        dropbox==6.9.0 \
+        boto3 \
+        dropbox \
         gdata \
         jottalib \
         mediafire \
         paramiko \
         pexpect \
         pydrive \
+        pyrax \
         python-keystoneclient \
         python-swiftclient \
         requests_oauthlib \
         # Duplicity from source code
-        https://launchpad.net/duplicity/0.8-series/0.8.12/+download/duplicity-0.8.12.1612.tar.gz \
+        https://gitlab.com/duplicity/duplicity/-/archive/rel.0.8.14/duplicity-rel.0.8.14.tar.bz2 \
     && apk del .build
 
 COPY bin/* /usr/local/bin/
