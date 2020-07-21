@@ -291,7 +291,7 @@ services:
       # Additional configurations for Duplicity
       AWS_ACCESS_KEY_ID: example amazon s3 access key
       AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
-      DST: s3://s3.amazonaws.com/mybucket/myfolder
+      DST: boto3+s3://mybucket/myfolder
       EMAIL_FROM: backup@example.com
       EMAIL_TO: alerts@example.com
       OPTIONS: --s3-european-buckets --s3-use-new-style
@@ -351,7 +351,7 @@ services:
       # Additional configurations for Duplicity
       AWS_ACCESS_KEY_ID: example amazon s3 access key
       AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
-      DST: s3://s3.amazonaws.com/mybucket/myfolder
+      DST: boto3+s3://mybucket/myfolder
       EMAIL_FROM: backup@example.com
       EMAIL_TO: alerts@example.com
       OPTIONS: --s3-european-buckets --s3-use-new-style
@@ -370,10 +370,7 @@ should combine it with lifecycle and expiration rules at your will.
 JOB_500_WHEN=weekly
 ```
 
-Note, that for `DST` variable you have to use _old S3 URI style_, i.e. something like
-`s3://s3.amazonaws.com/bucketname`. See this
-[discussion](https://github.com/Tecnativa/doodba-scaffolding/pull/64) for more
-information.
+Note, that for `DST` variable you should use `boto3+s3://bucket_name[/prefix]` style.
 
 [alpine]: https://alpinelinux.org/
 [dockerfile]: https://github.com/Tecnativa/docker-duplicity/blob/master/Dockerfile
