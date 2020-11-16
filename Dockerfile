@@ -5,6 +5,7 @@ ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_DAILY='0 2 * * MON-SAT' \
     CRONTAB_WEEKLY='0 1 * * SUN' \
     CRONTAB_MONTHLY='0 5 1 * *' \
+    DBS_TO_EXCLUDE='$^' \
     DST='' \
     EMAIL_FROM='' \
     EMAIL_SUBJECT='Backup report: {hostname} - {periodicity} - {result}' \
@@ -231,7 +232,7 @@ RUN set -eux; \
 	\
 	postgres --version
 
-ENV JOB_200_WHAT psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
+ENV JOB_200_WHAT psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | grep --null-data --invert-match -E \"$DBS_TO_EXCLUDE\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
 ENV JOB_200_WHEN='daily weekly' \
     PGHOST=db
 

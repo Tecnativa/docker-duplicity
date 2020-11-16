@@ -30,6 +30,7 @@
   - [`SMTP_TLS`](#smtp_tls)
   - [`SRC`](#src)
   - [`TZ`](#tz)
+  - [`DBS_TO_EXCLUDE`](#dbs_to_exclude)
 - [Set a custom hostname!](#set-a-custom-hostname)
 - [Pre and post scripts](#pre-and-post-scripts)
 - [Using Duplicity](#using-duplicity)
@@ -198,6 +199,21 @@ match your local reality.
 
 This is achieved directly by bundling [the `tzdata` package][tzdata]. Refer to its docs
 for more info.
+
+### `DBS_TO_EXCLUDE`
+
+Define a Regular Expression to filter databases that shouldn't be included in the DB
+dump.
+
+You can use this to avoid getting permission errors when running a backup against a
+server where you don't control all the databases.
+
+For example, if you don't want to include the databases named `DB1` and `DB2` you can
+use:
+
+```bash
+DBS_TO_EXCLUDE="^(DB1|DB2)$"
+```
 
 ## Set a custom hostname!
 
