@@ -15,6 +15,7 @@
 - [Where?](#where)
 - [Environment variables available](#environment-variables-available)
   - [`CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`](#crontab_15minhourlydailyweeklymonthly)
+  - [`DBS_TO_EXCLUDE`](#dbs_to_exclude)
   - [`DST`](#dst)
   - [`EMAIL_FROM`](#email_from)
   - [`EMAIL_SUBJECT`](#email_subject)
@@ -30,7 +31,6 @@
   - [`SMTP_TLS`](#smtp_tls)
   - [`SRC`](#src)
   - [`TZ`](#tz)
-  - [`DBS_TO_EXCLUDE`](#dbs_to_exclude)
 - [Set a custom hostname!](#set-a-custom-hostname)
 - [Pre and post scripts](#pre-and-post-scripts)
 - [Using Duplicity](#using-duplicity)
@@ -97,6 +97,21 @@ CRONTAB_HOURLY=0 * * * *
 CRONTAB_DAILY=0 2 * * MON-SAT
 CRONTAB_WEEKLY=0 1 * * SUN
 CRONTAB_MONTHLY=0 5 1 * *
+```
+
+### `DBS_TO_EXCLUDE`
+
+Define a Regular Expression to filter databases that shouldn't be included in the DB
+dump.
+
+You can use this to avoid getting permission errors when running a backup against a
+server where you don't control all the databases.
+
+For example, if you don't want to include the databases named `DB1` and `DB2` you can
+use:
+
+```bash
+DBS_TO_EXCLUDE="^(DB1|DB2)$"
 ```
 
 ### `DST`
@@ -199,21 +214,6 @@ match your local reality.
 
 This is achieved directly by bundling [the `tzdata` package][tzdata]. Refer to its docs
 for more info.
-
-### `DBS_TO_EXCLUDE`
-
-Define a Regular Expression to filter databases that shouldn't be included in the DB
-dump.
-
-You can use this to avoid getting permission errors when running a backup against a
-server where you don't control all the databases.
-
-For example, if you don't want to include the databases named `DB1` and `DB2` you can
-use:
-
-```bash
-DBS_TO_EXCLUDE="^(DB1|DB2)$"
-```
 
 ## Set a custom hostname!
 
