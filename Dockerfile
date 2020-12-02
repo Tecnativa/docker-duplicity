@@ -232,6 +232,9 @@ RUN set -eux; \
 	\
 	postgres --version
 
+# Install full version of grep to support more options
+RUN apk add --no-cache grep
+
 ENV JOB_200_WHAT psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | grep --null-data --invert-match -E \"$DBS_TO_EXCLUDE\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
 ENV JOB_200_WHEN='daily weekly' \
     PGHOST=db
