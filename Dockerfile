@@ -54,6 +54,7 @@ RUN mkdir -p "$SRC"
 VOLUME [ "/root" ]
 
 # Build dependencies
+ADD requirements.txt requirements.txt
 RUN apk add --no-cache --virtual .build \
         build-base \
         krb5-dev \
@@ -63,26 +64,7 @@ RUN apk add --no-cache --virtual .build \
         libxslt-dev \
         openssl-dev \
     # Runtime dependencies, based on https://gitlab.com/duplicity/duplicity/-/blob/master/requirements.txt
-    && pip install --no-cache-dir \
-        # Backend libraries
-        azure-mgmt-storage \
-        b2 \
-        b2sdk \
-        boto \
-        boto3 \
-        dropbox \
-        gdata \
-        jottalib \
-        mediafire \
-        paramiko \
-        pexpect \
-        pydrive \
-        pyrax \
-        python-keystoneclient \
-        python-swiftclient \
-        requests_oauthlib \
-        # Duplicity from source code
-        https://gitlab.com/duplicity/duplicity/-/archive/rel.0.8.16/duplicity-rel.0.8.16.tar.bz2 \
+    && pip install --no-cache-dir -r requirements.txt \
     && apk del .build
 
 COPY bin/* /usr/local/bin/
