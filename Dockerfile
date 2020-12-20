@@ -44,6 +44,7 @@ RUN apk add --no-cache \
         ncftp \
         openssh \
         openssl \
+        rsync \
         tzdata \
     && sync
 
