@@ -1,15 +1,26 @@
 name: cd
 
 on:
+  pull_request:
   push:
     branches: [master]
+  workflow_dispatch:
 
 env:
   DOCKER_BUILDKIT: 1
+  PUSH: ${{ toJSON(github.ref == 'refs/heads/master') }}
 
 jobs:
-  build-and-push-stable:
+  pre-commit:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: pre-commit/action@v2.0.0
+
+  build-push:
+    runs-on: ubuntu-latest
+    needs: pre-commit
     env:
       DOCKER_REPO: tecnativa/docker-duplicity
     steps:
@@ -38,76 +49,66 @@ jobs:
           username: ${{ secrets.BOT_LOGIN }}
           password: ${{ secrets.BOT_TOKEN }}
       # Build and push stable images to DockerHub and to GHCR
-      - name:
-          Build and push
-          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:docker-s3
+      - name: Build and push :docker-s3
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
           load: false
-          push: true
+          push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker-s3
             ${{ env.DOCKER_REPO }}:docker-s3
           target: docker-s3
           labels: ${{ steps.docker_meta.outputs.labels }}
-      - name:
-          Build and push
-          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:postgres-s3
+      - name: Build and push :postgres-s3
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
           load: false
-          push: true
+          push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres-s3
             ${{ env.DOCKER_REPO }}:postgres-s3
           target: postgres-s3
           labels: ${{ steps.docker_meta.outputs.labels }}
-      - name:
-          Build and push
-          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:docker
+      - name: Build and push :docker
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
           load: false
-          push: true
+          push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker
             ${{ env.DOCKER_REPO }}:docker
           target: docker
           labels: ${{ steps.docker_meta.outputs.labels }}
-      - name:
-          Build and push
-          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:postgres
+      - name: Build and push :postgres
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
           load: false
-          push: true
+          push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres
             ${{ env.DOCKER_REPO }}:postgres
           target: postgres
           labels: ${{ steps.docker_meta.outputs.labels }}
-      - name:
-          Build and push
-          docker://docker.pkg.github.com/tecnativa/docker-duplicity/stable:latest
+      - name: Build and push :latest
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
           load: false
-          push: true
+          push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:latest
             ${{ env.DOCKER_REPO }}:latest
