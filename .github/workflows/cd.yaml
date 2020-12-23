@@ -9,6 +9,7 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   PUSH: ${{ toJSON(github.ref == 'refs/heads/master') }}
+  PLATFORMS: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
 
 jobs:
   pre-commit:
@@ -54,8 +55,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
-          load: false
+          platforms: ${{ env.PLATFORMS }}
+          load: ${{ !fromJSON(env.PUSH) }}
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker-s3
@@ -67,8 +68,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
-          load: false
+          platforms: ${{ env.PLATFORMS }}
+          load: ${{ !fromJSON(env.PUSH) }}
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres-s3
@@ -80,8 +81,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
-          load: false
+          platforms: ${{ env.PLATFORMS }}
+          load: ${{ !fromJSON(env.PUSH) }}
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker
@@ -93,8 +94,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
-          load: false
+          platforms: ${{ env.PLATFORMS }}
+          load: ${{ !fromJSON(env.PUSH) }}
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres
@@ -106,8 +107,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8,linux/arm64,linux/ppc64le,linux/s390x
-          load: false
+          platforms: ${{ env.PLATFORMS }}
+          load: ${{ !fromJSON(env.PUSH) }}
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:latest
