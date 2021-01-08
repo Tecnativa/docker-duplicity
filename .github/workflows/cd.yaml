@@ -56,7 +56,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ env.PLATFORMS }}
-          load: ${{ !fromJSON(env.PUSH) }}
+          load: false
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker-s3
@@ -69,7 +69,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ env.PLATFORMS }}
-          load: ${{ !fromJSON(env.PUSH) }}
+          load: false
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres-s3
@@ -82,7 +82,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ env.PLATFORMS }}
-          load: ${{ !fromJSON(env.PUSH) }}
+          load: false
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker
@@ -95,7 +95,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ env.PLATFORMS }}
-          load: ${{ !fromJSON(env.PUSH) }}
+          load: false
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres
@@ -108,7 +108,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ env.PLATFORMS }}
-          load: ${{ !fromJSON(env.PUSH) }}
+          load: false
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:latest
