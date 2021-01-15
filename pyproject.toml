@@ -24,6 +24,11 @@ python-keystoneclient = "3.10.0"
 mediafire = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
+pytest = "^6.2.1"
+black = {version = "^20.8b1", allow-prereleases = true}
+flake8 = "^3.8.4"
+plumbum = "^1.6.9"
+pytest-xdist = "^2.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
