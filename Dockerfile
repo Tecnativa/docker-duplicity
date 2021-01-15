@@ -78,7 +78,7 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
 
 
 FROM latest AS docker
-RUN apk add --no-cache docker
+RUN apk add --no-cache docker-cli
 
 
 FROM docker AS docker-s3
