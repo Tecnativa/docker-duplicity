@@ -5,11 +5,25 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+    inputs:
+      pytest_addopts:
+        description:
+          Extra options for pytest; use -vv for full details; see
+          https://docs.pytest.org/en/latest/example/simple.html#how-to-change-command-line-options-defaults
+        required: false
 
 env:
   DOCKER_BUILDKIT: 1
   PUSH: ${{ toJSON(github.ref == 'refs/heads/master') }}
   PLATFORMS: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
+  LANG: "en_US.utf-8"
+  LC_ALL: "en_US.utf-8"
+  PIP_CACHE_DIR: ${{ github.workspace }}/.cache.~/pip
+  PIPX_HOME: ${{ github.workspace }}/.cache.~/pipx
+  POETRY_CACHE_DIR: ${{ github.workspace }}/.cache.~/pypoetry
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
+  PYTEST_ADDOPTS: ${{ github.event.inputs.pytest_addopts }}
+  PYTHONIOENCODING: "UTF-8"
 
 jobs:
   pre-commit:
@@ -38,18 +52,107 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      # Build images for testing
+      - name: Build :docker-s3
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          # HACK: Build single platform image for testing. See https://github.com/docker/buildx/issues/59
+          load: true
+          push: false
+          tags: |
+            docker-duplicity-local:docker-s3
+          target: docker-s3
+          labels: ${{ steps.docker_meta.outputs.labels }}
+      - name: Build :postgres-s3
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          # HACK: Build single platform image for testing. See https://github.com/docker/buildx/issues/59
+          load: true
+          push: false
+          tags: |
+            docker-duplicity-local:postgres-s3
+          target: postgres-s3
+          labels: ${{ steps.docker_meta.outputs.labels }}
+      - name: Build :docker
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          # HACK: Build single platform image for testing. See https://github.com/docker/buildx/issues/59
+          load: true
+          push: false
+          tags: |
+            docker-duplicity-local:docker
+          target: docker
+          labels: ${{ steps.docker_meta.outputs.labels }}
+      - name: Build :postgres
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          # HACK: Build single platform image for testing. See https://github.com/docker/buildx/issues/59
+          load: true
+          push: false
+          tags: |
+            docker-duplicity-local:postgres
+          target: postgres
+          labels: ${{ steps.docker_meta.outputs.labels }}
+      - name: Build :latest
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          # HACK: Build single platform image for testing. See https://github.com/docker/buildx/issues/59
+          load: true
+          push: false
+          tags: |
+            docker-duplicity-local:latest
+          target: latest
+          labels: ${{ steps.docker_meta.outputs.labels }}
+      # Set up and run tests
+      - name: Install python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
+      - name: Generate cache key CACHE
+        run:
+          echo "CACHE=${{ secrets.CACHE_DATE }} ${{ runner.os }} $(python -VV |
+          sha256sum | cut -d' ' -f1) ${{ hashFiles('pyproject.toml') }} ${{
+          hashFiles('poetry.lock') }}" >> $GITHUB_ENV
+      - uses: actions/cache@v2
+        with:
+          path: |
+            .cache.~
+            .venv
+            ~/.local/bin
+          key: venv ${{ env.CACHE }}
+      - run: pip install poetry
+      - name: Patch $PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install dependencies
+        run: sudo apt install -y gettext librsync-dev
+      - run: poetry install
+      - run: poetry run pytest
+        env:
+          DOCKER_IMAGE_NAME: docker-duplicity-local
+      # Build and push stable images to DockerHub and to GHCR
       - name: Login to DockerHub
+        if: ${{ fromJSON(env.PUSH) }}
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Login to GitHub Container Registry
+        if: ${{ fromJSON(env.PUSH) }}
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ secrets.BOT_LOGIN }}
           password: ${{ secrets.BOT_TOKEN }}
-      # Build and push stable images to DockerHub and to GHCR
       - name: Build and push :docker-s3
         uses: docker/build-push-action@v2
         with:
