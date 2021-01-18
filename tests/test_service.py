@@ -15,6 +15,8 @@ def test_containers_start():
                 "dup",
                 "--version",
             )
+
+
 def test_docker_bin():
     for tag in ["docker-s3", "docker"]:
         with container(tag) as test_container:
@@ -24,6 +26,8 @@ def test_docker_bin():
                 "docker",
                 "--version",
             )
+
+
 def test_postgres_bin():
     for tag in ["postgres-s3", "postgres"]:
         with container(tag) as test_container:
