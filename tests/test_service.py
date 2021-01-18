@@ -17,7 +17,7 @@ def test_containers_start():
             )
 
 def test_docker_bin():
-    for tag in ["docker-s3",  "docker"]:
+    for tag in ["docker-s3", "docker"]:
         with container(tag) as test_container:
             docker(
                 "exec",
@@ -27,7 +27,7 @@ def test_docker_bin():
             )
 
 def test_postgres_bin():
-    for tag in ["postgres-s3",  "postgres"]:
+    for tag in ["postgres-s3", "postgres"]:
         with container(tag) as test_container:
             docker(
                 "exec",
