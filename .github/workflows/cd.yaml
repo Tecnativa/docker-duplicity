@@ -38,6 +38,7 @@ jobs:
     needs: pre-commit
     env:
       DOCKER_REPO: tecnativa/docker-duplicity
+      DOCKERHUB_REPO: tecnativa/duplicity
     steps:
       - uses: actions/checkout@v2
       # TODO Use YAML anchors when available
@@ -163,7 +164,7 @@ jobs:
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker-s3
-            ${{ env.DOCKER_REPO }}:docker-s3
+            ${{ env.DOCKERHUB_REPO }}:docker-s3
           target: docker-s3
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Build and push :postgres-s3
@@ -176,7 +177,7 @@ jobs:
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres-s3
-            ${{ env.DOCKER_REPO }}:postgres-s3
+            ${{ env.DOCKERHUB_REPO }}:postgres-s3
           target: postgres-s3
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Build and push :docker
@@ -189,7 +190,7 @@ jobs:
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:docker
-            ${{ env.DOCKER_REPO }}:docker
+            ${{ env.DOCKERHUB_REPO }}:docker
           target: docker
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Build and push :postgres
@@ -202,7 +203,7 @@ jobs:
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:postgres
-            ${{ env.DOCKER_REPO }}:postgres
+            ${{ env.DOCKERHUB_REPO }}:postgres
           target: postgres
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Build and push :latest
@@ -215,6 +216,6 @@ jobs:
           push: ${{ fromJSON(env.PUSH) }}
           tags: |
             ghcr.io/${{ env.DOCKER_REPO }}:latest
-            ${{ env.DOCKER_REPO }}:latest
+            ${{ env.DOCKERHUB_REPO }}:latest
           target: latest
           labels: ${{ steps.docker_meta.outputs.labels }}
