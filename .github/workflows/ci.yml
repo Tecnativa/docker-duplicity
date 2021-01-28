@@ -77,12 +77,12 @@ jobs:
     strategy:
       matrix:
         target:
+          - base
           - docker
           - docker-s3
-          - latest
-          - latest-s3
           - postgres
           - postgres-s3
+          - s3
     steps:
       # Set up Docker Environment
       - uses: actions/checkout@v2
@@ -104,14 +104,13 @@ jobs:
         id: docker_meta_local
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: localhost:5000/${{ env.DOCKER_IMAGE_NAME }}
-          tag-edge: false
-          tag-latest: false
+          images: localhost:5000/${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}
+          tag-edge: true
+          tag-latest: true
           tag-semver: |
-            {{version}}-${{ matrix.target }}
-            {{major}}-${{ matrix.target }}
-            {{major}}.{{minor}}-${{ matrix.target }}
-          tag-custom: ${{ matrix.target }}
+            {{version}}
+            {{major}}
+            {{major}}.{{minor}}
       - name: Build and push to local (test) registry
         uses: docker/build-push-action@v2
         with:
@@ -150,15 +149,14 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: |
-            ghcr.io/${{ env.DOCKER_IMAGE_NAME }}
-            ${{ env.DOCKERHUB_IMAGE_NAME }}
-          tag-edge: false
-          tag-latest: false
+            ghcr.io/${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}
+            ${{ env.DOCKERHUB_IMAGE_NAME }}-${{ matrix.target }}
+          tag-edge: true
+          tag-latest: true
           tag-semver: |
-            {{version}}-${{ matrix.target }}
-            {{major}}-${{ matrix.target }}
-            {{major}}.{{minor}}-${{ matrix.target }}
-          tag-custom: ${{ matrix.target }}
+            {{version}}
+            {{major}}
+            {{major}}.{{minor}}
       - name: Build and push to public registry(s)
         if: ${{ fromJSON(env.PUSH) }}
         uses: docker/build-push-action@v2
