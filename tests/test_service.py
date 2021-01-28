@@ -1,12 +1,13 @@
-from conftest import container
+import logging
+
 from plumbum.cmd import docker
 
 MIN_PG = 13.0
 
 
-def test_containers_start():
+def test_containers_start(container_factory):
     for tag in ["docker-s3", "postgres-s3", "docker", "postgres", "latest"]:
-        with container(tag) as test_container:
+        with container_factory(tag) as test_container:
             docker(
                 "exec",
                 test_container,
@@ -15,9 +16,9 @@ def test_containers_start():
             )
 
 
-def test_docker_bin():
+def test_docker_bin(container_factory):
     for tag in ["docker-s3", "docker"]:
-        with container(tag) as test_container:
+        with container_factory(tag) as test_container:
             docker(
                 "exec",
                 test_container,
@@ -26,9 +27,9 @@ def test_docker_bin():
             )
 
 
-def test_postgres_bin():
+def test_postgres_bin(container_factory):
     for tag in ["postgres-s3", "postgres"]:
-        with container(tag) as test_container:
+        with container_factory(tag) as test_container:
             for app in ("psql", "pg_dump"):
                 binary_name, product, version = docker(
                     "exec",

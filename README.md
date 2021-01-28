@@ -1,8 +1,8 @@
-# Duplicity Cron Runner
+[![Last image-template](https://img.shields.io/badge/last%20template%20update-v0.1.3-informational)](https://github.com/Tecnativa/image-template/tree/v0.1.3)
+[![GitHub Container Registry](https://img.shields.io/badge/GitHub%20Container%20Registry-latest-%2324292e)](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-latest-%23099cec)](https://hub.docker.com/r/tecnativa/duplicity)
 
-[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/tecnativa/duplicity)](https://hub.docker.com/r/tecnativa/duplicity/)
-![MicroBadger Layers](https://img.shields.io/microbadger/layers/tecnativa/duplicity)
-![GitHub](https://img.shields.io/github/license/tecnativa/docker-duplicity)
+# Duplicity Cron Runner
 
 <details>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -41,6 +41,8 @@
   - [PostgreSQL (`postgres`)](#postgresql-postgres)
   - [Docker (`docker`)](#docker-docker)
   - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
+- [Development](#development)
+  - [Testing](#testing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 </details>
@@ -399,3 +401,45 @@ Note, that for `DST` variable you should use `boto3+s3://bucket_name[/prefix]` s
 [options]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect5
 [postgresql]: https://www.postgresql.org/
 [tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata
+
+## Development
+
+All the dependencies you need to develop this project (apart from Docker itself) are
+managed with [poetry](https://python-poetry.org/).
+
+To set up your development environment, run:
+
+```bash
+pip install pipx  # If you don't have pipx installed
+pipx install poetry  # Install poetry itself
+poetry install  # Install the python dependencies and setup the development environment
+```
+
+### Testing
+
+To run the tests locally, add `--prebuild` to autobuild the image before testing:
+
+```sh
+poetry run pytest --prebuild
+```
+
+By default, the image that the tests use (and optionally prebuild) is named
+`test:docker-duplicity`. If you prefer, you can build it separately before testing, and
+remove the `--prebuild` flag, to run the tests with that image you built:
+
+```sh
+docker image build -t test:docker-duplicity .
+poetry run pytest
+```
+
+If you want to use a different image, pass the `--image` command line argument with the
+name you want:
+
+```sh
+# To build it automatically
+poetry run pytest --prebuild --image my_custom_image
+
+# To prebuild it separately
+docker image build -t my_custom_image .
+poetry run pytest --image my_custom_image
+```
