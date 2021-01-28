@@ -15,7 +15,7 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   PUSH: ${{ toJSON(github.ref == 'refs/heads/master') }}
-  PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
+  PLATFORMS: linux/amd64
   LANG: "en_US.utf-8"
   LC_ALL: "en_US.utf-8"
   PIP_CACHE_DIR: ${{ github.workspace }}/.cache.~/pip
