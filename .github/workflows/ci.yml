@@ -55,8 +55,12 @@ jobs:
       - run: pip install poetry
       - name: Patch $PATH
         run: echo "$HOME/.local/bin" >> $GITHUB_PATH
-      - run: sudo apt install gettext
       - run: poetry install
+      - name: Check if requirements.txt has changed
+        run:
+          poetry lock && poetry export -E duplicity -o requirements-new.txt && diff
+          requirements.txt requirements-new.txt
+        continue-on-error: true
       # Run tests
       - run: poetry run pytest --prebuild
   build-push:
