@@ -89,7 +89,7 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
 
 FROM latest AS postgres
 
-RUN apk add --no-cache postgresql; \
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/main postgresql; \
 	postgres --version
 
 # Install full version of grep to support more options
