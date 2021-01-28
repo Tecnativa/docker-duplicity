@@ -30,7 +30,7 @@ def image(request):
     image = request.config.getoption("--image")
     images = []
     if request.config.getoption("--prebuild"):
-        for tag in ["docker-s3", "postgres-s3", "docker", "postgres", "latest"]:
+        for tag in ["docker-s3", "postgres-s3", "docker", "postgres", "s3", "base"]:
             image_name = f"{image}-{tag}"
             images.append(image_name)
             build = docker[

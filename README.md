@@ -37,12 +37,13 @@
   - [Shortcuts](#shortcuts)
 - [Testing your configuration](#testing-your-configuration)
 - [Prebuilt flavors](#prebuilt-flavors)
-  - [Normal (`latest`)](#normal-latest)
-  - [PostgreSQL (`postgres`)](#postgresql-postgres)
-  - [Docker (`docker`)](#docker-docker)
+  - [Normal (`*-base`)](#normal--base)
+  - [PostgreSQL (`*-postgres`)](#postgresql--postgres)
+  - [Docker (`*-docker`)](#docker--docker)
   - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
 - [Development](#development)
   - [Testing](#testing)
+  - [Managing packages](#managing-packages)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 </details>
@@ -271,7 +272,9 @@ Replace `daily` by any other periodicity to test it too.
 Sometimes you need more than just copying a file here, pasting it there. That's why we
 supply some special flavours of this image.
 
-### Normal (`latest`)
+### Normal (`*-base`)
+
+This image is named `duplicity-base`.
 
 This includes just the most basic packages to boot the cron and use Duplicity with any
 backend. All other images are built on top of this one, so downloading several flavours
@@ -284,7 +287,7 @@ It's [preconfigured][dockerfile] to backup daily:
 JOB_300_WHEN=daily
 ```
 
-### PostgreSQL (`postgres`)
+### PostgreSQL (`*-postgres`)
 
 If you want to back up a PostgreSQL server, make sure you run this image in a fashion
 similar to this `docker-compose.yaml` definition:
@@ -298,7 +301,7 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_DB: mydb
   backup:
-    image: tecnativa/duplicity:postgres
+    image: tecnativa/duplicity-postgres
     hostname: my.postgres.backup
     environment:
       # Postgres connection
@@ -324,7 +327,7 @@ It will make [dumps automatically][dockerfile]:
 JOB_200_WHEN=daily weekly
 ```
 
-### Docker (`docker`)
+### Docker (`*-docker`)
 
 Imagine you need to run some command in another container to generate a backup file
 before actually backing it up in a remote place.
@@ -353,7 +356,7 @@ services:
       - data:/var/opt/gitlab:z
       - logs:/var/log/gitlab:z
   backup:
-    image: tecnativa/duplicity:docker
+    image: tecnativa/duplicity-docker
     hostname: backup
     domainname: gitlab.example.com
     privileged: true # To speak with host's docker socket
@@ -443,3 +446,35 @@ poetry run pytest --prebuild --image my_custom_image
 docker image build -t my_custom_image .
 poetry run pytest --image my_custom_image
 ```
+
+### Managing packages
+
+The poetry project configuration (in the `pyproject.toml` file) includes a section which
+contains the duplicity dependencies themselves. This allows us to manage those more
+easily and avoid future conflicts. Those are then exported into a `requirements.txt`
+file in this repo, which is the one that is used inside the container.
+
+So, if you need to add a new duplicity dependency to be used inside the container, the
+correct process would be:
+
+1. Add the dependency to the poetry project with:
+
+   ```bash
+   poetry add --optional MY_NEW_PACKAGE`
+   ```
+
+   Note that it should be marked as an **optional** dependency, as it will not be used
+   in general development _outside_ the container.
+
+   The new optional dependency should then be added to the duplicity list in the
+   `[tool.poetry.extras]` section of `pyproject.toml`
+
+   ```toml
+   [tool.poetry.extras]
+   duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "pyrax", "python", "requests", "duplicity", "dropbox", "python", "mediafire", "MY_NEW_PACKAGE"]
+   ```
+
+1. Export the new poetry-resolved list of packages to the `requirements.txt` file:
+   ```bash
+   poetry export -E duplicity -o requirements.txt`
+   ```

@@ -6,7 +6,7 @@ MIN_PG = 13.0
 
 
 def test_containers_start(container_factory):
-    for tag in ["docker-s3", "postgres-s3", "docker", "postgres", "latest"]:
+    for tag in ["docker-s3", "postgres-s3", "docker", "postgres", "s3", "base"]:
         with container_factory(tag) as test_container:
             docker(
                 "exec",
