@@ -106,7 +106,6 @@ jobs:
         with:
           images: localhost:5000/${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}
           tag-edge: true
-          tag-latest: true
           tag-semver: |
             {{version}}
             {{major}}
@@ -118,10 +117,6 @@ jobs:
           file: ./Dockerfile
           platforms: |
             linux/amd64
-            linux/arm/v7
-            linux/arm/v8
-            linux/ppc64le
-            linux/s390x
           load: false
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -152,7 +147,6 @@ jobs:
             ghcr.io/${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}
             ${{ env.DOCKERHUB_IMAGE_NAME }}-${{ matrix.target }}
           tag-edge: true
-          tag-latest: true
           tag-semver: |
             {{version}}
             {{major}}
@@ -165,10 +159,6 @@ jobs:
           file: ./Dockerfile
           platforms: |
             linux/amd64
-            linux/arm/v7
-            linux/arm/v8
-            linux/ppc64le
-            linux/s390x
           load: false
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
