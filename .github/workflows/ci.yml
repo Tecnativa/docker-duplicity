@@ -100,11 +100,21 @@ jobs:
           driver-opts: network=host
           install: true
       # Build and push
+      - name: Compute image name
+        id: image_name_compute
+        run: |
+          if [ "${{ matrix.target }}" = "base" ]; then
+            echo "::set-output name=image_name::${{ env.DOCKER_IMAGE_NAME }}"
+            echo "::set-output name=dh_image_name::${{ env.DOCKERHUB_IMAGE_NAME }}"
+          else
+            echo "::set-output name=image_name::${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}"
+            echo "::set-output name=dh_image_name::${{ env.DOCKERHUB_IMAGE_NAME }}-${{ matrix.target }}"
+          fi
       - name: Docker meta for local images
         id: docker_meta_local
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: localhost:5000/${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}
+          images: localhost:5000/${{ steps.image_name_compute.outputs.image_name }}
           tag-edge: true
           tag-semver: |
             {{version}}
@@ -144,8 +154,8 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: |
-            ghcr.io/${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}
-            ${{ env.DOCKERHUB_IMAGE_NAME }}-${{ matrix.target }}
+            ghcr.io/${{ steps.image_name_compute.outputs.image_name }}
+            ${{ steps.image_name_compute.outputs.dh_image_name }}
           tag-edge: true
           tag-semver: |
             {{version}}
