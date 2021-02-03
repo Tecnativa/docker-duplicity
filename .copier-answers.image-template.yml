@@ -4,6 +4,7 @@ _src_path: https://github.com/Tecnativa/image-template.git
 dockerhub_image: tecnativa/duplicity
 image_platforms:
   - linux/amd64
+  - linux/arm64/v8
 main_branches:
   - master
 project_name: docker-duplicity
