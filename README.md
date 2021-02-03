@@ -37,10 +37,11 @@
   - [Shortcuts](#shortcuts)
 - [Testing your configuration](#testing-your-configuration)
 - [Prebuilt flavors](#prebuilt-flavors)
-  - [Normal (`*-base`)](#normal--base)
-  - [PostgreSQL (`*-postgres`)](#postgresql--postgres)
-  - [Docker (`*-docker`)](#docker--docker)
+  - [Normal (`duplicity`)](#normal-duplicity)
+  - [PostgreSQL (`duplicity-postgres`)](#postgresql-duplicity-postgres)
+  - [Docker (`duplicity-docker`)](#docker-duplicity-docker)
   - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
+- [Tags](#tags)
 - [Development](#development)
   - [Testing](#testing)
   - [Managing packages](#managing-packages)
@@ -272,9 +273,10 @@ Replace `daily` by any other periodicity to test it too.
 Sometimes you need more than just copying a file here, pasting it there. That's why we
 supply some special flavours of this image.
 
-### Normal (`*-base`)
+### Normal (`duplicity`)
 
-This image is named `duplicity-base`.
+This image is named `tecnativa/duplicity` on DockerHub or
+`ghcr.io/tecnativa/docker-duplicity` on GHCR.
 
 This includes just the most basic packages to boot the cron and use Duplicity with any
 backend. All other images are built on top of this one, so downloading several flavours
@@ -287,7 +289,7 @@ It's [preconfigured][dockerfile] to backup daily:
 JOB_300_WHEN=daily
 ```
 
-### PostgreSQL (`*-postgres`)
+### PostgreSQL (`duplicity-postgres`)
 
 If you want to back up a PostgreSQL server, make sure you run this image in a fashion
 similar to this `docker-compose.yaml` definition:
@@ -327,7 +329,7 @@ It will make [dumps automatically][dockerfile]:
 JOB_200_WHEN=daily weekly
 ```
 
-### Docker (`*-docker`)
+### Docker (`duplicity-docker`)
 
 Imagine you need to run some command in another container to generate a backup file
 before actually backing it up in a remote place.
@@ -405,6 +407,12 @@ Note, that for `DST` variable you should use `boto3+s3://bucket_name[/prefix]` s
 [postgresql]: https://www.postgresql.org/
 [tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata
 
+## Tags
+
+Each of the images mentioned above are tagged with `:latest`, referring to the latest
+_tagged_ version in git, and `:egde`, referring to the latest version in the `master`
+branch. Each individual git released version is also tagged (e.g. `:v0.1.0`)
+
 ## Development
 
 All the dependencies you need to develop this project (apart from Docker itself) are
@@ -460,7 +468,7 @@ correct process would be:
 1. Add the dependency to the poetry project with:
 
    ```bash
-   poetry add --optional MY_NEW_PACKAGE`
+   poetry add --optional MY_NEW_PACKAGE
    ```
 
    Note that it should be marked as an **optional** dependency, as it will not be used
