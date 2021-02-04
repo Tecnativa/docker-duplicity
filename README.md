@@ -1,6 +1,5 @@
 [![Last image-template](https://img.shields.io/badge/last%20template%20update-v0.1.3-informational)](https://github.com/Tecnativa/image-template/tree/v0.1.3)
 [![GitHub Container Registry](https://img.shields.io/badge/GitHub%20Container%20Registry-latest-%2324292e)](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity)
-[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-latest-%23099cec)](https://hub.docker.com/r/tecnativa/duplicity)
 
 # Duplicity Cron Runner
 
@@ -13,6 +12,8 @@
 - [Why?](#why)
 - [How?](#how)
 - [Where?](#where)
+- [Available images](#available-images)
+- [Tags](#tags)
 - [Environment variables available](#environment-variables-available)
   - [`CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`](#crontab_15minhourlydailyweeklymonthly)
   - [`DBS_TO_EXCLUDE`](#dbs_to_exclude)
@@ -37,11 +38,10 @@
   - [Shortcuts](#shortcuts)
 - [Testing your configuration](#testing-your-configuration)
 - [Prebuilt flavors](#prebuilt-flavors)
-  - [Normal (`duplicity`)](#normal-duplicity)
-  - [PostgreSQL (`duplicity-postgres`)](#postgresql-duplicity-postgres)
-  - [Docker (`duplicity-docker`)](#docker-duplicity-docker)
+  - [Normal (`docker-duplicity`)](#normal-docker-duplicity)
+  - [PostgreSQL (`docker-duplicity-postgres`)](#postgresql-docker-duplicity-postgres)
+  - [Docker (`docker-duplicity-docker`)](#docker-docker-duplicity-docker)
   - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
-- [Tags](#tags)
 - [Development](#development)
   - [Testing](#testing)
   - [Managing packages](#managing-packages)
@@ -69,8 +69,26 @@ and sending an email report automatically.
 ## Where?
 
 - [Source code](https://github.com/Tecnativa/docker-duplicity).
-- [Prebuilt images in GitHub package registry](https://github.com/Tecnativa/docker-duplicity/packages/212851).
-- [Prebuilt images in Docker Hub](https://hub.docker.com/r/tecnativa/duplicity).
+- [Prebuilt images in GitHub package registry](https://github.com/Tecnativa/docker-duplicity/packages/).
+
+## Available images
+
+Each of the built-in [flavors][flavors] is separated into a specific docker image:
+
+- [`docker-duplicity`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity)
+- [`docker-duplicity-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-s3)
+- [`docker-duplicity-docker`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-docker)
+- [`docker-duplicity-docker-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-docker-s3)
+- [`docker-duplicity-postgres`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-postgres)
+- [`docker-duplicity-postgres-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-postgres-s3)
+
+Check the [section bellow][flavors] to get more info.
+
+## Tags
+
+Each of the images mentioned above are tagged with `:latest`, referring to the latest
+_tagged_ version in git, and `:egde`, referring to the latest version in the `master`
+branch. Each individual git released version is also tagged (e.g. `:0.1.0`)
 
 ## Environment variables available
 
@@ -246,7 +264,7 @@ Add jobs through environment variable pairs. The order will be followed.
 
 Refer to [Duplicity man page](http://duplicity.nongnu.org/duplicity.1.html), or execute:
 
-    docker run -it --rm tecnativa/duplicity duplicity --help
+    docker run -it --rm ghcr.io/tecnativa/docker-duplicity duplicity --help
 
 ### Shortcuts
 
@@ -273,10 +291,7 @@ Replace `daily` by any other periodicity to test it too.
 Sometimes you need more than just copying a file here, pasting it there. That's why we
 supply some special flavours of this image.
 
-### Normal (`duplicity`)
-
-This image is named `tecnativa/duplicity` on DockerHub or
-`ghcr.io/tecnativa/docker-duplicity` on GHCR.
+### Normal (`docker-duplicity`)
 
 This includes just the most basic packages to boot the cron and use Duplicity with any
 backend. All other images are built on top of this one, so downloading several flavours
@@ -289,7 +304,7 @@ It's [preconfigured][dockerfile] to backup daily:
 JOB_300_WHEN=daily
 ```
 
-### PostgreSQL (`duplicity-postgres`)
+### PostgreSQL (`docker-duplicity-postgres`)
 
 If you want to back up a PostgreSQL server, make sure you run this image in a fashion
 similar to this `docker-compose.yaml` definition:
@@ -303,7 +318,7 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_DB: mydb
   backup:
-    image: tecnativa/duplicity-postgres
+    image: ghcr.io/tecnativa/docker-duplicity-postgres
     hostname: my.postgres.backup
     environment:
       # Postgres connection
@@ -329,7 +344,7 @@ It will make [dumps automatically][dockerfile]:
 JOB_200_WHEN=daily weekly
 ```
 
-### Docker (`duplicity-docker`)
+### Docker (`docker-duplicity-docker`)
 
 Imagine you need to run some command in another container to generate a backup file
 before actually backing it up in a remote place.
@@ -358,7 +373,7 @@ services:
       - data:/var/opt/gitlab:z
       - logs:/var/log/gitlab:z
   backup:
-    image: tecnativa/duplicity-docker
+    image: ghcr.io/tecnativa/docker-duplicity-docker
     hostname: backup
     domainname: gitlab.example.com
     privileged: true # To speak with host's docker socket
@@ -406,12 +421,6 @@ Note, that for `DST` variable you should use `boto3+s3://bucket_name[/prefix]` s
 [options]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect5
 [postgresql]: https://www.postgresql.org/
 [tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata
-
-## Tags
-
-Each of the images mentioned above are tagged with `:latest`, referring to the latest
-_tagged_ version in git, and `:egde`, referring to the latest version in the `master`
-branch. Each individual git released version is also tagged (e.g. `:v0.1.0`)
 
 ## Development
 

@@ -72,7 +72,6 @@ jobs:
           - 5000:5000
     env:
       DOCKER_IMAGE_NAME: ${{ github.repository }}
-      DOCKERHUB_IMAGE_NAME: tecnativa/duplicity
       PUSH: ${{ toJSON(github.event_name != 'pull_request') }}
     strategy:
       matrix:
@@ -105,10 +104,8 @@ jobs:
         run: |
           if [ "${{ matrix.target }}" = "base" ]; then
             echo "::set-output name=image_name::${{ env.DOCKER_IMAGE_NAME }}"
-            echo "::set-output name=dh_image_name::${{ env.DOCKERHUB_IMAGE_NAME }}"
           else
             echo "::set-output name=image_name::${{ env.DOCKER_IMAGE_NAME }}-${{ matrix.target }}"
-            echo "::set-output name=dh_image_name::${{ env.DOCKERHUB_IMAGE_NAME }}-${{ matrix.target }}"
           fi
       - name: Docker meta for local images
         id: docker_meta_local
@@ -136,12 +133,6 @@ jobs:
           tags: ${{ steps.docker_meta_local.outputs.tags }}
           target: ${{ matrix.target }}
       # Next jobs only happen outside of pull requests and on main branches
-      - name: Login to DockerHub
-        if: ${{ fromJSON(env.PUSH) }}
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_LOGIN }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Login to GitHub Container Registry
         if: ${{ fromJSON(env.PUSH) }}
         uses: docker/login-action@v1
@@ -156,7 +147,6 @@ jobs:
         with:
           images: |
             ghcr.io/${{ steps.image_name_compute.outputs.image_name }}
-            ${{ steps.image_name_compute.outputs.dh_image_name }}
           tag-edge: true
           tag-semver: |
             {{version}}
