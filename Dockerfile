@@ -1,4 +1,4 @@
-FROM python:3-alpine AS latest
+FROM python:3-alpine AS base
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_HOURLY='0 * * * *' \
@@ -71,13 +71,13 @@ RUN apk add --no-cache --virtual .build \
 COPY bin/* /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/* && sync
 
-FROM latest AS latest-s3
+FROM base AS s3
 ENV JOB_500_WHAT='dup full $SRC $DST' \
     JOB_500_WHEN='weekly' \
     OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
 
 
-FROM latest AS docker
+FROM base AS docker
 RUN apk add --no-cache docker-cli
 
 
@@ -87,7 +87,7 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
     OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
 
 
-FROM latest AS postgres
+FROM base AS postgres
 
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/main postgresql-client \
 	&& psql --version \

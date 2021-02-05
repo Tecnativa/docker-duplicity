@@ -1,8 +1,7 @@
-# Duplicity Cron Runner
+[![Last image-template](https://img.shields.io/badge/last%20template%20update-v0.1.3-informational)](https://github.com/Tecnativa/image-template/tree/v0.1.3)
+[![GitHub Container Registry](https://img.shields.io/badge/GitHub%20Container%20Registry-latest-%2324292e)](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity)
 
-[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/tecnativa/duplicity)](https://hub.docker.com/r/tecnativa/duplicity/)
-![MicroBadger Layers](https://img.shields.io/microbadger/layers/tecnativa/duplicity)
-![GitHub](https://img.shields.io/github/license/tecnativa/docker-duplicity)
+# Duplicity Cron Runner
 
 <details>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -13,6 +12,8 @@
 - [Why?](#why)
 - [How?](#how)
 - [Where?](#where)
+- [Available images](#available-images)
+- [Tags](#tags)
 - [Environment variables available](#environment-variables-available)
   - [`CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`](#crontab_15minhourlydailyweeklymonthly)
   - [`DBS_TO_EXCLUDE`](#dbs_to_exclude)
@@ -37,10 +38,13 @@
   - [Shortcuts](#shortcuts)
 - [Testing your configuration](#testing-your-configuration)
 - [Prebuilt flavors](#prebuilt-flavors)
-  - [Normal (`latest`)](#normal-latest)
-  - [PostgreSQL (`postgres`)](#postgresql-postgres)
-  - [Docker (`docker`)](#docker-docker)
+  - [Normal (`docker-duplicity`)](#normal-docker-duplicity)
+  - [PostgreSQL (`docker-duplicity-postgres`)](#postgresql-docker-duplicity-postgres)
+  - [Docker (`docker-duplicity-docker`)](#docker-docker-duplicity-docker)
   - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
+- [Development](#development)
+  - [Testing](#testing)
+  - [Managing packages](#managing-packages)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 </details>
@@ -65,8 +69,26 @@ and sending an email report automatically.
 ## Where?
 
 - [Source code](https://github.com/Tecnativa/docker-duplicity).
-- [Prebuilt images in GitHub package registry](https://github.com/Tecnativa/docker-duplicity/packages/212851).
-- [Prebuilt images in Docker Hub](https://hub.docker.com/r/tecnativa/duplicity).
+- [Prebuilt images in GitHub package registry](https://github.com/Tecnativa/docker-duplicity/packages/).
+
+## Available images
+
+Each of the built-in [flavors][flavors] is separated into a specific docker image:
+
+- [`docker-duplicity`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity)
+- [`docker-duplicity-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-s3)
+- [`docker-duplicity-docker`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-docker)
+- [`docker-duplicity-docker-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-docker-s3)
+- [`docker-duplicity-postgres`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-postgres)
+- [`docker-duplicity-postgres-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-postgres-s3)
+
+Check the [section bellow][flavors] to get more info.
+
+## Tags
+
+Each of the images mentioned above are tagged with `:latest`, referring to the latest
+_tagged_ version in git, and `:egde`, referring to the latest version in the `master`
+branch. Each individual git released version is also tagged (e.g. `:0.1.0`)
 
 ## Environment variables available
 
@@ -242,7 +264,7 @@ Add jobs through environment variable pairs. The order will be followed.
 
 Refer to [Duplicity man page](http://duplicity.nongnu.org/duplicity.1.html), or execute:
 
-    docker run -it --rm tecnativa/duplicity duplicity --help
+    docker run -it --rm ghcr.io/tecnativa/docker-duplicity duplicity --help
 
 ### Shortcuts
 
@@ -269,7 +291,7 @@ Replace `daily` by any other periodicity to test it too.
 Sometimes you need more than just copying a file here, pasting it there. That's why we
 supply some special flavours of this image.
 
-### Normal (`latest`)
+### Normal (`docker-duplicity`)
 
 This includes just the most basic packages to boot the cron and use Duplicity with any
 backend. All other images are built on top of this one, so downloading several flavours
@@ -282,7 +304,7 @@ It's [preconfigured][dockerfile] to backup daily:
 JOB_300_WHEN=daily
 ```
 
-### PostgreSQL (`postgres`)
+### PostgreSQL (`docker-duplicity-postgres`)
 
 If you want to back up a PostgreSQL server, make sure you run this image in a fashion
 similar to this `docker-compose.yaml` definition:
@@ -296,7 +318,7 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_DB: mydb
   backup:
-    image: tecnativa/duplicity:postgres
+    image: ghcr.io/tecnativa/docker-duplicity-postgres
     hostname: my.postgres.backup
     environment:
       # Postgres connection
@@ -322,7 +344,7 @@ It will make [dumps automatically][dockerfile]:
 JOB_200_WHEN=daily weekly
 ```
 
-### Docker (`docker`)
+### Docker (`docker-duplicity-docker`)
 
 Imagine you need to run some command in another container to generate a backup file
 before actually backing it up in a remote place.
@@ -351,7 +373,7 @@ services:
       - data:/var/opt/gitlab:z
       - logs:/var/log/gitlab:z
   backup:
-    image: tecnativa/duplicity:docker
+    image: ghcr.io/tecnativa/docker-duplicity-docker
     hostname: backup
     domainname: gitlab.example.com
     privileged: true # To speak with host's docker socket
@@ -399,3 +421,77 @@ Note, that for `DST` variable you should use `boto3+s3://bucket_name[/prefix]` s
 [options]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect5
 [postgresql]: https://www.postgresql.org/
 [tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata
+
+## Development
+
+All the dependencies you need to develop this project (apart from Docker itself) are
+managed with [poetry](https://python-poetry.org/).
+
+To set up your development environment, run:
+
+```bash
+pip install pipx  # If you don't have pipx installed
+pipx install poetry  # Install poetry itself
+poetry install  # Install the python dependencies and setup the development environment
+```
+
+### Testing
+
+To run the tests locally, add `--prebuild` to autobuild the image before testing:
+
+```sh
+poetry run pytest --prebuild
+```
+
+By default, the image that the tests use (and optionally prebuild) is named
+`test:docker-duplicity`. If you prefer, you can build it separately before testing, and
+remove the `--prebuild` flag, to run the tests with that image you built:
+
+```sh
+docker image build -t test:docker-duplicity .
+poetry run pytest
+```
+
+If you want to use a different image, pass the `--image` command line argument with the
+name you want:
+
+```sh
+# To build it automatically
+poetry run pytest --prebuild --image my_custom_image
+
+# To prebuild it separately
+docker image build -t my_custom_image .
+poetry run pytest --image my_custom_image
+```
+
+### Managing packages
+
+The poetry project configuration (in the `pyproject.toml` file) includes a section which
+contains the duplicity dependencies themselves. This allows us to manage those more
+easily and avoid future conflicts. Those are then exported into a `requirements.txt`
+file in this repo, which is the one that is used inside the container.
+
+So, if you need to add a new duplicity dependency to be used inside the container, the
+correct process would be:
+
+1. Add the dependency to the poetry project with:
+
+   ```bash
+   poetry add --optional MY_NEW_PACKAGE
+   ```
+
+   Note that it should be marked as an **optional** dependency, as it will not be used
+   in general development _outside_ the container.
+
+   The new optional dependency should then be added to the duplicity list in the
+   `[tool.poetry.extras]` section of `pyproject.toml`
+
+   ```toml
+   [tool.poetry.extras]
+   duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "pyrax", "python", "requests", "duplicity", "dropbox", "python", "mediafire", "MY_NEW_PACKAGE"]
+   ```
+
+1. Export the new poetry-resolved list of packages to the `requirements.txt` file:
+   ```bash
+   poetry export -E duplicity -o requirements.txt`
+   ```
