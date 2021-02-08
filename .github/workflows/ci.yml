@@ -109,6 +109,7 @@ jobs:
           images: localhost:5000/${{ steps.image_name_compute.outputs.image_name }}
           tag-edge: true
           tag-semver: |
+            {{raw}}
             {{version}}
             {{major}}
             {{major}}.{{minor}}
@@ -144,6 +145,7 @@ jobs:
             ghcr.io/${{ steps.image_name_compute.outputs.image_name }}
           tag-edge: true
           tag-semver: |
+            {{raw}}
             {{version}}
             {{major}}
             {{major}}.{{minor}}
