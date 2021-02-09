@@ -410,7 +410,7 @@ name = "httplib2"
 version = "0.19.0"
 description = "A comprehensive HTTP client library."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
