@@ -59,6 +59,15 @@ repos:
           # ignore unused imports in __init__.py
           - --extend-ignore=F401
         files: /__init__\.py$
+  - repo: https://github.com/thlorenz/doctoc
+    rev: v2.0.0
+    hooks:
+      - id: doctoc
+        args:
+          - --github
+          - --maxlevel=6
+          - --title=<summary>Table of contents</summary>
+        exclude: ^tests/
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
     hooks:
