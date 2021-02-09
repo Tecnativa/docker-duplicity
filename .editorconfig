@@ -8,5 +8,9 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{code-snippets,code-workspace,json,md,yaml,yml}]
+[*.py]
+# For isort
+profile = black
+
+[*.{code-snippets,code-workspace,json,md,yaml,yml}{,.jinja}]
 indent_size = 2
