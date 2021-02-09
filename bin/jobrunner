@@ -32,7 +32,7 @@ to = environ.get("EMAIL_TO")
 subject = environ.get("EMAIL_SUBJECT")
 
 # Get the commands we need to run
-to_run = dict()
+to_run = {}
 for key, when in environ.items():
     match = re.match(r"^JOB_(\d+)_WHEN$", key)
     if match and periodicity in when.split():

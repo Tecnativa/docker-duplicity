@@ -1,5 +1,3 @@
-import logging
-
 from plumbum.cmd import docker
 
 MIN_PG = 13.0
