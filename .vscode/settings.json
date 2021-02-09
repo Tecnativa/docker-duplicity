@@ -1,5 +1,4 @@
 {
-  // Language-specific settings
   "[dockerfile]": {
     "editor.formatOnSave": false
   },
@@ -18,8 +17,6 @@
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
-  // General settings
   "editor.formatOnSave": true,
   "markdown.extension.toc.updateOnSave": false,
   "python.formatting.blackArgs": [],
