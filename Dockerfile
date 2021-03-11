@@ -64,6 +64,7 @@ RUN apk add --no-cache --virtual .build \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
+        cargo \
     # Runtime dependencies, based on https://gitlab.com/duplicity/duplicity/-/blob/master/requirements.txt
     && pip install --no-cache-dir -r requirements.txt \
     && apk del .build
