@@ -67,7 +67,8 @@ RUN apk add --no-cache --virtual .build \
         cargo \
     # Runtime dependencies, based on https://gitlab.com/duplicity/duplicity/-/blob/master/requirements.txt
     && pip install --no-cache-dir -r requirements.txt \
-    && apk del .build
+    && apk del .build \
+    && rm -rf /root/.cargo
 
 COPY bin/* /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/* && sync
