@@ -493,5 +493,5 @@ correct process would be:
 
 1. Export the new poetry-resolved list of packages to the `requirements.txt` file:
    ```bash
-   poetry export -E duplicity -o requirements.txt`
+   poetry export -E duplicity -o requirements.txt
    ```
