@@ -167,7 +167,28 @@ This variable is optional; the default is
 
 ### `EMAIL_TO`
 
-Email report recipient.
+Email report recipient. Multiple recipients can be defined as a comma-separated list of
+emails:
+
+```bash
+docker run <OPTIONS> -e EMAIL_TO=email1@recipient.com,email2@recipient.com <IMAGE>
+```
+> *Running directly from CLI*
+
+```bash
+docker run <OPTIONS> -e EMAIL_TO="email1@recipient.com, email2@recipient.com" <IMAGE>
+```
+> *Running directly from CLI -- spaces are allowed but quotes are mandatory*
+
+```yaml
+services:
+  backup:
+    image: docker-duplicity
+    ...
+    environment:
+      EMAIL_TO="email1@recipient.com, email2@recipient.com"
+```
+> *Definition at `docker-compose.yml` file. Use quotes if with spaces*
 
 ### `JOB_*_WHAT`
 
