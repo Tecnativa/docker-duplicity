@@ -107,8 +107,8 @@ FROM postgres AS postgres-s3
 ENV JOB_500_WHAT='dup full $SRC $DST' \
     JOB_500_WHEN='weekly' \
     OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
-    
-    
+
+
 FROM base AS mysql
 
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/main mariadb-client \
