@@ -40,6 +40,7 @@
 - [Prebuilt flavors](#prebuilt-flavors)
   - [Normal (`docker-duplicity`)](#normal-docker-duplicity)
   - [PostgreSQL (`docker-duplicity-postgres`)](#postgresql-docker-duplicity-postgres)
+  - [MySQL (`docker-duplicity-mysql`)](#mysql-docker-duplicity-mysql)
   - [Docker (`docker-duplicity-docker`)](#docker-docker-duplicity-docker)
   - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
 - [Development](#development)
@@ -81,6 +82,8 @@ Each of the built-in [flavors][flavors] is separated into a specific docker imag
 - [`docker-duplicity-docker-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-docker-s3)
 - [`docker-duplicity-postgres`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-postgres)
 - [`docker-duplicity-postgres-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-postgres-s3)
+- [`docker-duplicity-mysql`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-mysql)
+- [`docker-duplicity-mysql-s3`](https://github.com/orgs/Tecnativa/packages/container/package/docker-duplicity-mysql-s3)
 
 Check the [section bellow][flavors] to get more info.
 
@@ -340,6 +343,46 @@ It will make [dumps automatically][dockerfile]:
 
 ```
 # Makes postgres dumps for all databases except to templates and "postgres".
+# They are uploaded by JOB_300_WHEN
+JOB_200_WHEN=daily weekly
+```
+
+### MySQL (`docker-duplicity-mysql`)
+
+The same behaviour as in [PostgreSQL](#postgresql-docker-duplicity-postgres) but for MySQL/MariaDB databases. Make sure you run this image in a fashion
+similar to this `docker-compose.yaml` definition:
+
+```yaml
+services:
+  db:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_USER: myuser
+      POSTGRES_DB: mydb
+  backup:
+    image: ghcr.io/tecnativa/docker-duplicity-mysql
+    hostname: my.mysql.backup
+    environment:
+      # Postgres connection
+      MYSQL_HOST: localhost # This is the default
+      MYSQL_PASSWD: mypass # these field IS MANDATORY
+      MYSQL_USER: myuser # defaults to "root"
+
+      # Additional configurations for Duplicity
+      AWS_ACCESS_KEY_ID: example amazon s3 access key
+      AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
+      DST: boto3+s3://mybucket/myfolder
+      EMAIL_FROM: backup@example.com
+      EMAIL_TO: alerts@example.com
+      OPTIONS: --s3-european-buckets --s3-use-new-style
+      PASSPHRASE: example backkup encryption secret
+```
+
+It will make [dumps automatically][dockerfile]:
+
+```
+# Makes postgres dumps for all databases except to mysql, performance_schema & information_schema.
 # They are uploaded by JOB_300_WHEN
 JOB_200_WHEN=daily weekly
 ```
