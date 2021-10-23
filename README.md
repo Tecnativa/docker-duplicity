@@ -173,11 +173,13 @@ emails:
 ```bash
 docker run <OPTIONS> -e EMAIL_TO=email1@recipient.com,email2@recipient.com <IMAGE>
 ```
+
 > _Running directly from CLI_
 
 ```bash
 docker run <OPTIONS> -e EMAIL_TO="email1@recipient.com, email2@recipient.com" <IMAGE>
 ```
+
 > _Running directly from CLI -- spaces are allowed but quotes are mandatory_
 
 ```yaml
@@ -188,6 +190,7 @@ services:
     environment:
       EMAIL_TO="email1@recipient.com, email2@recipient.com"
 ```
+
 > _Definition at `docker-compose.yml` file. Use quotes if with spaces_
 
 ### `JOB_*_WHAT`
