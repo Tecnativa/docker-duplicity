@@ -104,7 +104,12 @@ if all((smtp_host, smtp_port, from_, to, subject)):
                 smtp.starttls()
                 smtp.ehlo()  # re-identify ourselves over TLS connection
             smtp.login(smtp_user, smtp_pass)
-        smtp.sendmail(from_, to, "\r\n".join(message))
+        # if we have commas at "to" then multiple recipients are defined
+        # "sendmail" accepts a list as "to" parameter, so split the variable
+        # and send it. Just to be careful, delete any whitespace present at
+        # destination email addresses
+        to_addrs = to.replace(" ", "").split(",")
+        smtp.sendmail(from_, to_addrs, "\r\n".join(message))
     except Exception:
         logging.exception("Failed sending email")
     finally:
