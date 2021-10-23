@@ -349,8 +349,9 @@ JOB_200_WHEN=daily weekly
 
 ### MySQL (`docker-duplicity-mysql`)
 
-The same behaviour as in [PostgreSQL](#postgresql-docker-duplicity-postgres) but for MySQL/MariaDB databases. Make sure you run this image in a fashion
-similar to this `docker-compose.yaml` definition:
+The same behaviour as in [PostgreSQL](#postgresql-docker-duplicity-postgres) but for
+MySQL/MariaDB databases. Make sure you run this image in a fashion similar to this
+`docker-compose.yaml` definition:
 
 ```yaml
 services:
