@@ -76,6 +76,8 @@ jobs:
           - docker-s3
           - postgres
           - postgres-s3
+          - mysql
+          - mysql-s3
           - s3
     steps:
       # Set up Docker Environment
