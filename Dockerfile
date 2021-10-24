@@ -117,7 +117,7 @@ RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/m
 
 # Install full version of grep to support more options
 RUN apk add --no-cache grep
-ENV JOB_200_WHAT set -euo pipefail; mysql -u${MYSQL_USER:-root} -p${MYSQL_PASSWD:-invalid} -h${MYSQL_HOST:-localhost} -srNe \"SHOW DATABASES\" | grep -Ev \"^(mysql|performance_schema|information_schema)\$\" | grep -Ev \"\$DBS_TO_EXCLUDE\" | xargs -tI DB mysqldump -u${MYSQL_USER:-root} -p${MYSQL_PASSWD:-invalid} -h${MYSQL_HOST:-localhost}  --tab=\"\$SRC/\" DB
+ENV JOB_200_WHAT set -euo pipefail; mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWD} -h$${MYSQL_HOST} -srNe \"SHOW DATABASES\" | grep -Ev \"^(mysql|performance_schema|information_schema)\$\" | grep -Ev \"\$DBS_TO_EXCLUDE\" | xargs -tI DB mysqldump -u${MYSQL_USER:-root} -p${MYSQL_PASSWD:-invalid} -h${MYSQL_HOST:-localhost}  --tab=\"\$SRC/\" DB
 ENV JOB_200_WHEN='daily weekly' \
     MYSQL_HOST=db \
     MYSQL_USER=root \
