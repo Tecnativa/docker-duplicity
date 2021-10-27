@@ -167,7 +167,8 @@ This variable is optional; the default is
 
 ### `EMAIL_TO`
 
-Email report recipient.
+Email report recipient. Multiple recipients can be defined as a comma-separated list of
+emails.
 
 ### `JOB_*_WHAT`
 
