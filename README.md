@@ -470,7 +470,7 @@ poetry run pytest --image my_custom_image
 The poetry project configuration (in the `pyproject.toml` file) includes a section which
 contains the duplicity dependencies themselves. This allows us to manage those more
 easily and avoid future conflicts. Those are then exported into a `requirements.txt`
-file in this repo, which is the one that is used inside the container.
+file in the docker image build phase.
 
 So, if you need to add a new duplicity dependency to be used inside the container, the
 correct process would be:
@@ -484,15 +484,10 @@ correct process would be:
    Note that it should be marked as an **optional** dependency, as it will not be used
    in general development _outside_ the container.
 
-   The new optional dependency should then be added to the duplicity list in the
+1. The new optional dependency should then be added to the duplicity list in the
    `[tool.poetry.extras]` section of `pyproject.toml`
 
    ```toml
    [tool.poetry.extras]
    duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "pyrax", "python", "requests", "duplicity", "dropbox", "python", "mediafire", "MY_NEW_PACKAGE"]
-   ```
-
-1. Export the new poetry-resolved list of packages to the `requirements.txt` file:
-   ```bash
-   poetry export -E duplicity -o requirements.txt
    ```
