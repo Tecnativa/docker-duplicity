@@ -1,3 +1,12 @@
+FROM python:3-slim AS builder
+
+WORKDIR /app
+ADD pyproject.toml poetry.lock ./
+RUN pip install --no-cache-dir poetry
+
+# Build a requirements.txt file matching poetry.lock, that pip understands
+RUN poetry export --extras duplicity --output /app/requirements.txt
+
 FROM python:3-alpine AS base
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
@@ -55,7 +64,7 @@ RUN mkdir -p "$SRC"
 VOLUME [ "/root" ]
 
 # Build dependencies
-ADD requirements.txt requirements.txt
+COPY --from=builder /app/requirements.txt requirements.txt
 RUN apk add --no-cache --virtual .build \
         build-base \
         krb5-dev \

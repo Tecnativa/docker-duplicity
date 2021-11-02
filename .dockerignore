@@ -1,0 +1,5 @@
+.git*
+.pytest_cache
+.venv
+.vscode
+tests
