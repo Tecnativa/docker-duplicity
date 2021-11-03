@@ -1,10 +1,14 @@
+import json
 import logging
 from contextlib import contextmanager
 from pathlib import Path
+from time import sleep
 
 import pytest
-from plumbum import local
+from plumbum import ProcessExecutionError, local
 from plumbum.cmd import docker
+
+MIN_PG = 13.0
 
 _logger = logging.getLogger(__name__)
 
@@ -86,3 +90,29 @@ def container_factory(image):
                 )
 
     return _container
+
+
+@pytest.fixture
+def postgres_container():
+    """Give a running postgres container ID."""
+    container_id = docker(
+        "container",
+        "run",
+        "--detach",
+        "--env=POSTGRES_USER=postgres",
+        "--env=POSTGRES_PASSWORD=password",
+        f"postgres:{MIN_PG}-alpine",
+    ).strip()
+    container_info = json.loads(docker("container", "inspect", container_id))[0]
+    for attempt in range(10):
+        _logger.debug("Attempt %d of waiting for postgres to start.", attempt)
+        try:
+            docker("container", "exec", "--user=postgres", container_id, "psql", "-l")
+            break
+        except ProcessExecutionError:
+            sleep(3)
+            if attempt == 9:
+                raise
+    yield container_info
+    _logger.info(f"Removing {container_id}...")
+    docker("container", "rm", "-f", container_id)
