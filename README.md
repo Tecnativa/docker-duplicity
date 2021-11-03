@@ -16,7 +16,7 @@
 - [Tags](#tags)
 - [Environment variables available](#environment-variables-available)
   - [`CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`](#crontab_15minhourlydailyweeklymonthly)
-  - [`DBS_TO_EXCLUDE`](#dbs_to_exclude)
+  - [`DBS_TO_{INCLUDE,EXCLUDE}`](#dbs_to_includeexclude)
   - [`DST`](#dst)
   - [`EMAIL_FROM`](#email_from)
   - [`EMAIL_SUBJECT`](#email_subject)
@@ -121,7 +121,9 @@ CRONTAB_WEEKLY=0 1 * * SUN
 CRONTAB_MONTHLY=0 5 1 * *
 ```
 
-### `DBS_TO_EXCLUDE`
+### `DBS_TO_{INCLUDE,EXCLUDE}`
+
+Only available in the [PostgreSQL flavors](#postgresql-docker-duplicity-postgres).
 
 Define a Regular Expression to filter databases that shouldn't be included in the DB
 dump.
@@ -134,6 +136,12 @@ use:
 
 ```bash
 DBS_TO_EXCLUDE="^(DB1|DB2)$"
+```
+
+Or, if you only want to include those databases that start with `prod`:
+
+```sh
+DBS_TO_INCLUDE="^prod"
 ```
 
 ### `DST`
