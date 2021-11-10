@@ -104,7 +104,7 @@ jobs:
           fi
       - name: Docker meta for local images
         id: docker_meta_local
-        uses: crazy-max/ghaction-docker-meta@v1
+        uses: crazy-max/ghaction-docker-meta@v3.6.0
         with:
           images: localhost:5000/${{ steps.image_name_compute.outputs.image_name }}
           tag-edge: true
@@ -138,7 +138,7 @@ jobs:
       - name: Docker meta for public images
         if: ${{ fromJSON(env.PUSH) }}
         id: docker_meta_public
-        uses: crazy-max/ghaction-docker-meta@v1
+        uses: crazy-max/ghaction-docker-meta@v3.6.0
         with:
           images: |
             ghcr.io/${{ steps.image_name_compute.outputs.image_name }}
