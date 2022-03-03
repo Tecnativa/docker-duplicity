@@ -283,7 +283,7 @@ wrapt = ">=1.7.0"
 
 [[package]]
 name = "dropbox"
-version = "11.27.0"
+version = "11.28.0"
 description = "Official Dropbox API Client"
 category = "main"
 optional = true
@@ -1519,7 +1519,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "7ee003eb35163f920070f2578db191e595385567151fd61f89d1443dadee4463"
+content-hash = "ceec697928b89b782b759b390cfe7140ef2820acb935e553718dcde9b2f13b30"
 
 [metadata.files]
 argparse = [
@@ -1685,9 +1685,9 @@ debtcollector = [
     {file = "debtcollector-1.11.0.tar.gz", hash = "sha256:733afa881c844a40ef4623ab73ce1862e505bc4655635da3a91d8f3482677785"},
 ]
 dropbox = [
-    {file = "dropbox-11.27.0-py2-none-any.whl", hash = "sha256:9a6a5acfdbcef0d65f2e3bdc85f166425c3faf8363f6abd64e4dc4c448e6a56e"},
-    {file = "dropbox-11.27.0-py3-none-any.whl", hash = "sha256:5d9a3714bf9329ab8c74737cc6fa19ffa3d964958a718954afcb28927b4d5c4c"},
-    {file = "dropbox-11.27.0.tar.gz", hash = "sha256:9c11536e6c789625aa6ae8e7fc77033a673f1f97a4144ebc6e77d9d49f70e1d5"},
+    {file = "dropbox-11.28.0-py2-none-any.whl", hash = "sha256:7d03ae41cb855ee211e6beb395649bf883aeba65aac7c589912de3b65409bafb"},
+    {file = "dropbox-11.28.0-py3-none-any.whl", hash = "sha256:51359fda86d9c2c56efd825ad738e98f7fa6d783de2637fbc44094ece965b79c"},
+    {file = "dropbox-11.28.0.tar.gz", hash = "sha256:1c9983acad41c738394235276c0b3898d02f8c10f342f64a4c0d0885ad716929"},
 ]
 duplicity = [
     {file = "duplicity-0.8.20.tar.gz", hash = "sha256:488af2ecadb059214074f2b3ac51bf9d7de55a800e37ccc2f1075cd0a74940e3"},
