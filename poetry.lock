@@ -817,7 +817,7 @@ pyparsing = ">=2.0.2"
 
 [[package]]
 name = "paramiko"
-version = "2.10.2"
+version = "2.10.3"
 description = "SSH2 protocol library"
 category = "main"
 optional = true
@@ -1520,7 +1520,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3589263894a2d57638f566c64ed92b464542c1b70b73e4e8c0de202beecc5544"
+content-hash = "6c4dea04b9908ea981fd0ad5e3aa0719376a477a1edb4679d5f3b29c7f5e1953"
 
 [metadata.files]
 argparse = [
@@ -1938,8 +1938,8 @@ packaging = [
     {file = "packaging-21.0.tar.gz", hash = "sha256:7dc96269f53a4ccec5c0670940a4281106dd0bb343f47b7471f779df49c2fbe7"},
 ]
 paramiko = [
-    {file = "paramiko-2.10.2-py2.py3-none-any.whl", hash = "sha256:abf71533ea9332079db7cbcc039066c3d7575eed2df10766fa03496c3bf78cf1"},
-    {file = "paramiko-2.10.2.tar.gz", hash = "sha256:ff47cc35dd4c4af507d2bdc9d7def9f7fa89977212b4f926e14ac486e930f03a"},
+    {file = "paramiko-2.10.3-py2.py3-none-any.whl", hash = "sha256:ac6593479f2b47a9422eca076b22cff9f795495e6733a64723efc75dd8c92101"},
+    {file = "paramiko-2.10.3.tar.gz", hash = "sha256:ddb1977853aef82804b35d72a0e597b244fa326c404c350bd00c5b01dbfee71a"},
 ]
 pathspec = [
     {file = "pathspec-0.9.0-py2.py3-none-any.whl", hash = "sha256:7d15c4ddb0b5c802d161efc417ec1a2558ea2653c2e8ad9c19098201dc1c993a"},
