@@ -130,7 +130,7 @@ jobs:
       # Next jobs only happen outside of pull requests and on main branches
       - name: Login to GitHub Container Registry
         if: ${{ fromJSON(env.PUSH) }}
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ secrets.BOT_LOGIN }}
