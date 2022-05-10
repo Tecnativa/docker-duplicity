@@ -8,9 +8,11 @@ import pytest
 from plumbum import ProcessExecutionError, local
 from plumbum.cmd import docker
 
-MIN_PG = 13.0
-
 _logger = logging.getLogger(__name__)
+
+
+def pytest_configure():
+    pytest.MIN_PG = 13.0
 
 
 def pytest_addoption(parser):
@@ -31,17 +33,25 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="session")
 def image(request):
     """Get image name. Builds it if needed."""
-    image = request.config.getoption("--image")
+    image_name = request.config.getoption("--image")
     images = []
     if request.config.getoption("--prebuild"):
-        for tag in ["docker-s3", "postgres-s3", "docker", "postgres", "s3", "base"]:
-            image_name = f"{image}-{tag}"
-            images.append(image_name)
+        for tag in [
+            "docker-s3",
+            "postgres-s3",
+            "postgres-multi",
+            "docker",
+            "postgres",
+            "s3",
+            "base",
+        ]:
+            image_full_name = f"{image_name}-{tag}"
+            images.append(image_full_name)
             build = docker[
                 "image",
                 "build",
                 "-t",
-                image_name,
+                image_full_name,
                 "--target",
                 tag,
                 Path(__file__).parent.parent,
@@ -58,7 +68,7 @@ def image(request):
                 stderr,
             )
             assert not retcode, "Image build failed"
-    return image
+    return image_name
 
 
 @pytest.fixture(scope="session")
@@ -101,7 +111,7 @@ def postgres_container():
         "--detach",
         "--env=POSTGRES_USER=postgres",
         "--env=POSTGRES_PASSWORD=password",
-        f"postgres:{MIN_PG}-alpine",
+        f"postgres:{pytest.MIN_PG}-alpine",
     ).strip()
     container_info = json.loads(docker("container", "inspect", container_id))[0]
     for attempt in range(10):

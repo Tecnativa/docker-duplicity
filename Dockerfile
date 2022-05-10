@@ -117,3 +117,9 @@ FROM postgres AS postgres-s3
 ENV JOB_500_WHAT='dup full $SRC $DST' \
     JOB_500_WHEN='weekly' \
     OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
+
+
+FROM postgres-s3 AS postgres-multi
+ENV DST='multi' \
+    OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)-' \
+    OPTIONS_EXTRA_S3='--s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'

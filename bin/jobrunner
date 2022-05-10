@@ -18,6 +18,7 @@ from subprocess import STDOUT, CalledProcessError, check_output
 logging.basicConfig(level=logging.INFO)
 logging.root.name = "jobrunner"
 
+
 # Get expected periodicity from this script's placement
 periodicity = path.basename(path.dirname(path.abspath(__file__)))
 logging.info("%s UTC - Running %s jobs", datetime.utcnow(), periodicity)
@@ -39,6 +40,7 @@ for key, when in environ.items():
     if match and periodicity in when.split():
         njob = int(match.group(1))
         to_run[njob] = environ["JOB_{}_WHAT".format(njob)]
+
 
 if not to_run:
     logging.info("Nothing to do")
