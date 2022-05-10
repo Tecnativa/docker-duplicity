@@ -113,7 +113,7 @@ jobs:
             {{major}}
             {{major}}.{{minor}}
       - name: Build and push to local (test) registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
@@ -149,7 +149,7 @@ jobs:
             {{major}}.{{minor}}
       - name: Build and push to public registry(s)
         if: ${{ fromJSON(env.PUSH) }}
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
