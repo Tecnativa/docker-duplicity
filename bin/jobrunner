@@ -8,6 +8,7 @@ import re
 import smtplib
 import sys
 from datetime import datetime
+from email.mime.text import MIMEText
 from email.utils import formatdate
 from os import environ, path
 from socket import getfqdn
@@ -44,12 +45,7 @@ if not to_run:
     sys.exit()
 
 # Run commands in order
-message = [
-    "From: {}".format(from_),
-    "To: {}".format(to),
-    "Date: {}".format(formatdate()),
-    "",
-]
+message = []
 failed = False
 for njob, command in sorted(to_run.items()):
     expanded_command = Template(command).safe_substitute(environ)
@@ -81,16 +77,6 @@ for njob, command in sorted(to_run.items()):
 # Report results
 if all((smtp_host, smtp_port, from_, to, subject)):
     logging.info("Sending email report")
-    message.insert(
-        0,
-        "Subject: {}".format(
-            subject.format(
-                hostname=getfqdn(),
-                periodicity=periodicity,
-                result="ERROR" if failed else "OK",
-            )
-        ),
-    )
     smtp = None
     try:
         if smtp_tls:
@@ -104,12 +90,16 @@ if all((smtp_host, smtp_port, from_, to, subject)):
                 smtp.starttls()
                 smtp.ehlo()  # re-identify ourselves over TLS connection
             smtp.login(smtp_user, smtp_pass)
-        # if we have commas at "to" then multiple recipients are defined
-        # "sendmail" accepts a list as "to" parameter, so split the variable
-        # and send it. Just to be careful, delete any whitespace present at
-        # destination email addresses
-        to_addrs = to.replace(" ", "").split(",")
-        smtp.sendmail(from_, to_addrs, "\r\n".join(message))
+        message_text_obj = MIMEText("\r\n".join(message), "plain", "utf-8")
+        message_text_obj["Subject"] = subject.format(
+            hostname=getfqdn(),
+            periodicity=periodicity,
+            result="ERROR" if failed else "OK",
+        )
+        message_text_obj["From"] = from_
+        message_text_obj["To"] = to
+        message_text_obj["Date"] = formatdate()
+        smtp.send_message(message_text_obj)
     except Exception:
         logging.exception("Failed sending email")
     finally:
