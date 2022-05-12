@@ -55,6 +55,7 @@ jobs:
       - run: pip install poetry
       - name: Patch $PATH
         run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - run: poetry run python -m pip install --upgrade pip
       - run: poetry install
       # Run tests
       - run: poetry run pytest --prebuild
@@ -76,6 +77,7 @@ jobs:
           - docker-s3
           - postgres
           - postgres-s3
+          - postgres-multi
           - s3
     steps:
       # Set up Docker Environment

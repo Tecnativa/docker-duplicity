@@ -42,6 +42,7 @@
   - [PostgreSQL (`docker-duplicity-postgres`)](#postgresql-docker-duplicity-postgres)
   - [Docker (`docker-duplicity-docker`)](#docker-docker-duplicity-docker)
   - [Amazon S3 (`*-s3`)](#amazon-s3--s3)
+  - [Multi (`*-multi`)](#multi--multi)
 - [Development](#development)
   - [Testing](#testing)
   - [Managing packages](#managing-packages)
@@ -418,6 +419,34 @@ JOB_500_WHEN=weekly
 ```
 
 Note, that for `DST` variable you should use `boto3+s3://bucket_name[/prefix]` style.
+
+### Multi (`*-multi`)
+
+At the moment only "postgres" has this flavor. It extends from 'postgres-s3' and
+provides some defaults to make good use of "DST\_{N}" env. variables. and uses the extra
+options according to destination.
+
+In this mode the `$DST` is set to `multi`. This enables the use of `$DST_{N}` and
+`$DST_{N}_{ENV_VAR_NAME}`.
+
+`$DST_{N}_{ENV_VAR_NAME}` will be process as `${ENV_VAR_NAME}`.
+
+For example:
+
+```yaml
+  backup:
+    ...
+    environment:
+      ...
+      DST_1: scp://uid@other.host//usr/backup
+      DST_2: boto3+s3://mybucket/myfolder
+      DST_2_AWS_ACCESS_KEY_ID: example amazon s3 access key
+      DST_2_AWS_SECRET_ACCESS_KEY: example amazon s3 secret key
+      DST_3: rsync://user@192.168.0.54:8022//volume1/folder/
+      DST_3_RSYNC_PASSWORD: the password to use with rsync
+```
+
+The `restore` process uses the first destination defined.
 
 [alpine]: https://alpinelinux.org/
 [dockerfile]: https://github.com/Tecnativa/docker-duplicity/blob/master/Dockerfile

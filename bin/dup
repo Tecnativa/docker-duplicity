@@ -2,21 +2,114 @@
 from __future__ import print_function
 
 import os
+import re
 import subprocess
 import sys
 
-# Expand shell commands from environment options
-options = subprocess.check_output(
-    "echo -n " + os.environ["OPTIONS"], shell=True, stderr=subprocess.STDOUT, text=True
-)
-options_extra = subprocess.check_output(
-    "echo -n " + os.environ["OPTIONS_EXTRA"],
-    shell=True,
-    stderr=subprocess.STDOUT,
-    text=True,
-)
+BCK_BIN = "duplicity"
+DEST_MAX_LIMIT = 99
 
-# Execute via duplicity
-command = "duplicity {} {} {}".format(options, options_extra, " ".join(sys.argv[1:]))
-print("Executing: {}".format(command))
-os.execlp("sh", "sh", "-c", command)
+
+def _set_env(index):
+    uri = os.environ.get(f"DST_{index}")
+    if not uri:
+        return (None, None)
+    # Set the valid env. vars
+    target_environ_raw_names = tuple(
+        filter(lambda x: x.startswith(f"DST_{index}_"), os.environ.keys())
+    )
+    for target_env_raw_name in target_environ_raw_names:
+        env_value = os.getenv(target_env_raw_name)
+        target_env_name = re.findall(r"^DEST_\d+_(\w+)$", target_env_raw_name)[0]
+        os.putenv(target_env_name, env_value)
+
+    # Expand shell commands from environment options
+    # this resolves environment variables used in the string
+    options = subprocess.check_output(
+        "echo -n " + os.environ.get("OPTIONS", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    options_extra = subprocess.check_output(
+        "echo -n " + os.environ.get("OPTIONS_EXTRA", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    options_extra_s3 = subprocess.check_output(
+        "echo -n " + os.environ.get("OPTIONS_EXTRA_S3", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+
+    # Set valid duplicity params
+    cparams = ""
+    if uri.startswith("boto"):
+        cparams = f"{options} {options_extra} {options_extra_s3}"
+    else:
+        cparams = f"{options} {options_extra}"
+    return (uri, cparams)
+
+
+def _unset_env(index):
+    # Set the valid env. vars
+    target_environ_raw_names = tuple(
+        filter(lambda x: x.startswith(f"DST_{index}_"), os.environ.keys())
+    )
+    for target_env_raw_name in target_environ_raw_names:
+        target_env_name = re.findall(r"^DEST_\d+_(\w+)$", target_env_raw_name)[0]
+        os.unsetenv(target_env_name)
+
+
+is_multi_mode = len(sys.argv) > 2 and sys.argv[2] == "multi" or False
+if is_multi_mode:
+    print("Multi-destination mode enabled")
+    is_restore = sys.argv[1] == "restore"
+    # In this mode we ignore args and use environment variables directly
+    # Only use the $SRC arg
+    if is_restore:
+        # Its a restore operation
+        SRC = sys.argv[3]
+        EXTRA = " ".join(sys.argv[4:])
+        # By default we use the first DST as the main storage from where
+        # restore data
+        dest, command_params = _set_env(1)
+        if dest:
+            command = f"{BCK_BIN} {command_params} {dest} {SRC} {EXTRA}"
+            print(f"Executing: {command}")
+            subprocess.check_call(command, shell=True)
+        _unset_env(1)
+    else:
+        # Its a backup operation
+        SRC = sys.argv[1]
+        EXTRA = " ".join(sys.argv[3:])
+        for i in range(1, DEST_MAX_LIMIT):
+            dest, command_params = _set_env(i)
+            if not dest:
+                # DEST must be consecutive
+                break
+            command = f"{BCK_BIN} {command_params} {SRC} {dest} {EXTRA}"
+            print(f"Executing #{i}: {command}")
+            subprocess.check_call(command, shell=True)
+            _unset_env(i)
+else:
+    print("Single-destination mode enabled")
+    # Expand shell commands from environment options
+    # this resolves environment variables used in the string
+    options = subprocess.check_output(
+        "echo -n " + os.environ.get("OPTIONS", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    options_extra = subprocess.check_output(
+        "echo -n " + os.environ.get("OPTIONS_EXTRA", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    command = f"{BCK_BIN} {options} {options_extra} {' '.join(sys.argv[1:])}"
+    print(f"Executing: {command}")
+    subprocess.check_call(command, shell=True)
