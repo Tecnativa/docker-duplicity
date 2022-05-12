@@ -55,6 +55,7 @@ jobs:
       - run: pip install poetry
       - name: Patch $PATH
         run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - run: poetry run python -m pip install --upgrade pip
       - run: poetry install
       # Run tests
       - run: poetry run pytest --prebuild
