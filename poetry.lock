@@ -1206,15 +1206,14 @@ six = ">=1.9.0"
 
 [[package]]
 name = "python-swiftclient"
-version = "3.13.1"
+version = "4.0.0"
 description = "OpenStack Object Storage API Client Library"
 category = "main"
 optional = true
-python-versions = "*"
+python-versions = ">=3.6"
 
 [package.dependencies]
-requests = ">=1.1.0"
-six = ">=1.9.0"
+requests = ">=2.4.0"
 
 [package.extras]
 keystone = ["python-keystoneclient (>=0.7.0)"]
@@ -1523,7 +1522,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "c13b2a59815a783920cc2c05b3aff15568fe527b2d474febc9986e3e98dcdefd"
+content-hash = "f1b6f4c8201b9d0f91b9445794289aef18f9df9911754cd9c944b5efa396a1e6"
 
 [metadata.files]
 argparse = [
@@ -2146,8 +2145,8 @@ python-novaclient = [
     {file = "python_novaclient-2.27.0-py2.py3-none-any.whl", hash = "sha256:6406a8ced973d6e73115fde9fa4c09e01046415701afd98aaf6f0295ba0bad86"},
 ]
 python-swiftclient = [
-    {file = "python-swiftclient-3.13.1.tar.gz", hash = "sha256:2d26c90b6392f6befa7fbb16fcda7be44aa26e2ae8a5bee2705d1d1c813833f0"},
-    {file = "python_swiftclient-3.13.1-py2.py3-none-any.whl", hash = "sha256:984805daa56148eba4e7fc8c4d76e0b044572f9ccdee0390bf8027bc3c2e43a8"},
+    {file = "python-swiftclient-4.0.0.tar.gz", hash = "sha256:57b6f1ff23b466843802a6816f4b6bbc6896b6ad05d6577afee7622be3a29538"},
+    {file = "python_swiftclient-4.0.0-py3-none-any.whl", hash = "sha256:7cd1c746fbdfa1f34ea6ede80783e934374561f83e06900e1a7f33f9c14d1bf7"},
 ]
 pytz = [
     {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
