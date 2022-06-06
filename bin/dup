@@ -20,7 +20,7 @@ def _set_env(index):
     )
     for target_env_raw_name in target_environ_raw_names:
         env_value = os.getenv(target_env_raw_name)
-        target_env_name = re.findall(r"^DEST_\d+_(\w+)$", target_env_raw_name)[0]
+        target_env_name = re.findall(r"^DST_\d+_(\w+)$", target_env_raw_name)[0]
         os.putenv(target_env_name, env_value)
 
     # Expand shell commands from environment options
@@ -59,7 +59,7 @@ def _unset_env(index):
         filter(lambda x: x.startswith(f"DST_{index}_"), os.environ.keys())
     )
     for target_env_raw_name in target_environ_raw_names:
-        target_env_name = re.findall(r"^DEST_\d+_(\w+)$", target_env_raw_name)[0]
+        target_env_name = re.findall(r"^DST_\d+_(\w+)$", target_env_raw_name)[0]
         os.unsetenv(target_env_name)
 
 
