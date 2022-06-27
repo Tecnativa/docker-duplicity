@@ -63,7 +63,12 @@ def _unset_env(index):
         os.unsetenv(target_env_name)
 
 
-is_multi_mode = len(sys.argv) > 2 and sys.argv[2] == "multi" or False
+len_argv = len(sys.argv)
+is_multi_mode = (
+    (len_argv > 2 and sys.argv[2] == "multi")
+    or (len_argv > 3 and sys.argv[3] == "multi")
+    or False
+)
 if is_multi_mode:
     print("Multi-destination mode enabled")
     is_restore = sys.argv[1] == "restore"
