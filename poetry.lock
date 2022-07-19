@@ -1017,7 +1017,7 @@ PyYAML = ">=3.0"
 
 [[package]]
 name = "pydrive2"
-version = "1.12.0"
+version = "1.12.1"
 description = "Google Drive API made easy. Maintained fork of PyDrive."
 category = "main"
 optional = true
@@ -1522,7 +1522,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "b015ec9e4a4bc2634d69c8b80d488178b6ece3529eef6de597a798ee573a4dcf"
+content-hash = "18c54a230e999c8393bbb4e6c70db00a1ad47983ecf2b9284b0d23b329312dde"
 
 [metadata.files]
 argparse = [
@@ -2098,8 +2098,8 @@ pydrive = [
     {file = "PyDrive-1.3.1.tar.gz", hash = "sha256:83890dcc2278081c6e3f6a8da1f8083e25de0bcc8eb7c91374908c5549a20787"},
 ]
 pydrive2 = [
-    {file = "PyDrive2-1.12.0-py3-none-any.whl", hash = "sha256:d79c255ccc64eb84780d45486381c5be8ffa355b56662f222ec9f6268641f702"},
-    {file = "PyDrive2-1.12.0.tar.gz", hash = "sha256:2c9549df3fed031fa434b73b374214fa2e80b648dcf9aef237b44e449e630525"},
+    {file = "PyDrive2-1.12.1-py3-none-any.whl", hash = "sha256:bf8d13fb0fb7541e1dc1dabdfd97ae719cb0b65942f50bf51bf6d7f052d9bd1e"},
+    {file = "PyDrive2-1.12.1.tar.gz", hash = "sha256:f7b086a6dc2dc1f9ebf179db273574afb362e78ecd3a008d0a1e27adaeca5165"},
 ]
 pyflakes = [
     {file = "pyflakes-2.4.0-py2.py3-none-any.whl", hash = "sha256:3bb3a3f256f4b7968c9c788781e4ff07dce46bdf12339dcda61053375426ee2e"},
