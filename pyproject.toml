@@ -27,7 +27,7 @@ idna = {version = "3.3", optional = true}
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
 black = "^22.6"
-flake8 = "^4.0.1"
+flake8 = "^5.0.3"
 plumbum = "^1.7.2"
 pytest-xdist = "^2.5.0"
 
