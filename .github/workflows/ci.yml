@@ -106,14 +106,16 @@ jobs:
           fi
       - name: Docker meta for local images
         id: docker_meta_local
-        uses: crazy-max/ghaction-docker-meta@v4.0.1
+        uses: docker/metadata-action@v4
         with:
           images: localhost:5000/${{ steps.image_name_compute.outputs.image_name }}
-          tag-edge: true
-          tag-semver: |
-            {{version}}
-            {{major}}
-            {{major}}.{{minor}}
+          tags: |
+            type=edge
+            type=semver,pattern={{version}},enable=true
+            type=schedule,pattern=nightly,enable=true,priority=1000
+            type=ref,event=branch,enable=true,priority=600
+            type=ref,event=tag,enable=true,priority=600
+            type=ref,event=pr,prefix=pr-,enable=true,priority=600
       - name: Build and push to local (test) registry
         uses: docker/build-push-action@v3
         with:
@@ -140,15 +142,17 @@ jobs:
       - name: Docker meta for public images
         if: ${{ fromJSON(env.PUSH) }}
         id: docker_meta_public
-        uses: crazy-max/ghaction-docker-meta@v4.0.1
+        uses: docker/metadata-action@v4
         with:
           images: |
             ghcr.io/${{ steps.image_name_compute.outputs.image_name }}
-          tag-edge: true
-          tag-semver: |
-            {{version}}
-            {{major}}
-            {{major}}.{{minor}}
+          tags: |
+            type=edge
+            type=semver,pattern={{version}}
+            type=schedule,pattern=nightly,enable=true,priority=1000
+            type=ref,event=branch,enable=true,priority=600
+            type=ref,event=tag,enable=true,priority=600
+            type=ref,event=pr,prefix=pr-,enable=true,priority=600
       - name: Build and push to public registry(s)
         if: ${{ fromJSON(env.PUSH) }}
         uses: docker/build-push-action@v3
