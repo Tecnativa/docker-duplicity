@@ -141,14 +141,14 @@ python-versions = "*"
 
 [[package]]
 name = "boto3"
-version = "1.24.64"
+version = "1.24.65"
 description = "The AWS SDK for Python"
 category = "main"
 optional = true
 python-versions = ">= 3.7"
 
 [package.dependencies]
-botocore = ">=1.27.64,<1.28.0"
+botocore = ">=1.27.65,<1.28.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -157,7 +157,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.27.64"
+version = "1.27.65"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = true
@@ -1522,7 +1522,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d7cc578c5e8108866e1dc258df0a3297c689eb9a84f153cb431015ccc9cd7d6e"
+content-hash = "7755c5dbbfeb934535d073cc740db2863b8961b732e3a216646b8885478ace2e"
 
 [metadata.files]
 argparse = [
@@ -1597,12 +1597,12 @@ boto = [
     {file = "boto-2.49.0.tar.gz", hash = "sha256:ea0d3b40a2d852767be77ca343b58a9e3a4b00d9db440efb8da74b4e58025e5a"},
 ]
 boto3 = [
-    {file = "boto3-1.24.64-py3-none-any.whl", hash = "sha256:232ce2e82cf7d79f3ec02d301fd370a8e21ede81d5be3d9edf182ad10dc24e30"},
-    {file = "boto3-1.24.64.tar.gz", hash = "sha256:932edb4373cca0062521a236af46d80115598d3056c7356f00fee26db25efcd7"},
+    {file = "boto3-1.24.65-py3-none-any.whl", hash = "sha256:6bfa24a48ad49ee5f89b7a0572106d8009f892ef927556bdc663230bfa11d05f"},
+    {file = "boto3-1.24.65.tar.gz", hash = "sha256:e32ce034ac1acaff3607dd31766b4096036cdc5539d76cad41370d6d2a29a881"},
 ]
 botocore = [
-    {file = "botocore-1.27.64-py3-none-any.whl", hash = "sha256:670aec1c6f201a06ad7fbf252485629f4cd17e63e31dea5b67accb4d08b5f2fa"},
-    {file = "botocore-1.27.64.tar.gz", hash = "sha256:25793c7e13d989ba27bbca83ea5e19a4ee1cf7ddbab2c0ab3d63461e64e9be50"},
+    {file = "botocore-1.27.65-py3-none-any.whl", hash = "sha256:2ba1494bc74e2e0e0915ee68e178f8511264daa30b96abb4240a17d47eeea894"},
+    {file = "botocore-1.27.65.tar.gz", hash = "sha256:17bde907b09a3a869ec2281e35dd3dbaa702a34c19aa81c19d0a142127d57be7"},
 ]
 cachetools = [
     {file = "cachetools-5.0.0-py3-none-any.whl", hash = "sha256:8fecd4203a38af17928be7b90689d8083603073622229ca7077b72d8e5a976e4"},
