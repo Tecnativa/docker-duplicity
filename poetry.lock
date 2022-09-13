@@ -133,14 +133,14 @@ python-versions = "*"
 
 [[package]]
 name = "boto3"
-version = "1.24.71"
+version = "1.24.72"
 description = "The AWS SDK for Python"
 category = "main"
 optional = true
 python-versions = ">= 3.7"
 
 [package.dependencies]
-botocore = ">=1.27.71,<1.28.0"
+botocore = ">=1.27.72,<1.28.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -149,7 +149,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.27.71"
+version = "1.27.72"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = true
@@ -1513,7 +1513,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3dfa58dd70054ab6f47aa0cd8416bebcabb9e5443e0b80b949976dc0dec30d23"
+content-hash = "d456741192c5170a686b50525ea2e56b60400206f463658a2f4d8faf77e27d81"
 
 [metadata.files]
 argparse = [
@@ -1584,12 +1584,12 @@ boto = [
     {file = "boto-2.49.0.tar.gz", hash = "sha256:ea0d3b40a2d852767be77ca343b58a9e3a4b00d9db440efb8da74b4e58025e5a"},
 ]
 boto3 = [
-    {file = "boto3-1.24.71-py3-none-any.whl", hash = "sha256:c82d7ab1cdcf4701a424b1820d9646d2c0869c129266917cad35aae9e9419c1c"},
-    {file = "boto3-1.24.71.tar.gz", hash = "sha256:0ee555dc0f362d2761d86e0264ee79985b09de4289334fbec7de384b39ccce72"},
+    {file = "boto3-1.24.72-py3-none-any.whl", hash = "sha256:ef1f8afb832556fad5f90e7c46373edf9011a436df0d676e8450e05264c3ac0f"},
+    {file = "boto3-1.24.72.tar.gz", hash = "sha256:2e502227bfb67fe83b6d61ef9dacd49297bcb631d005cf27b5e54f65064c6e6d"},
 ]
 botocore = [
-    {file = "botocore-1.27.71-py3-none-any.whl", hash = "sha256:6b86c6277e5eb4f9d87de824d53f0b6789b618184ccda555be24741034de107a"},
-    {file = "botocore-1.27.71.tar.gz", hash = "sha256:91dc4e8ae768db3a5c26ef8acd6425bbbec4b17636350d526c226a5879d3c613"},
+    {file = "botocore-1.27.72-py3-none-any.whl", hash = "sha256:e29a777d261360dcb9283dfd460dc5feca3a46b7774e0c79be406d1a85673789"},
+    {file = "botocore-1.27.72.tar.gz", hash = "sha256:6184ab43a59118541b88e0ede24ccd671553323ace95bb7c8de3082a5cc581cb"},
 ]
 cachetools = [
     {file = "cachetools-5.0.0-py3-none-any.whl", hash = "sha256:8fecd4203a38af17928be7b90689d8083603073622229ca7077b72d8e5a976e4"},
@@ -2176,6 +2176,13 @@ pyyaml = [
     {file = "PyYAML-6.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:f84fbc98b019fef2ee9a1cb3ce93e3187a6df0b2538a651bfb890254ba9f90b5"},
     {file = "PyYAML-6.0-cp310-cp310-win32.whl", hash = "sha256:2cd5df3de48857ed0544b34e2d40e9fac445930039f3cfe4bcc592a1f836d513"},
     {file = "PyYAML-6.0-cp310-cp310-win_amd64.whl", hash = "sha256:daf496c58a8c52083df09b80c860005194014c3698698d1a57cbcfa182142a3a"},
+    {file = "PyYAML-6.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:d4b0ba9512519522b118090257be113b9468d804b19d63c71dbcf4a48fa32358"},
+    {file = "PyYAML-6.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:81957921f441d50af23654aa6c5e5eaf9b06aba7f0a19c18a538dc7ef291c5a1"},
+    {file = "PyYAML-6.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:afa17f5bc4d1b10afd4466fd3a44dc0e245382deca5b3c353d8b757f9e3ecb8d"},
+    {file = "PyYAML-6.0-cp311-cp311-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:dbad0e9d368bb989f4515da330b88a057617d16b6a8245084f1b05400f24609f"},
+    {file = "PyYAML-6.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:432557aa2c09802be39460360ddffd48156e30721f5e8d917f01d31694216782"},
+    {file = "PyYAML-6.0-cp311-cp311-win32.whl", hash = "sha256:bfaef573a63ba8923503d27530362590ff4f576c626d86a9fed95822a8255fd7"},
+    {file = "PyYAML-6.0-cp311-cp311-win_amd64.whl", hash = "sha256:01b45c0191e6d66c470b6cf1b9531a771a83c1c4208272ead47a3ae4f2f603bf"},
     {file = "PyYAML-6.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:897b80890765f037df3403d22bab41627ca8811ae55e9a722fd0392850ec4d86"},
     {file = "PyYAML-6.0-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:50602afada6d6cbfad699b0c7bb50d5ccffa7e46a3d738092afddc1f9758427f"},
     {file = "PyYAML-6.0-cp36-cp36m-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:48c346915c114f5fdb3ead70312bd042a953a8ce5c7106d5bfb1a5254e47da92"},
