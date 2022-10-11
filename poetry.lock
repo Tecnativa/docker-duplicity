@@ -37,7 +37,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six", "sphinx", "sphinx-notfound-page", "zope.interface"]
 docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
 tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six", "zope.interface"]
-tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six"]
+tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six"]
 
 [[package]]
 name = "b2"
@@ -207,7 +207,7 @@ optional = true
 python-versions = ">=3.5.0"
 
 [package.extras]
-unicode_backport = ["unicodedata2"]
+unicode-backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -279,7 +279,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "dropbox"
-version = "11.34.0"
+version = "11.35.0"
 description = "Official Dropbox API Client"
 category = "main"
 optional = true
@@ -543,9 +543,9 @@ requests_toolbelt = "*"
 six = "*"
 
 [package.extras]
-FUSE = ["fusepy"]
-Qt = ["python-qt4"]
+fuse = ["fusepy"]
 monitor = ["watchdog"]
+qt = ["python-qt4"]
 scanner = ["xattr"]
 
 [[package]]
@@ -1309,7 +1309,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<5)"]
 
 [[package]]
 name = "requests-oauthlib"
@@ -1513,7 +1513,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "63ee023938374329cea28d16cf0f1550485f131761f1814df006454c7785182b"
+content-hash = "d0b7685c63804c3b3ffafecb3b9ba9c52c99d71e51d48b599095781ce24beac3"
 
 [metadata.files]
 argparse = [
@@ -1701,9 +1701,9 @@ docutils = [
     {file = "docutils-0.16.tar.gz", hash = "sha256:c2de3a60e9e7d07be26b7f2b00ca0309c207e06c100f9cc2a94931fc75a478fc"},
 ]
 dropbox = [
-    {file = "dropbox-11.34.0-py2-none-any.whl", hash = "sha256:582fdae5c198f557b5f09776cf1cebbc708af1ba9765ba4dd20f9b7fe49a4bdc"},
-    {file = "dropbox-11.34.0-py3-none-any.whl", hash = "sha256:9f8ddbfa377ef0552f703dfe8a65cfdbe555c818b9a6f3db54d63811c47bbcc0"},
-    {file = "dropbox-11.34.0.tar.gz", hash = "sha256:a20099de1c1e5b844cafcf4b9bb6b71d28441038ea1bff56aab56310cb0505fd"},
+    {file = "dropbox-11.35.0-py2-none-any.whl", hash = "sha256:60aa245b74b178553eb3f6860591efc5e51f301f624c5056e62e36a971d06f27"},
+    {file = "dropbox-11.35.0-py3-none-any.whl", hash = "sha256:047fa155fd8d12d7690854ab9bc0e4f9a4466ec497a4ba91f99192896b180178"},
+    {file = "dropbox-11.35.0.tar.gz", hash = "sha256:553f5bad85cfd1f6c3c3b73728eb6370e7673c07819a5e5d07061878ec7a08aa"},
 ]
 duplicity = [
     {file = "duplicity-1.0.1.tar.gz", hash = "sha256:24b4d8af0d167d0498c3c9d7ce4151db08f6b3175a3e295eeccfe42915b1fe90"},
