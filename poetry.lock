@@ -114,8 +114,6 @@ click = ">=8.0.0"
 mypy-extensions = ">=0.4.3"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
-tomli = {version = ">=1.1.0", markers = "python_full_version < \"3.11.0a7\""}
-typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -133,14 +131,14 @@ python-versions = "*"
 
 [[package]]
 name = "boto3"
-version = "1.26.8"
+version = "1.26.16"
 description = "The AWS SDK for Python"
 category = "main"
 optional = true
 python-versions = ">= 3.7"
 
 [package.dependencies]
-botocore = ">=1.29.8,<1.30.0"
+botocore = ">=1.29.16,<1.30.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -149,7 +147,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.29.8"
+version = "1.29.16"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = true
@@ -301,17 +299,6 @@ python-versions = ">2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 [package.dependencies]
 fasteners = "*"
 future = "*"
-
-[[package]]
-name = "exceptiongroup"
-version = "1.0.0rc9"
-description = "Backport of PEP 654 (exception groups)"
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[package.extras]
-test = ["pytest (>=6)"]
 
 [[package]]
 name = "execnet"
@@ -1113,11 +1100,9 @@ python-versions = ">=3.7"
 [package.dependencies]
 attrs = ">=19.2.0"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
-exceptiongroup = {version = ">=1.0.0rc8", markers = "python_version < \"3.11\""}
 iniconfig = "*"
 packaging = "*"
 pluggy = ">=0.12,<2.0"
-tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 
 [package.extras]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
@@ -1445,14 +1430,6 @@ ply = ">=3.4"
 six = ">=1.12.0"
 
 [[package]]
-name = "tomli"
-version = "2.0.1"
-description = "A lil' TOML parser"
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[[package]]
 name = "tqdm"
 version = "4.64.0"
 description = "Fast, Extensible Progress Meter"
@@ -1468,14 +1445,6 @@ dev = ["py-make (>=0.1.0)", "twine", "wheel"]
 notebook = ["ipywidgets (>=6)"]
 slack = ["slack-sdk"]
 telegram = ["requests"]
-
-[[package]]
-name = "typing-extensions"
-version = "4.2.0"
-description = "Backported and Experimental Type Hints for Python 3.7+"
-category = "dev"
-optional = false
-python-versions = ">=3.7"
 
 [[package]]
 name = "uritemplate"
@@ -1523,8 +1492,8 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.8"
-content-hash = "89db32e3484c9f0ab2d119e08c4b47d484e565c2518bdb36ac7a09293aebd310"
+python-versions = "~3.11"
+content-hash = "23fd36618ddbf367f6163e614e6b78d5b22d9d6ce526ff827d478ee45412715e"
 
 [metadata.files]
 argparse = [
@@ -1593,12 +1562,12 @@ boto = [
     {file = "boto-2.49.0.tar.gz", hash = "sha256:ea0d3b40a2d852767be77ca343b58a9e3a4b00d9db440efb8da74b4e58025e5a"},
 ]
 boto3 = [
-    {file = "boto3-1.26.8-py3-none-any.whl", hash = "sha256:c02fc93a926944b4b426a170d2dae274b4c8c09ec5259450b94269a8ce990dd7"},
-    {file = "boto3-1.26.8.tar.gz", hash = "sha256:b39303fdda9b5d77a152e3ec9f264ae318ccdaa853eaf694626dc335464ded98"},
+    {file = "boto3-1.26.16-py3-none-any.whl", hash = "sha256:4f493a2aed71cee93e626de4f67ce58dd82c0473480a0fc45b131715cd8f4f30"},
+    {file = "boto3-1.26.16.tar.gz", hash = "sha256:31c0adf71e4bd19a5428580bb229d7ea3b5795eecaa0847a85385df00c026116"},
 ]
 botocore = [
-    {file = "botocore-1.29.8-py3-none-any.whl", hash = "sha256:9c6adcf4e080be63b92f50d01e176ef2d1d2a3da7d8387a964abb9eb65fc8aad"},
-    {file = "botocore-1.29.8.tar.gz", hash = "sha256:48cf33d7c513320711321c3b303b0c9810b23e15fa03424f7323883e4ce6cef8"},
+    {file = "botocore-1.29.16-py3-none-any.whl", hash = "sha256:271b599e6cfe214405ed50d41cd967add1d5d469383dd81ff583bc818b47f59b"},
+    {file = "botocore-1.29.16.tar.gz", hash = "sha256:8cfcc10f2f1751608c3cec694f2d6b5e16ebcd50d0a104f9914d5616227c62e9"},
 ]
 cachetools = [
     {file = "cachetools-5.0.0-py3-none-any.whl", hash = "sha256:8fecd4203a38af17928be7b90689d8083603073622229ca7077b72d8e5a976e4"},
@@ -1718,10 +1687,6 @@ dropbox = [
 ]
 duplicity = [
     {file = "duplicity-1.0.1.tar.gz", hash = "sha256:24b4d8af0d167d0498c3c9d7ce4151db08f6b3175a3e295eeccfe42915b1fe90"},
-]
-exceptiongroup = [
-    {file = "exceptiongroup-1.0.0rc9-py3-none-any.whl", hash = "sha256:2e3c3fc1538a094aab74fad52d6c33fc94de3dfee3ee01f187c0e0c72aec5337"},
-    {file = "exceptiongroup-1.0.0rc9.tar.gz", hash = "sha256:9086a4a21ef9b31c72181c77c040a074ba0889ee56a7b289ff0afb0d97655f96"},
 ]
 execnet = [
     {file = "execnet-1.9.0-py2.py3-none-any.whl", hash = "sha256:a295f7cc774947aac58dde7fdc85f4aa00c42adf5d8f5468fc630c1acf30a142"},
@@ -2319,17 +2284,9 @@ stone = [
     {file = "stone-3.3.1-py3-none-any.whl", hash = "sha256:e15866fad249c11a963cce3bdbed37758f2e88c8ff4898616bc0caeb1e216047"},
     {file = "stone-3.3.1.tar.gz", hash = "sha256:4ef0397512f609757975f7ec09b35639d72ba7e3e17ce4ddf399578346b4cb50"},
 ]
-tomli = [
-    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
-    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
-]
 tqdm = [
     {file = "tqdm-4.64.0-py2.py3-none-any.whl", hash = "sha256:74a2cdefe14d11442cedf3ba4e21a3b84ff9a2dbdc6cfae2c34addb2a14a5ea6"},
     {file = "tqdm-4.64.0.tar.gz", hash = "sha256:40be55d30e200777a307a7585aee69e4eabb46b4ec6a4b4a5f2d9f11e7d5408d"},
-]
-typing-extensions = [
-    {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
-    {file = "typing_extensions-4.2.0.tar.gz", hash = "sha256:f1c24655a0da0d1b67f07e17a5e6b2a105894e6824b92096378bb3668ef02376"},
 ]
 uritemplate = [
     {file = "uritemplate-4.1.1-py2.py3-none-any.whl", hash = "sha256:830c08b8d99bdd312ea4ead05994a38e8936266f84b9a7878232db50b044e02e"},
