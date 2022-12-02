@@ -292,7 +292,7 @@ stone = ">=2"
 
 [[package]]
 name = "duplicity"
-version = "1.2.0"
+version = "1.2.1"
 description = "Encrypted backup using rsync algorithm"
 category = "main"
 optional = true
@@ -1523,7 +1523,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "587c19c004905f1efd74a9c04b9401a56535b5e39ccd626e1491c2271d03a17b"
+content-hash = "67bbdc3eb431f31edc81cd2450fa5410b4a22102a7676f7f93f6553b2fdc5d41"
 
 [metadata.files]
 argparse = [
@@ -1716,7 +1716,7 @@ dropbox = [
     {file = "dropbox-11.36.0.tar.gz", hash = "sha256:830ce522d8bc3905b4a99b67dc009aa9542550d1de9fa1743c1927de70888b47"},
 ]
 duplicity = [
-    {file = "duplicity-1.2.0.tar.gz", hash = "sha256:e020c162ad6e8833ea4cae76176f0f10dfcc1fc64b81cb069f780380ccadccb4"},
+    {file = "duplicity-1.2.1.tar.gz", hash = "sha256:15d768fb0ab86a30d734011e6e6371b3c6752e13ab239057c22d291324932099"},
 ]
 exceptiongroup = [
     {file = "exceptiongroup-1.0.0rc9-py3-none-any.whl", hash = "sha256:2e3c3fc1538a094aab74fad52d6c33fc94de3dfee3ee01f187c0e0c72aec5337"},
