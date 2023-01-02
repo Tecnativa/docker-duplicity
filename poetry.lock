@@ -904,7 +904,7 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "plumbum"
-version = "1.8.0"
+version = "1.8.1"
 description = "Plumbum: shell combinators library"
 category = "dev"
 optional = false
@@ -915,7 +915,7 @@ pywin32 = {version = "*", markers = "platform_system == \"Windows\" and platform
 
 [package.extras]
 dev = ["paramiko", "psutil", "pytest (>=6.0)", "pytest-cov", "pytest-mock", "pytest-timeout"]
-docs = ["Sphinx (>=4.0.0)", "sphinx-rtd-theme (>=1.0.0)"]
+docs = ["sphinx (>=4.0.0)", "sphinx-rtd-theme (>=1.0.0)"]
 ssh = ["paramiko"]
 
 [[package]]
@@ -1523,7 +1523,7 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "2c1aba777ff916c1b84bc60b8e66cca3424f4866ac99720ae5ebb422e4c95314"
+content-hash = "25409d104bf6077c591f754ce6ed7f697e695afd4ebd7f7291f9c85c4337bae1"
 
 [metadata.files]
 argparse = [
@@ -1996,8 +1996,8 @@ pluggy = [
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
 ]
 plumbum = [
-    {file = "plumbum-1.8.0-py3-none-any.whl", hash = "sha256:0f6b59c8a03bfcdddd1efc04a126062663348e892ce7ddef49ec60e47b9e2c09"},
-    {file = "plumbum-1.8.0.tar.gz", hash = "sha256:f1da1f167a2afe731a85de3f56810f424926c0a1a8fd1999ceb2ef20b618246d"},
+    {file = "plumbum-1.8.1-py3-none-any.whl", hash = "sha256:07cf5f50bf739e91fb83ce304fc66b41dbd12db4d4546ff5266087dd9d148314"},
+    {file = "plumbum-1.8.1.tar.gz", hash = "sha256:88a40fc69247d0cd585e21ca169b3820f46c484535102e16455d2202727bb37b"},
 ]
 ply = [
     {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
