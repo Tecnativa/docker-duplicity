@@ -23,10 +23,10 @@ ENV CRONTAB_15MIN='*/15 * * * *' \
     OPTIONS='' \
     OPTIONS_EXTRA='--metadata-sync-mode partial' \
     SMTP_HOST='smtp' \
-    SMTP_PASS='' \
     SMTP_PORT='25' \
-    SMTP_TLS='' \
     SMTP_USER='' \
+    SMTP_PASS='' \
+    SMTP_TLS='' \
     SMTP_REPORT_SUCCESS='1' \
     SRC='/mnt/backup/src'
 
