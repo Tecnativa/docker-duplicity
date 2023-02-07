@@ -30,6 +30,7 @@
   - [`SMTP_USER`](#smtp_user)
   - [`SMTP_PASS`](#smtp_pass)
   - [`SMTP_TLS`](#smtp_tls)
+  - [`SMTP_REPORT_SUCCESS`](#smtp_report_success)
   - [`SRC`](#src)
   - [`TZ`](#tz)
 - [Set a custom hostname!](#set-a-custom-hostname)
@@ -222,6 +223,11 @@ If your mail server requires authentication, specify the password for the SMTP_U
 
 Force the email client to connect to the server using SLL/TLS. Note that the client will
 utilize STARTTLS, regardless of this variable, if the server offers STARTTLS.
+
+### `SMTP_REPORT_SUCCESS`
+
+If enabled, report via SMTP regardless of exit status (this is the default behaviour).
+Otherwise, only report if one or more jobs failed.
 
 ### `SRC`
 
