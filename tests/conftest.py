@@ -12,7 +12,8 @@ _logger = logging.getLogger(__name__)
 
 
 def pytest_configure():
-    pytest.MIN_PG = 13.0
+    pytest.MIN_PG = "10"
+    pytest.MAX_PG = "15"
 
 
 def pytest_addoption(parser):
@@ -34,7 +35,6 @@ def pytest_addoption(parser):
 def image(request):
     """Get image name. Builds it if needed."""
     image_name = request.config.getoption("--image")
-    images = []
     if request.config.getoption("--prebuild"):
         for tag in [
             "docker-s3",
@@ -46,7 +46,6 @@ def image(request):
             "base",
         ]:
             image_full_name = f"{image_name}-{tag}"
-            images.append(image_full_name)
             build = docker[
                 "image",
                 "build",
@@ -76,17 +75,17 @@ def container_factory(image):
     """A context manager that starts the docker container."""
 
     @contextmanager
-    def _container(tag_name):
+    def _container(tag_name, dbver=None):
         container_id = None
         image_name = f"{image}-{tag_name}"
         _logger.info(f"Starting {image_name} container")
         try:
-            container_id = docker(
-                "container",
-                "run",
-                "--detach",
-                image_name,
-            ).strip()
+            docker_cmd = ["container", "run", "--detach"]
+            if dbver:
+                docker_cmd.append(f"--env=DB_VERSION={dbver}")
+            docker_cmd.append(image_name)
+            container_id = docker(*docker_cmd).strip()
+            sleep(15)  # Wait for the service
             with local.env():
                 yield container_id
         finally:
@@ -103,26 +102,33 @@ def container_factory(image):
 
 
 @pytest.fixture
-def postgres_container():
+def postgres_factory():
     """Give a running postgres container ID."""
-    container_id = docker(
-        "container",
-        "run",
-        "--detach",
-        "--env=POSTGRES_USER=postgres",
-        "--env=POSTGRES_PASSWORD=password",
-        f"postgres:{pytest.MIN_PG}-alpine",
-    ).strip()
-    container_info = json.loads(docker("container", "inspect", container_id))[0]
-    for attempt in range(10):
-        _logger.debug("Attempt %d of waiting for postgres to start.", attempt)
-        try:
-            docker("container", "exec", "--user=postgres", container_id, "psql", "-l")
-            break
-        except ProcessExecutionError:
-            sleep(3)
-            if attempt == 9:
-                raise
-    yield container_info
-    _logger.info(f"Removing {container_id}...")
-    docker("container", "rm", "-f", container_id)
+
+    @contextmanager
+    def _container_info(dbver):
+        container_id = docker(
+            "container",
+            "run",
+            "--detach",
+            "--env=POSTGRES_USER=postgres",
+            "--env=POSTGRES_PASSWORD=password",
+            f"postgres:{dbver or pytest.MIN_PG}-alpine",
+        ).strip()
+        container_info = json.loads(docker("container", "inspect", container_id))[0]
+        for attempt in range(10):
+            _logger.debug("Attempt %d of waiting for postgres to start.", attempt)
+            try:
+                docker(
+                    "container", "exec", "--user=postgres", container_id, "psql", "-l"
+                )
+                break
+            except ProcessExecutionError:
+                sleep(3)
+                if attempt == 9:
+                    raise
+        yield container_info
+        _logger.info(f"Removing {container_id}...")
+        docker("container", "rm", "-f", container_id)
+
+    return _container_info

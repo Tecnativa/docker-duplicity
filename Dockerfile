@@ -100,12 +100,33 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
 
 FROM base AS postgres
 
-RUN apk add --no-cache postgresql-client \
-	&& psql --version \
-    && pg_dump --version
+ENV DB_VERSION="latest" \
+    APK_POSTGRES_DIR="/opt/postgresql-client-collection"
 
-# Install full version of grep to support more options
-RUN apk add --no-cache grep
+RUN apk add --no-cache grep libpq postgresql-common
+
+# To get support for psql 9.6 need create the folder for 9.6, use alpine 3.6 and use these lines:
+# echo "http://dl-cdn.alpinelinux.org/alpine/v3.6/main" > psql_repos
+# apk fetch --no-cache --repositories-file psql_repos postgresql-client postgresql-dev -o "$APK_POSTGRES_DIR/9.6"
+RUN set -eux; \
+    mkdir -p \
+        "$APK_POSTGRES_DIR/10" \
+        "$APK_POSTGRES_DIR/11" \
+        "$APK_POSTGRES_DIR/12" \
+        "$APK_POSTGRES_DIR/13" \
+        "$APK_POSTGRES_DIR/14" \
+        "$APK_POSTGRES_DIR/15" \
+        "$APK_POSTGRES_DIR/latest"; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.8/main" > psql_repos; \
+    apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/10"; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.10/main" > psql_repos; \
+    apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/11"; \
+    apk fetch --no-cache postgresql12-client -o "$APK_POSTGRES_DIR/12"; \
+    apk fetch --no-cache postgresql13-client -o "$APK_POSTGRES_DIR/13"; \
+    apk fetch --no-cache postgresql14-client -o "$APK_POSTGRES_DIR/14"; \
+    apk fetch --no-cache postgresql15-client -o "$APK_POSTGRES_DIR/15"; \
+    apk fetch --no-cache postgresql-client -o "$APK_POSTGRES_DIR/latest"; \
+    rm psql_repos;
 
 ENV JOB_200_WHAT set -euo pipefail; psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | grep --null-data -E \"\$DBS_TO_INCLUDE\" | grep --null-data --invert-match -E \"\$DBS_TO_EXCLUDE\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
 ENV JOB_200_WHEN='daily weekly' \

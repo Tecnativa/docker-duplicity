@@ -10,10 +10,7 @@ _logger = logging.getLogger(__name__)
 def test_containers_start(container_factory):
     for tag in [
         "docker-s3",
-        "postgres-s3",
-        "postgres-multi",
         "docker",
-        "postgres",
         "s3",
         "base",
     ]:
@@ -24,6 +21,18 @@ def test_containers_start(container_factory):
                 "dup",
                 "--version",
             )
+
+
+@pytest.mark.parametrize("dbver", (None, pytest.MIN_PG, pytest.MAX_PG))
+@pytest.mark.parametrize("tag", ("postgres-multi", "postgres-s3", "postgres"))
+def test_containers_postgres_start(container_factory, dbver, tag):
+    with container_factory(tag, dbver) as test_container:
+        docker(
+            "exec",
+            test_container,
+            "dup",
+            "--version",
+        )
 
 
 def test_docker_bin(container_factory):
@@ -37,21 +46,23 @@ def test_docker_bin(container_factory):
             )
 
 
-def test_postgres_bin(container_factory):
-    for tag in ["postgres-multi", "postgres-s3", "postgres"]:
-        with container_factory(tag) as test_container:
-            for app in ("psql", "pg_dump"):
-                binary_name, product, version = docker(
-                    "exec",
-                    test_container,
-                    app,
-                    "--version",
-                ).split()
-                assert binary_name == app
-                assert product == "(PostgreSQL)"
-                assert float(version) >= pytest.MIN_PG
+@pytest.mark.parametrize("dbver", (pytest.MIN_PG, pytest.MAX_PG))
+@pytest.mark.parametrize("tag", ("postgres-multi", "postgres-s3", "postgres"))
+def test_postgres_bin(container_factory, dbver, tag):
+    with container_factory(tag, dbver) as test_container:
+        for app in ("psql", "pg_dump"):
+            binary_name, product, version = docker(
+                "exec",
+                test_container,
+                app,
+                "--version",
+            ).split()
+            assert binary_name == app
+            assert product == "(PostgreSQL)"
+            assert version.split(".")[0] == dbver.split(".")[0]
 
 
+@pytest.mark.parametrize("dbver", (None, pytest.MIN_PG, pytest.MAX_PG))
 @pytest.mark.parametrize("tag", ("postgres-multi", "postgres-s3", "postgres"))
 @pytest.mark.parametrize(
     "dbs_to_include, dbs_to_exclude, dbs_matched",
@@ -63,15 +74,18 @@ def test_postgres_bin(container_factory):
 )
 def test_postgres_db_filters(
     container_factory,
+    postgres_factory,
+    dbver: str,
     tag: str,
-    postgres_container,
     dbs_to_include: str,
     dbs_to_exclude: str,
     dbs_matched: list,
 ):
     # Create some DBs to test
     existing_dbs = ["prod1", "prod2", "demo1", "demo2"]
-    with container_factory(tag) as duplicity_container:
+    with container_factory(tag, dbver) as duplicity_container, postgres_factory(
+        dbver
+    ) as postgres_container:
         # Build docker exec command
         exc = docker[
             "exec",
@@ -102,6 +116,7 @@ def test_postgres_db_filters(
         assert backed == dbs_matched
 
 
+@pytest.mark.parametrize("dbver", (None, pytest.MIN_PG, pytest.MAX_PG))
 @pytest.mark.parametrize("tag", ("postgres-multi", "postgres-s3", "postgres"))
 @pytest.mark.parametrize(
     "dbs_matched",
@@ -109,11 +124,14 @@ def test_postgres_db_filters(
 )
 def test_postgres_restore(
     container_factory,
+    postgres_factory,
+    dbver: str,
     tag: str,
-    postgres_container,
     dbs_matched: list,
 ):
-    with container_factory(tag) as duplicity_container:
+    with container_factory(tag, dbver) as duplicity_container, postgres_factory(
+        dbver
+    ) as postgres_container:
         # Build docker exec command
         exc = docker[
             "exec",
@@ -140,6 +158,7 @@ def test_postgres_restore(
         assert backed == dbs_matched
 
 
+@pytest.mark.parametrize("dbver", (None, pytest.MIN_PG, pytest.MAX_PG))
 @pytest.mark.parametrize(
     "dbs_to_include, dbs_to_exclude, dbs_matched, dests",
     (
@@ -164,7 +183,8 @@ def test_postgres_restore(
 )
 def test_postgres_multi(
     container_factory,
-    postgres_container,
+    postgres_factory,
+    dbver: str,
     dbs_to_include: str,
     dbs_to_exclude: str,
     dbs_matched: list,
@@ -172,7 +192,9 @@ def test_postgres_multi(
 ):
     # Create some DBs to test
     existing_dbs = ["prod1", "prod2", "demo1", "demo2"]
-    with container_factory("postgres-multi") as duplicity_container:
+    with container_factory(
+        "postgres-multi", dbver
+    ) as duplicity_container, postgres_factory(dbver) as postgres_container:
         # Build docker exec command
         exc = docker[
             "exec",
@@ -204,6 +226,7 @@ def test_postgres_multi(
             assert backed == dbs_matched
 
 
+@pytest.mark.parametrize("dbver", (None, pytest.MIN_PG, pytest.MAX_PG))
 @pytest.mark.parametrize(
     "dbs_matched, dests",
     (
@@ -215,11 +238,14 @@ def test_postgres_multi(
 )
 def test_postgres_multi_restore(
     container_factory,
-    postgres_container,
+    postgres_factory,
+    dbver: str,
     dbs_matched: list,
     dests: list,
 ):
-    with container_factory("postgres-multi") as duplicity_container:
+    with container_factory(
+        "postgres-multi", dbver
+    ) as duplicity_container, postgres_factory(dbver) as postgres_container:
         # Build docker exec command
         exc = docker[
             "exec",
