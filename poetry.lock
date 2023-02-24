@@ -1687,14 +1687,14 @@ six = ">=1.5"
 
 [[package]]
 name = "python-keystoneclient"
-version = "5.0.1"
+version = "5.1.0"
 description = "Client Library for OpenStack Identity"
 category = "main"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "python-keystoneclient-5.0.1.tar.gz", hash = "sha256:a8bbf671f56c24aa5a37a225b98f2994b82063d73e3486657eb500a33a406d29"},
-    {file = "python_keystoneclient-5.0.1-py3-none-any.whl", hash = "sha256:628d52a9676be1f9a00fd987b7b2b72fe66ddae853351606d7e85d8701d5fdc2"},
+    {file = "python-keystoneclient-5.1.0.tar.gz", hash = "sha256:ba09bdfeafa2a2196450a327cd3f46f2a8a9dd9d21b838f8cb9b17a99740c6a1"},
+    {file = "python_keystoneclient-5.1.0-py3-none-any.whl", hash = "sha256:9c2e0b1700f553ca625e987f4cd8ef62d7a27ad88c5104e96e16904d2ae1d918"},
 ]
 
 [package.dependencies]
@@ -2129,4 +2129,4 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "7f1064949323029a72b8f51ce846290f49b33b1b50f5674849cd892adc34d50a"
+content-hash = "4fc99e341774eb461b45e9ea3ed29886d1f4d9f5d7a4fdf6fa7dc6aafe3d80b8"
