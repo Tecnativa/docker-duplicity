@@ -9,5 +9,15 @@ $CRONTAB_WEEKLY run-parts /etc/periodic/weekly
 $CRONTAB_MONTHLY run-parts /etc/periodic/monthly
 END
 
+# Install selected postgres-client if needed
+if [ -n "$PGHOST" ]; then
+    ORIG_PWD=$(pwd)
+    cd "$APK_POSTGRES_DIR/$DB_VERSION"
+    apk add *.apk
+    cd $ORIG_PWD
+    # Smoke test
+    psql --version && pg_dump --version
+fi
+
 # Continue work
 exec "$@"
