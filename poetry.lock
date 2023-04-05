@@ -1712,14 +1712,14 @@ stevedore = ">=1.20.0"
 
 [[package]]
 name = "python-swiftclient"
-version = "4.2.0"
+version = "4.3.0"
 description = "OpenStack Object Storage API Client Library"
 category = "main"
 optional = true
 python-versions = ">=3.6"
 files = [
-    {file = "python-swiftclient-4.2.0.tar.gz", hash = "sha256:a3f627ce9fb54b57d30fdb41dc305bd5e60533eeb69ae79e496ad4ec5e848c85"},
-    {file = "python_swiftclient-4.2.0-py3-none-any.whl", hash = "sha256:8477fcafb337cc587f35a1e8f15d9e06746b932d1d024ca321e8c5e7763e3421"},
+    {file = "python-swiftclient-4.3.0.tar.gz", hash = "sha256:1e3ddf998ccbea7dc25aa6df8eb3df7d38bf4bc96b065f2f84431e8259817b33"},
+    {file = "python_swiftclient-4.3.0-py3-none-any.whl", hash = "sha256:f88ff0d7d038a84872ac415a00df007d2a9078b73d8c5921fdc531e893378a89"},
 ]
 
 [package.dependencies]
@@ -2129,4 +2129,4 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "07396be6092c43cf4483562175019299de12f00520c42ebb7e5a65e0ce14b4c1"
+content-hash = "0b074e1e60b6b9944c02550415da5dc3133ec32f8c8a3d8770e2a708795d1f35"
