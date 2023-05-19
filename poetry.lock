@@ -1631,14 +1631,14 @@ testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "no
 
 [[package]]
 name = "pytest-xdist"
-version = "3.3.0"
+version = "3.3.1"
 description = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pytest-xdist-3.3.0.tar.gz", hash = "sha256:d42c9efb388da35480878ef4b2993704c6cea800c8bafbe85a8cdc461baf0748"},
-    {file = "pytest_xdist-3.3.0-py3-none-any.whl", hash = "sha256:76f7683d4f993eaff91c9cb0882de0465c4af9c6dd3debc903833484041edc1a"},
+    {file = "pytest-xdist-3.3.1.tar.gz", hash = "sha256:d5ee0520eb1b7bcca50a60a518ab7a7707992812c578198f8b44fdfac78e8c93"},
+    {file = "pytest_xdist-3.3.1-py3-none-any.whl", hash = "sha256:ff9daa7793569e6a68544850fd3927cd257cc03a7ef76c95e86915355e82b5f2"},
 ]
 
 [package.dependencies]
@@ -2109,4 +2109,4 @@ duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "be5b8e2bb5a29c7dd57f8eee6273643ce2e0f13417be867b38672d8fc4d572bf"
+content-hash = "b9365c8f155d07f3032a9bebc6e87aa2d0163e5b2dc19eaab4db46fc4dda51a6"
