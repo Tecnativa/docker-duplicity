@@ -27,7 +27,7 @@ idna = {version = "3.4", optional = true}
 pytest = "^7.3.1"
 black = "^23.3"
 flake8 = "^5.0.4"
-plumbum = "^1.8.1"
+plumbum = "^1.8.2"
 pytest-xdist = "^3.3.1"
 
 [tool.poetry.extras]
