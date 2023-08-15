@@ -526,17 +526,16 @@ stone = ">=2"
 
 [[package]]
 name = "duplicity"
-version = "1.2.3"
+version = "2.0.2"
 description = "Encrypted backup using rsync algorithm"
 optional = true
-python-versions = ">2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
+python-versions = ">=3.8, <4"
 files = [
-    {file = "duplicity-1.2.3.tar.gz", hash = "sha256:fcbcdea289128d9d0988ed66fa2408196ce940e8029ca5036254bfd2e3f4a568"},
+    {file = "duplicity-2.0.2.tar.gz", hash = "sha256:0d8f92d6d7fb655f5b4ba067fdc2bdd3f067721f8994a7d1a2b4ba76230e49b9"},
 ]
 
 [package.dependencies]
 fasteners = "*"
-future = "*"
 
 [[package]]
 name = "exceptiongroup"
@@ -592,16 +591,6 @@ files = [
 mccabe = ">=0.7.0,<0.8.0"
 pycodestyle = ">=2.9.0,<2.10.0"
 pyflakes = ">=2.5.0,<2.6.0"
-
-[[package]]
-name = "future"
-version = "0.18.3"
-description = "Clean single-source support for Python 3 and 2"
-optional = true
-python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
-files = [
-    {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
-]
 
 [[package]]
 name = "gdata"
@@ -2005,4 +1994,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "15ed09ce4d2d54d8ac13ff11a417a1baa7a9ae3ed803ca2da9bba4ca3e85f0c5"
+content-hash = "74b82dbb24f1348713cf6cc262f614c9d50d05dc0b8ad0abbf855a22dbb4e0ef"
