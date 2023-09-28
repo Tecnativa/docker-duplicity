@@ -109,7 +109,7 @@ jobs:
           fi
       - name: Docker meta for local images
         id: docker_meta_local
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: localhost:5000/${{ steps.image_name_compute.outputs.image_name }}
           tags: |
@@ -145,7 +145,7 @@ jobs:
       - name: Docker meta for public images
         if: ${{ fromJSON(env.PUSH) }}
         id: docker_meta_public
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             ghcr.io/${{ steps.image_name_compute.outputs.image_name }}
