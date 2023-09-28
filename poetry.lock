@@ -219,7 +219,7 @@ files = [
 name = "cffi"
 version = "1.15.1"
 description = "Foreign Function Interface for Python calling C code."
-optional = false
+optional = true
 python-versions = "*"
 files = [
     {file = "cffi-1.15.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:a66d3508133af6e8548451b25058d5812812ec3798c886bf38ed24a98216fab2"},
@@ -441,7 +441,7 @@ files = [
 name = "cryptography"
 version = "41.0.4"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
-optional = false
+optional = true
 python-versions = ">=3.7"
 files = [
     {file = "cryptography-41.0.4-cp37-abi3-macosx_10_12_universal2.whl", hash = "sha256:80907d3faa55dc5434a16579952ac6da800935cd98d14dbd62f6f042c7f5e839"},
@@ -1413,7 +1413,7 @@ files = [
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
@@ -1584,13 +1584,13 @@ six = ">=1.5"
 
 [[package]]
 name = "python-keystoneclient"
-version = "5.1.0"
+version = "5.2.0"
 description = "Client Library for OpenStack Identity"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "python-keystoneclient-5.1.0.tar.gz", hash = "sha256:ba09bdfeafa2a2196450a327cd3f46f2a8a9dd9d21b838f8cb9b17a99740c6a1"},
-    {file = "python_keystoneclient-5.1.0-py3-none-any.whl", hash = "sha256:9c2e0b1700f553ca625e987f4cd8ef62d7a27ad88c5104e96e16904d2ae1d918"},
+    {file = "python-keystoneclient-5.2.0.tar.gz", hash = "sha256:72a42c3869e2128bb0c626ac856c3dbf3e38ef16d7e85dd35567b82cd24539a9"},
+    {file = "python_keystoneclient-5.2.0-py3-none-any.whl", hash = "sha256:03293c2f5b96d32cfe04ab0d2d109c484dcd0f4d071a42543387efd129e9248e"},
 ]
 
 [package.dependencies]
@@ -2015,4 +2015,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "371a0aa5b9b90e3083cf9c212960f82bbdb5ec527852bce68582e4032c242253"
+content-hash = "d829ea0e48705c1c1044447025916c99744fb1433c6b065b2908dca07d83a0c5"
