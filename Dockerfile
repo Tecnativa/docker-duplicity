@@ -1,4 +1,4 @@
-FROM python:3.11-slim AS builder
+FROM python:3.10-slim AS builder
 
 WORKDIR /app
 ADD pyproject.toml poetry.lock ./
@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir poetry
 # Test comment
 RUN poetry export --extras duplicity --output /app/requirements.txt
 
-FROM python:3.11-alpine AS base
+FROM python:3.10-alpine AS base
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_HOURLY='0 * * * *' \
@@ -86,7 +86,7 @@ RUN chmod a+rx /usr/local/bin/* && sync
 FROM base AS s3
 ENV JOB_500_WHAT='dup full $SRC $DST' \
     JOB_500_WHEN='weekly' \
-    OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
+    OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-multipart-chunk-size 10'
 
 
 FROM base AS docker
@@ -96,7 +96,7 @@ RUN apk add --no-cache docker-cli
 FROM docker AS docker-s3
 ENV JOB_500_WHAT='dup full $SRC $DST' \
     JOB_500_WHEN='weekly' \
-    OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
+    OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-multipart-chunk-size 10'
 
 
 FROM base AS postgres
@@ -139,10 +139,10 @@ ENV JOB_200_WHEN='daily weekly' \
 FROM postgres AS postgres-s3
 ENV JOB_500_WHAT='dup full $SRC $DST' \
     JOB_500_WHEN='weekly' \
-    OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
+    OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)- --s3-multipart-chunk-size 10'
 
 
 FROM postgres-s3 AS postgres-multi
 ENV DST='multi' \
     OPTIONS_EXTRA='--metadata-sync-mode partial --full-if-older-than 1W --file-prefix-archive archive-$(hostname -f)- --file-prefix-manifest manifest-$(hostname -f)- --file-prefix-signature signature-$(hostname -f)-' \
-    OPTIONS_EXTRA_S3='--s3-european-buckets --s3-multipart-chunk-size 10 --s3-use-new-style'
+    OPTIONS_EXTRA_S3='--s3-multipart-chunk-size 10'
