@@ -1438,13 +1438,13 @@ PyYAML = ">=3.0"
 
 [[package]]
 name = "pydrive2"
-version = "1.16.1"
+version = "1.17.0"
 description = "Google Drive API made easy. Maintained fork of PyDrive."
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "PyDrive2-1.16.1-py3-none-any.whl", hash = "sha256:d9e22039023c1b4b3bf290038e57f8d10dbe22aabd01f62e9a804c9e17bfb7da"},
-    {file = "PyDrive2-1.16.1.tar.gz", hash = "sha256:7210535e8372896a44702c4240aa29d4610b0325b25f94cdd07d4fec0fd27053"},
+    {file = "PyDrive2-1.17.0-py3-none-any.whl", hash = "sha256:21a59d6cd0cde5eca44210ea1052dcae78b1f3a38e98f46f95eb3ec22bbf2647"},
+    {file = "PyDrive2-1.17.0.tar.gz", hash = "sha256:68fea934347bb612b7a848811d48149db840bcfb5fa4d7a8b6161b2d2adfec70"},
 ]
 
 [package.dependencies]
@@ -1455,7 +1455,7 @@ PyYAML = ">=3.0"
 
 [package.extras]
 fsspec = ["appdirs (>=1.4.3)", "fsspec (>=2021.07.0)", "funcy (>=1.14)", "tqdm (>=4.0.0)"]
-tests = ["black (==23.3.0)", "flake8", "flake8-docstrings", "funcy (>=1.14)", "importlib-resources", "pyinstaller", "pytest (>=4.6.0)", "pytest-mock", "timeout-decorator"]
+tests = ["black (==23.3.0)", "flake8", "flake8-docstrings", "funcy (>=1.14)", "importlib-resources (<6)", "pyinstaller", "pytest (>=4.6.0)", "pytest-mock", "timeout-decorator"]
 
 [[package]]
 name = "pyflakes"
@@ -2015,4 +2015,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "061b4128b7ba9e1068cea506162153be0208707c282d826f3841fab46f50bd91"
+content-hash = "c73f08ac11a8aeb05bd92564c11c062abe48cc1b95152a1607540617a7c70411"
