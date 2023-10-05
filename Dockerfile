@@ -1,13 +1,14 @@
-FROM python:3-slim AS builder
+FROM python:3.11-slim AS builder
 
 WORKDIR /app
 ADD pyproject.toml poetry.lock ./
 RUN pip install --no-cache-dir poetry
 
 # Build a requirements.txt file matching poetry.lock, that pip understands
+# Test comment
 RUN poetry export --extras duplicity --output /app/requirements.txt
 
-FROM python:3-alpine AS base
+FROM python:3.11-alpine AS base
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_HOURLY='0 * * * *' \
