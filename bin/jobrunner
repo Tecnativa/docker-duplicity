@@ -22,7 +22,6 @@ logging.root.name = "jobrunner"
 # Get expected periodicity from this script's placement
 periodicity = path.basename(path.dirname(path.abspath(__file__)))
 logging.info("%s UTC - Running %s jobs", datetime.utcnow(), periodicity)
-
 # Get email settings
 smtp_host = environ.get("SMTP_HOST")
 smtp_port = environ.get("SMTP_PORT")
