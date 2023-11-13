@@ -14,6 +14,9 @@ from os import environ, path
 from socket import getfqdn
 from string import Template
 from subprocess import STDOUT, CalledProcessError, check_output
+from uuid import uuid4
+
+import requests
 
 logging.basicConfig(level=logging.INFO)
 logging.root.name = "jobrunner"
@@ -32,6 +35,7 @@ smtp_report_success = environ.get("SMTP_REPORT_SUCCESS").lower() in {"1", "true"
 from_ = environ.get("EMAIL_FROM")
 to = environ.get("EMAIL_TO")
 subject = environ.get("EMAIL_SUBJECT")
+healthchecks_request_timeout = 5
 
 # Get the commands we need to run
 to_run = {}
@@ -53,6 +57,26 @@ for njob, command in sorted(to_run.items()):
     expanded_command = Template(command).safe_substitute(environ)
     start = datetime.now()
     logging.info("Running job %d: `%s`", njob, expanded_command)
+    healthchecks_url_env = environ.get(
+        f"JOB_{njob}_{periodicity.upper()}_HEALTHCHECKS_URL"
+    ) or environ.get(f"JOB_{njob}_HEALTHCHECKS_URL")
+    if healthchecks_url_env is not None:
+        healthchecks_rid = str(uuid4())
+        message += [f"Pinging {healthchecks_url_env}/start"]
+        logging.info(message[-1])
+        try:
+            requests.get(
+                f"{healthchecks_url_env}/start",
+                params={"rid": healthchecks_rid},
+                timeout=healthchecks_request_timeout,
+            )
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ):
+            message += ["Failed to send healtchecks start request"]
+            logging.exception(message[-1])
+
     try:
         result = check_output(expanded_command, stderr=STDOUT, shell=True, text=True)
         success = True
@@ -75,6 +99,53 @@ for njob, command in sorted(to_run.items()):
     logging.log(logging.INFO if success else logging.ERROR, "\n".join(log))
     message += log
 
+    if healthchecks_url_env is not None:
+        request_url = (
+            f"{healthchecks_url_env}/fail" if failed else f"{healthchecks_url_env}"
+        )
+        message += [f"Pinging {request_url}"]
+        logging.info(message[-1])
+        try:
+            requests.get(
+                request_url,
+                params={"rid": healthchecks_rid},
+                timeout=healthchecks_request_timeout,
+            )
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ):
+            message += ["Failed to send healthchecks finished request"]
+            logging.exception(message[-1])
+
+    uptime_kuma_url_env = environ.get(
+        f"JOB_{njob}_{periodicity.upper()}_UPTIME_KUMA_URL"
+    ) or environ.get(f"JOB_{njob}_UPTIME_KUMA_URL")
+    if uptime_kuma_url_env is not None:
+        # Remove any query params in the URL, since the uptime-kuma interface includes them by default
+        if "?" in uptime_kuma_url_env:
+            uptime_kuma_url_env = uptime_kuma_url_env[: uptime_kuma_url_env.find("?")]
+
+        if failed:
+            status = "down"
+            msg = result
+        else:
+            status = "up"
+            msg = "ok"
+        try:
+            message += [f"Pinging {uptime_kuma_url_env}"]
+            logging.info(message[-1])
+            requests.get(
+                f"{uptime_kuma_url_env}",
+                params={"status": status, "msg": msg},
+                timeout=healthchecks_request_timeout,
+            )
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ):
+            message += ["Failed to send uptime kuma ping request"]
+            logging.exception(message[-1])
 
 # Report results
 if all((smtp_report_success or failed, smtp_host, smtp_port, from_, to, subject)):

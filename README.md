@@ -23,6 +23,8 @@
   - [`EMAIL_TO`](#email_to)
   - [`JOB_*_WHAT`](#job__what)
   - [`JOB_*_WHEN`](#job__when)
+  - [`JOB_*_HEALTHCHECKS_URL`](#job__healthchecks_url)
+  - [`JOB_*_UPTIME_KUMA_URL`](#job__uptime_kuma_url)
   - [`OPTIONS`](#options)
   - [`OPTIONS_EXTRA`](#options_extra)
   - [`SMTP_HOST`](#smtp_host)
@@ -193,6 +195,24 @@ several values, you can separate them with spaces (example: `daily monthly`).
 
 [Prebuilt flavors][flavors] provide built-in jobs. You can disable those jobs by setting
 corresponding `JOB_*_WHEN` to value `never`.
+
+### `JOB_*_HEALTHCHECKS_URL`
+
+[healthchecks](https://healthchecks.io/) URL to ping on job success or failure. Supports
+"start", "success", and "failure" pings. For a job that runs with multiple
+periodicities, the periodicity can be added to the env var (e.g.
+`JOB_200_DAILY_HEALTHCHECKS_URL` or `JOB_200_WEEKLY_HEALTHCHECKS_URL`) to specify
+different URLs for each run. Periodicity-specific env vars take precedence over the
+general one.
+
+### `JOB_*_UPTIME_KUMA_URL`
+
+[uptime-kuma](https://github.com/louislam/uptime-kuma) push monitor URL to ping on job
+success or failure. Supports "up" and "down" pings. Do not include any query parameters
+in the URL. For a job that runs with multiple periodicities, the periodicity can be
+added to the env var (e.g. `JOB_200_DAILY_UPTIME_KUMA_URL` or
+`JOB_200_WEEKLY_UPTIME_KUMA_URL`) to specify different URLs for each run.
+Periodicity-specific env vars take precedence over the general one.
 
 ### `OPTIONS`
 
