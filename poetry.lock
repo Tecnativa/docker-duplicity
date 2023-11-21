@@ -1564,13 +1564,13 @@ testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "no
 
 [[package]]
 name = "pytest-xdist"
-version = "3.4.0"
+version = "3.5.0"
 description = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pytest-xdist-3.4.0.tar.gz", hash = "sha256:3a94a931dd9e268e0b871a877d09fe2efb6175c2c23d60d56a6001359002b832"},
-    {file = "pytest_xdist-3.4.0-py3-none-any.whl", hash = "sha256:e513118bf787677a427e025606f55e95937565e06dfaac8d87f55301e57ae607"},
+    {file = "pytest-xdist-3.5.0.tar.gz", hash = "sha256:cbb36f3d67e0c478baa57fa4edc8843887e0f6cfc42d677530a36d7472b32d8a"},
+    {file = "pytest_xdist-3.5.0-py3-none-any.whl", hash = "sha256:d075629c7e00b611df89f490a5063944bee7a4362a5ff11c7cc7824a03dfce24"},
 ]
 
 [package.dependencies]
@@ -2039,4 +2039,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "8e42adebda654d9335fa1280407eb6da9f8c23487189c37d9405d8ae32e1f6aa"
+content-hash = "6f0d51e587dd42a8d51dceee79082414b0a3da4bae436788839b847cef36f45c"
