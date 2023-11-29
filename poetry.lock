@@ -153,17 +153,17 @@ files = [
 
 [[package]]
 name = "boto3"
-version = "1.33.2"
+version = "1.33.3"
 description = "The AWS SDK for Python"
 optional = true
 python-versions = ">= 3.7"
 files = [
-    {file = "boto3-1.33.2-py3-none-any.whl", hash = "sha256:fc7c0dd5fa74ae0d57e11747695bdba4ad164e62dee35db15b43762c392fbd92"},
-    {file = "boto3-1.33.2.tar.gz", hash = "sha256:70626598dd6698d6da8f2854a1ae5010f175572e2a465b2aa86685c745c1013c"},
+    {file = "boto3-1.33.3-py3-none-any.whl", hash = "sha256:326b563021ed16470779df3bb372d55054f897bf2d72395bdf92693b3eeb4dd3"},
+    {file = "boto3-1.33.3.tar.gz", hash = "sha256:8edc92b27a500728d55cf5d69d82ccece163491e274a7783c705010e58b1500f"},
 ]
 
 [package.dependencies]
-botocore = ">=1.33.2,<1.34.0"
+botocore = ">=1.33.3,<1.34.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.8.0,<0.9.0"
 
@@ -172,13 +172,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.33.2"
+version = "1.33.3"
 description = "Low-level, data-driven core of boto 3."
 optional = true
 python-versions = ">= 3.7"
 files = [
-    {file = "botocore-1.33.2-py3-none-any.whl", hash = "sha256:5c46b7e8450efbf7ddc2a0016eee7225a5564583122e25a20ca92a29a105225c"},
-    {file = "botocore-1.33.2.tar.gz", hash = "sha256:16a30faac6e6f17961c009defb74ab1a3508b8abc58fab98e7cf96af0d91ea84"},
+    {file = "botocore-1.33.3-py3-none-any.whl", hash = "sha256:4aed37802aaae325a5abab33de2d7e68acf637086876727a164ea38a1cc219f9"},
+    {file = "botocore-1.33.3.tar.gz", hash = "sha256:462528fc8dc1953bc19841fd2ccee1626ec8f5b13d9e451e13452c71de2fe0dc"},
 ]
 
 [package.dependencies]
@@ -218,7 +218,7 @@ files = [
 name = "cffi"
 version = "1.15.1"
 description = "Foreign Function Interface for Python calling C code."
-optional = false
+optional = true
 python-versions = "*"
 files = [
     {file = "cffi-1.15.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:a66d3508133af6e8548451b25058d5812812ec3798c886bf38ed24a98216fab2"},
@@ -440,7 +440,7 @@ files = [
 name = "cryptography"
 version = "41.0.6"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
-optional = false
+optional = true
 python-versions = ">=3.7"
 files = [
     {file = "cryptography-41.0.6-cp37-abi3-macosx_10_12_universal2.whl", hash = "sha256:0f27acb55a4e77b9be8d550d762b0513ef3fc658cd3eb15110ebbcbd626db12c"},
@@ -1427,7 +1427,7 @@ files = [
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
@@ -2039,4 +2039,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "567dab811ac944e705452c397651b298e42dea43a46230c3c4ba0ea89ce9d43b"
+content-hash = "65c31c08671f17919ecb0203d2b8d9f926a7b34e11c4c8fb47e780b9025ccb88"
