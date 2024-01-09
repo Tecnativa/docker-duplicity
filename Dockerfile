@@ -117,6 +117,7 @@ RUN set -eux; \
         "$APK_POSTGRES_DIR/13" \
         "$APK_POSTGRES_DIR/14" \
         "$APK_POSTGRES_DIR/15" \
+        "$APK_POSTGRES_DIR/16" \
         "$APK_POSTGRES_DIR/latest"; \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.8/main" > psql_repos; \
     apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/10"; \
@@ -126,6 +127,7 @@ RUN set -eux; \
     apk fetch --no-cache postgresql13-client -o "$APK_POSTGRES_DIR/13"; \
     apk fetch --no-cache postgresql14-client -o "$APK_POSTGRES_DIR/14"; \
     apk fetch --no-cache postgresql15-client -o "$APK_POSTGRES_DIR/15"; \
+    apk fetch --no-cache postgresql16-client -o "$APK_POSTGRES_DIR/16"; \
     apk fetch --no-cache postgresql-client -o "$APK_POSTGRES_DIR/latest"; \
     rm psql_repos;
 
