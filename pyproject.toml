@@ -27,7 +27,7 @@ lxml = "4.9.3"
 requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.4.3"
+pytest = "^7.4.4"
 black = "^23.12"
 flake8 = "^5.0.4"
 plumbum = "^1.8.2"
