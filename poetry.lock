@@ -1602,13 +1602,13 @@ six = ">=1.5"
 
 [[package]]
 name = "python-keystoneclient"
-version = "5.2.0"
+version = "5.3.0"
 description = "Client Library for OpenStack Identity"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "python-keystoneclient-5.2.0.tar.gz", hash = "sha256:72a42c3869e2128bb0c626ac856c3dbf3e38ef16d7e85dd35567b82cd24539a9"},
-    {file = "python_keystoneclient-5.2.0-py3-none-any.whl", hash = "sha256:03293c2f5b96d32cfe04ab0d2d109c484dcd0f4d071a42543387efd129e9248e"},
+    {file = "python-keystoneclient-5.3.0.tar.gz", hash = "sha256:bc5e7719f4156425dec77d75c3a79918e3d0b519378a16d8d7efa8849e4c2a79"},
+    {file = "python_keystoneclient-5.3.0-py3-none-any.whl", hash = "sha256:c7e867e41499020fcb27c49e88ec07a59c8d9c59a7a339ecc2d9d4807e970ac7"},
 ]
 
 [package.dependencies]
@@ -2043,4 +2043,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "7a2dbf9bb6e9ec8a005963252cd128f60f4b8eb28104366837f8c4ccc0dc2615"
+content-hash = "7ed22bd41003636c59ab40615fc4471ff2b8b3f5053ae8c4545ecd2e2b7f2f8a"
