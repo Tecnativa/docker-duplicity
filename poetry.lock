@@ -1626,13 +1626,13 @@ stevedore = ">=1.20.0"
 
 [[package]]
 name = "python-swiftclient"
-version = "4.3.0"
+version = "4.5.0"
 description = "OpenStack Object Storage API Client Library"
 optional = true
 python-versions = ">=3.6"
 files = [
-    {file = "python-swiftclient-4.3.0.tar.gz", hash = "sha256:1e3ddf998ccbea7dc25aa6df8eb3df7d38bf4bc96b065f2f84431e8259817b33"},
-    {file = "python_swiftclient-4.3.0-py3-none-any.whl", hash = "sha256:f88ff0d7d038a84872ac415a00df007d2a9078b73d8c5921fdc531e893378a89"},
+    {file = "python-swiftclient-4.5.0.tar.gz", hash = "sha256:f2a0887e5a39297abc043251ae3f908914ce1447a2f8d2dca5671618608142bd"},
+    {file = "python_swiftclient-4.5.0-py3-none-any.whl", hash = "sha256:34ed6b19f40f3aa60644872046789b84f5f74ab4238827674774faaf29868ff9"},
 ]
 
 [package.dependencies]
@@ -1640,7 +1640,7 @@ requests = ">=2.4.0"
 
 [package.extras]
 keystone = ["python-keystoneclient (>=0.7.0)"]
-test = ["coverage (>=4.0,!=4.4)", "hacking (>=3.2.0,<3.3.0)", "keystoneauth1 (>=3.4.0)", "openstacksdk (>=0.11.0)", "stestr (>=2.0.0,!=3.0.0)"]
+test = ["coverage (>=4.0,!=4.4)", "hacking (>=3.2.0,<6.2.0)", "keystoneauth1 (>=3.4.0)", "openstacksdk (>=0.11.0)", "python-keystoneclient (>=0.7.0)", "stestr (>=2.0.0,!=3.0.0)"]
 
 [[package]]
 name = "pytz"
@@ -2044,4 +2044,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "9f6bec60629fd3095b49287afb54dbb5079aa1252f82f02e7d7ff6c68cd1179a"
+content-hash = "607ff57bde3289dac4b17b0961bec16b6ee487bab9348c746ad4150fe0cda81a"
