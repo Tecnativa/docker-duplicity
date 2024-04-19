@@ -31,7 +31,7 @@ pytest = "^8.1.1"
 black = "^24.4"
 flake8 = "^5.0.4"
 plumbum = "^1.8.2"
-pytest-xdist = "^3.5.0"
+pytest-xdist = "^3.6.0"
 
 [tool.poetry.extras]
 duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "PyDrive2", "python-swiftclient", "requests-oauthlib", "duplicity", "dropbox", "python-keystoneclient"]
