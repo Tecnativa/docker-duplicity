@@ -23,7 +23,7 @@ dropbox = {version = "^11.36.2", optional = true}
 python-keystoneclient = {version = "^5.4.0", optional = true}
 idna = {version = "3.7", optional = true}
 pyyaml = "6.0.1"
-lxml = "5.2.1"
+lxml = "5.2.2"
 requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
