@@ -1685,13 +1685,13 @@ stevedore = ">=1.20.0"
 
 [[package]]
 name = "python-swiftclient"
-version = "4.5.0"
+version = "4.6.0"
 description = "OpenStack Object Storage API Client Library"
 optional = true
 python-versions = ">=3.6"
 files = [
-    {file = "python-swiftclient-4.5.0.tar.gz", hash = "sha256:f2a0887e5a39297abc043251ae3f908914ce1447a2f8d2dca5671618608142bd"},
-    {file = "python_swiftclient-4.5.0-py3-none-any.whl", hash = "sha256:34ed6b19f40f3aa60644872046789b84f5f74ab4238827674774faaf29868ff9"},
+    {file = "python-swiftclient-4.6.0.tar.gz", hash = "sha256:d4d18540413893fc16ad87791d740f823f763435e8212e68eb53d60da2638233"},
+    {file = "python_swiftclient-4.6.0-py3-none-any.whl", hash = "sha256:f82d89581b861ccda6ee22a9850d143602a6d77423368c55472d956305cf89b0"},
 ]
 
 [package.dependencies]
@@ -2103,4 +2103,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "1de2237a47971d6472d92c99b4d742506eb33dd54bb1354c92b9a98d36af842d"
+content-hash = "3fa311773b33c208169d5fb795d3c844ce92b7d8b508bab6643a204d36005765"
