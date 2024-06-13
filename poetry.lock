@@ -157,17 +157,17 @@ files = [
 
 [[package]]
 name = "boto3"
-version = "1.34.111"
+version = "1.34.126"
 description = "The AWS SDK for Python"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.34.111-py3-none-any.whl", hash = "sha256:d6a8e77db316c6e1d9a25f77c795ed1e0a8bc621f863ce26d04b2225d30f2dce"},
-    {file = "boto3-1.34.111.tar.gz", hash = "sha256:8f18d212b9199dbbd9d596dd5929685b583ac938c60cceeac2e045c0c5d10323"},
+    {file = "boto3-1.34.126-py3-none-any.whl", hash = "sha256:7f676daef674fe74f34ce4063228eccc6e60c811f574720e31f230296c4bf29a"},
+    {file = "boto3-1.34.126.tar.gz", hash = "sha256:7e8418b47dd43954a9088d504541bed8a42b6d06e712d02befba134c1c4d7c6d"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.111,<1.35.0"
+botocore = ">=1.34.126,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -176,13 +176,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.111"
+version = "1.34.126"
 description = "Low-level, data-driven core of boto 3."
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.34.111-py3-none-any.whl", hash = "sha256:e10affb7f372d50da957260adf2753a3f153bf90abe6910e11f09d1e443b5515"},
-    {file = "botocore-1.34.111.tar.gz", hash = "sha256:0e0fb9b605c46393d5c7c69bd516b36058334bdc8f389e680c6efcf0727f25db"},
+    {file = "botocore-1.34.126-py3-none-any.whl", hash = "sha256:7eff883c638fe30e0b036789df32d851e093d12544615a3b90062b42ac85bdbc"},
+    {file = "botocore-1.34.126.tar.gz", hash = "sha256:7a8ccb6a7c02456757a984a3a44331b6f51c94cb8b9b287cd045122fd177a4b0"},
 ]
 
 [package.dependencies]
@@ -194,7 +194,7 @@ urllib3 = [
 ]
 
 [package.extras]
-crt = ["awscrt (==0.20.9)"]
+crt = ["awscrt (==0.20.11)"]
 
 [[package]]
 name = "cachetools"
@@ -2103,4 +2103,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "1de2237a47971d6472d92c99b4d742506eb33dd54bb1354c92b9a98d36af842d"
+content-hash = "d7982fb36c9b28de29bdfb3491f33900705b43cfebeacfd2efc577f51a8499a5"
