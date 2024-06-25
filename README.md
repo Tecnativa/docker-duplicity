@@ -298,7 +298,7 @@ Add jobs through environment variable pairs. The order will be followed.
 
 ## Using Duplicity
 
-Refer to [Duplicity man page](http://duplicity.nongnu.org/duplicity.1.html), or execute:
+Refer to [Duplicity man page](https://duplicity.readthedocs.io/en/latest/), or execute:
 
     docker run -it --rm ghcr.io/tecnativa/docker-duplicity duplicity --help
 
@@ -476,13 +476,12 @@ The `restore` process uses the first destination defined.
 
 [alpine]: https://alpinelinux.org/
 [dockerfile]: https://github.com/Tecnativa/docker-duplicity/blob/master/Dockerfile
-[duplicity]: http://duplicity.nongnu.org/
-[env]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect6
+[duplicity]: https://duplicity.gitlab.io
 [flavors]: #prebuilt-flavors
 [gitlab-ce]: https://hub.docker.com/r/gitlab/gitlab-ce/
 [mariadb]: https://mariadb.org/
 [odoobase]: https://hub.docker.com/r/tecnativa/odoo-base/builds/
-[options]: http://duplicity.nongnu.org/vers8/duplicity.1.html#sect5
+[options]: https://gitlab.com/duplicity/duplicity
 [postgresql]: https://www.postgresql.org/
 [tzdata]: https://pkgs.alpinelinux.org/package/edge/main/aarch64/tzdata
 
