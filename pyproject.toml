@@ -25,6 +25,7 @@ idna = {version = "3.7", optional = true}
 pyyaml = "6.0.1"
 lxml = "5.2.2"
 requests = "^2.32.2"
+poetry-plugin-export = "^1.8.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^8.2.1"
