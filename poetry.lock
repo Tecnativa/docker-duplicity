@@ -605,20 +605,20 @@ files = [
 
 [[package]]
 name = "dropbox"
-version = "11.36.2"
+version = "12.0.2"
 description = "Official Dropbox API Client"
 optional = true
 python-versions = "*"
 files = [
-    {file = "dropbox-11.36.2-py2-none-any.whl", hash = "sha256:afbfce2589b777ade1deaa2c186f3650c41e41cea0f1fac497a75112a171f8e2"},
-    {file = "dropbox-11.36.2-py3-none-any.whl", hash = "sha256:a21e4d2bcbeb1d8067ff87969aea48792c9a8266182491153feff2be9c1b9c8f"},
-    {file = "dropbox-11.36.2.tar.gz", hash = "sha256:d48d3d16d486c78b11c14a1c4a28a2611fbf5a0d0a358b861bfd9482e603c500"},
+    {file = "dropbox-12.0.2-py2-none-any.whl", hash = "sha256:4b8207a9f4afd33726ec886c0d223f4bbc42fe649b87718690a24704f5e24c0c"},
+    {file = "dropbox-12.0.2-py3-none-any.whl", hash = "sha256:c5b7e9c2668adb6b12dcecd84342565dc50f7d35ab6a748d155cb79040979d1c"},
+    {file = "dropbox-12.0.2.tar.gz", hash = "sha256:50057fd5ad5fcf047f542dfc6747a896e7ef982f1b5f8500daf51f3abd609962"},
 ]
 
 [package.dependencies]
 requests = ">=2.16.2"
 six = ">=1.12.0"
-stone = ">=2"
+stone = ">=2,<3.3.3"
 
 [[package]]
 name = "dulwich"
@@ -2502,13 +2502,14 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
 name = "stone"
-version = "3.3.6"
+version = "3.3.1"
 description = "Stone is an interface description language (IDL) for APIs."
 optional = true
 python-versions = "*"
 files = [
-    {file = "stone-3.3.6-py3-none-any.whl", hash = "sha256:f25c977936d7b5f75b9a953543257681eb19bcd7758f91b6b515f931b1bd1a66"},
-    {file = "stone-3.3.6.tar.gz", hash = "sha256:7e96560bffdaf038d53ca7673cac8cabbaf824a74561564961c34237df901717"},
+    {file = "stone-3.3.1-py2-none-any.whl", hash = "sha256:cd2f7f9056fc39b16c8fd46a26971dc5ccd30b5c2c246566cd2c0dd27ff96609"},
+    {file = "stone-3.3.1-py3-none-any.whl", hash = "sha256:e15866fad249c11a963cce3bdbed37758f2e88c8ff4898616bc0caeb1e216047"},
+    {file = "stone-3.3.1.tar.gz", hash = "sha256:4ef0397512f609757975f7ec09b35639d72ba7e3e17ce4ddf399578346b4cb50"},
 ]
 
 [package.dependencies]
@@ -2821,4 +2822,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "3202319c2add250490fd6c78efe3b81bc47bf4fa5110afe384ae69f307425630"
+content-hash = "771a0103bb0bd189c9c280b051dda644228826e76868c1738b21d1f66b6ad742"
