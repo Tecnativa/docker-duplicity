@@ -66,19 +66,14 @@ VOLUME [ "/root" ]
 
 # Build dependencies
 COPY --from=builder /app/requirements.txt requirements.txt
-RUN apk add --no-cache --virtual .build \
-        build-base \
-        krb5-dev \
-        libffi-dev \
-        librsync-dev \
-        libxml2-dev \
-        libxslt-dev \
-        openssl-dev \
-        cargo \
-    # Runtime dependencies, based on https://gitlab.com/duplicity/duplicity/-/blob/master/requirements.txt
-    && pip install --no-cache-dir -r requirements.txt \
-    && apk del .build \
-    && rm -rf /root/.cargo
+RUN apk update && apk add --no-cache --virtual .build build-base && sync
+RUN apk add --no-cache --virtual .build krb5-dev && sync
+RUN apk add --no-cache --virtual .build libffi-dev && sync
+RUN apk add --no-cache --virtual .build librsync-dev && sync
+RUN apk add --no-cache --virtual .build libxml2-dev && sync
+RUN apk add --no-cache --virtual .build libxslt-dev && sync
+RUN apk add --no-cache --virtual .build openssl-dev && sync
+RUN apk add --no-cache --virtual .build cargo && sync
 
 COPY bin/* /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/* && sync
