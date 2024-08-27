@@ -2087,13 +2087,13 @@ six = ">=1.5"
 
 [[package]]
 name = "python-keystoneclient"
-version = "5.4.0"
+version = "5.5.0"
 description = "Client Library for OpenStack Identity"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "python-keystoneclient-5.4.0.tar.gz", hash = "sha256:b2b4bdbe9daf7b0b353b8807672eeed01f87dd03b4f8b42d0d061b09b8931f41"},
-    {file = "python_keystoneclient-5.4.0-py3-none-any.whl", hash = "sha256:9918043849032f387a0000104c553aac5ace02918a6b7afcdb99690164029867"},
+    {file = "python-keystoneclient-5.5.0.tar.gz", hash = "sha256:c2f5934f95576936c98e45bf599ad48bcb0ac451593e5f8344ebf52cb0f411f5"},
+    {file = "python_keystoneclient-5.5.0-py3-none-any.whl", hash = "sha256:52fe7eb35c7345387c2488eb0b95f28a1d73edcad1ac3d8d80cf8ce6a7c9a8ee"},
 ]
 
 [package.dependencies]
@@ -2101,10 +2101,10 @@ debtcollector = ">=1.2.0"
 keystoneauth1 = ">=3.4.0"
 "oslo.config" = ">=5.2.0"
 "oslo.i18n" = ">=3.15.3"
-"oslo.serialization" = ">=2.18.0,<2.19.1 || >2.19.1"
+"oslo.serialization" = ">=2.18.0"
 "oslo.utils" = ">=3.33.0"
 packaging = ">=20.4"
-pbr = ">=2.0.0,<2.1.0 || >2.1.0"
+pbr = ">=2.0.0"
 requests = ">=2.14.2"
 stevedore = ">=1.20.0"
 
@@ -2819,4 +2819,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "f2968c49a41e37ecb163f1a279b5e6bdb805ed8dc8f62a14320025562ccaee90"
+content-hash = "7397768ff1bc9ea234218f081ee429cb0db4fbda4590d0350077b7ee80218114"
