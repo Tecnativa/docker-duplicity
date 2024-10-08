@@ -31,7 +31,7 @@ poetry-plugin-export = "^1.8.0"
 pytest = "^8.3.3"
 black = "^24.8"
 flake8 = "^5.0.4"
-plumbum = "^1.8.3"
+plumbum = "^1.9.0"
 pytest-xdist = "^3.6.1"
 
 [tool.poetry.extras]
