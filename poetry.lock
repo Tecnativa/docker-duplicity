@@ -1935,19 +1935,19 @@ PyYAML = ">=3.0"
 
 [[package]]
 name = "pydrive2"
-version = "1.21.1"
+version = "1.21.2"
 description = "Google Drive API made easy. Maintained fork of PyDrive."
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "PyDrive2-1.21.1-py3-none-any.whl", hash = "sha256:d24b3334bc5c242e5ec58ad6ee7efbd2216aa92098c3eed353ce644f27a7e97b"},
-    {file = "pydrive2-1.21.1.tar.gz", hash = "sha256:70da0244a29a6922e28620a32e251ac6ab018449f1bb0485e9a39114a069dde0"},
+    {file = "PyDrive2-1.21.2-py3-none-any.whl", hash = "sha256:a3b72e522b8f5ba4e93ab165bbf120544567583c61a6c7904ef1ff47afc005d6"},
+    {file = "pydrive2-1.21.2.tar.gz", hash = "sha256:2a21c8319a225943c70e7566eb13a1524d1d7193621de1eb8e5f95e037641508"},
 ]
 
 [package.dependencies]
 google-api-python-client = ">=1.12.5"
 oauth2client = ">=4.0.0"
-pyOpenSSL = ">=19.1.0"
+pyOpenSSL = ">=19.1.0,<=24.2.1"
 PyYAML = ">=3.0"
 
 [package.extras]
@@ -2824,4 +2824,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "d1a7d6c4d3fd5741c71123c6dd94efea26a741f597e2430083539e1141154b42"
+content-hash = "fd50540be17e4b3100ffaff481e277adbcc8fd1f7dc1610643130a272043037d"
