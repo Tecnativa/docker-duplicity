@@ -27,16 +27,19 @@ lxml = "5.3.0"
 requests = "^2.32.2"
 poetry-plugin-export = "^1.8.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.extras]
+duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "PyDrive2", "python-swiftclient", "requests-oauthlib", "duplicity", "dropbox", "python-keystoneclient"]
+
+[tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
 black = "^24.8"
 flake8 = "^5.0.4"
 plumbum = "^1.9.0"
 pytest-xdist = "^3.6.1"
 
-[tool.poetry.extras]
-duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "PyDrive2", "python-swiftclient", "requests-oauthlib", "duplicity", "dropbox", "python-keystoneclient"]
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
