@@ -27,11 +27,11 @@ env:
 
 jobs:
   build-test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python:
-          - 3.9
+          - 3.12
     steps:
       # Prepare environment
       - uses: actions/checkout@v4
@@ -52,18 +52,14 @@ jobs:
             .venv
             ~/.local/bin
           key: venv ${{ env.CACHE }}
-      - run: pip install poetry
+      - run: pip install poetry==2.0.1
       - name: Patch $PATH
         run: echo "$HOME/.local/bin" >> $GITHUB_PATH
-      # override pyyaml to 5.3.1 as PIP_CONSTRAINT does not work for poetry
-      # to get rid of AttributeError: cython_sources when installing pyyaml
-      - run: poetry add pyyaml==5.3.1
-      - run: poetry run python -m pip install --upgrade pip
       - run: poetry install
       # Run tests
       - run: poetry run pytest --prebuild
   build-push:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     services:
       registry:
         image: registry:2
