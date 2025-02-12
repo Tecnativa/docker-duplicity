@@ -44,12 +44,30 @@ def _set_env(index):
         text=True,
     )
 
+    local_options = subprocess.check_output(
+        "echo -n " + os.environ.get(f"DST_{index}_OPTIONS", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    local_options_extra = subprocess.check_output(
+        "echo -n " + os.environ.get(f"DST_{index}_OPTIONS_EXTRA", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    local_options_extra_s3 = subprocess.check_output(
+        "echo -n " + os.environ.get(f"DST_{index}_OPTIONS_EXTRA_S3", ""),
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
     # Set valid duplicity params
     cparams = ""
     if uri.startswith("boto"):
-        cparams = f"{options} {options_extra} {options_extra_s3}"
+        cparams = f"{options} {options_extra} {options_extra_s3} {local_options} {local_options_extra} {local_options_extra_s3}"
     else:
-        cparams = f"{options} {options_extra}"
+        cparams = f"{options} {options_extra} {local_options} {local_options_extra}"
     return (uri, cparams)
 
 
