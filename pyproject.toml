@@ -2,6 +2,7 @@
 name = "docker-duplicity"
 version = "0.1.0"
 description = ""
+package-mode = false
 authors = ["Tecnativa"]
 
 [tool.poetry.dependencies]
@@ -27,7 +28,7 @@ lxml = "5.3.0"
 requests = "^2.32.2"
 poetry-plugin-export = "^1.8.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
 black = "^24.8"
 flake8 = "^5.0.4"

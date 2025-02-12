@@ -2,7 +2,8 @@ FROM python:3.13.1-slim AS builder
 
 WORKDIR /app
 ADD pyproject.toml poetry.lock ./
-RUN pip install --no-cache-dir poetry
+RUN pip install --no-cache-dir poetry==2.0.1
+RUN poetry self add poetry-plugin-export
 
 # Build a requirements.txt file matching poetry.lock, that pip understands
 # Test comment
@@ -74,9 +75,12 @@ RUN apk add --no-cache --virtual .build \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
-        cargo \
-    # Runtime dependencies, based on https://gitlab.com/duplicity/duplicity/-/blob/master/requirements.txt
-    && pip install --no-cache-dir -r requirements.txt \
+        cargo
+# Trick for passing as a warning this build message and gets netifaces installed:
+#    initialization of 'int' from 'void *' makes integer from pointer without a cast [-Wint-conversion]
+RUN CFLAGS="-Wno-int-conversion" pip install netifaces
+# Runtime dependencies, based on https://gitlab.com/duplicity/duplicity/-/blob/master/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt \
     && apk del .build \
     && rm -rf /root/.cargo
 
@@ -127,9 +131,12 @@ RUN set -eux; \
     apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/12"; \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.14/main" > psql_repos; \
     apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/13"; \
-    apk fetch --no-cache postgresql14-client -o "$APK_POSTGRES_DIR/14"; \
-    apk fetch --no-cache postgresql15-client -o "$APK_POSTGRES_DIR/15"; \
-    apk fetch --no-cache postgresql16-client -o "$APK_POSTGRES_DIR/16"; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.17/main" > psql_repos; \
+    apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/14"; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.20/main" > psql_repos; \
+    apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/15"; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/main" > psql_repos; \
+    apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/16"; \
     apk fetch --no-cache postgresql-client -o "$APK_POSTGRES_DIR/latest"; \
     rm psql_repos;
 
