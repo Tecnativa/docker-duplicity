@@ -2013,9 +2013,10 @@ testing = ["google-api-core (>=1.31.5)"]
 name = "protobuf"
 version = "5.29.5"
 description = ""
-optional = false
+optional = true
 python-versions = ">=3.8"
 groups = ["main"]
+markers = "extra == \"duplicity\""
 files = [
     {file = "protobuf-5.29.5-cp310-abi3-win32.whl", hash = "sha256:3f1c6468a2cfd102ff4703976138844f78ebd1fb45f49011afc5139e9e283079"},
     {file = "protobuf-5.29.5-cp310-abi3-win_amd64.whl", hash = "sha256:3f76e3a3675b4a4d867b52e4a5f5b78a2ef9565549d4037e06cf7b0942b1d3fc"},
@@ -2313,15 +2314,15 @@ stevedore = ">=1.20.0"
 
 [[package]]
 name = "python-swiftclient"
-version = "4.6.0"
+version = "4.8.0"
 description = "OpenStack Object Storage API Client Library"
 optional = true
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 groups = ["main"]
 markers = "extra == \"duplicity\""
 files = [
-    {file = "python-swiftclient-4.6.0.tar.gz", hash = "sha256:d4d18540413893fc16ad87791d740f823f763435e8212e68eb53d60da2638233"},
-    {file = "python_swiftclient-4.6.0-py3-none-any.whl", hash = "sha256:f82d89581b861ccda6ee22a9850d143602a6d77423368c55472d956305cf89b0"},
+    {file = "python_swiftclient-4.8.0-py3-none-any.whl", hash = "sha256:8f15567e6de59df2781366fda203d84097fdb2ec1580234da7c9251a1f0e78d5"},
+    {file = "python_swiftclient-4.8.0.tar.gz", hash = "sha256:44162cab469368cafdc25e0c8c4e95a2b9db1a44456a48ce080fe2ca9a4b3863"},
 ]
 
 [package.dependencies]
@@ -3193,4 +3194,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.8"
-content-hash = "77162847578e18a096ce544d0969adf3ae96372206308b2b3a39b607470404a6"
+content-hash = "4ff0df8280eeeb6824cb9503ea7e0c8203dfeeeb2b1a073536aed47feda21219"
