@@ -45,7 +45,7 @@ jobs:
           echo "CACHE=${{ secrets.CACHE_DATE }} ${{ runner.os }} $(python -VV |
           sha256sum | cut -d' ' -f1) ${{ hashFiles('pyproject.toml') }} ${{
           hashFiles('poetry.lock') }}" >> $GITHUB_ENV
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             .cache.~
@@ -81,7 +81,7 @@ jobs:
     steps:
       # Set up Docker Environment
       - uses: actions/checkout@v4
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             /tmp/.buildx-cache
