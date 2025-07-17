@@ -21,7 +21,8 @@ python-swiftclient = {version = "^4.8.0", optional = true}
 requests-oauthlib = {version = "^2.0.0", optional = true}
 duplicity = {version = "^3.0.0", optional = true}
 dropbox = {version = "^11.36.2", optional = true}
-python-keystoneclient = {version = "^5.5.0", optional = true}
+python-keystoneclient = { version = "^5.5.0", optional = true }
+python-novaclient   = { version = ">=18.0.0,<19.0.0", optional = true }
 idna = {version = "3.10", optional = true}
 pyyaml = "6.0.2"
 lxml = "6.0.0"
@@ -36,7 +37,7 @@ plumbum = "^1.9.0"
 pytest-xdist = "^3.6.1"
 
 [tool.poetry.extras]
-duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "PyDrive2", "python-swiftclient", "requests-oauthlib", "duplicity", "dropbox", "python-keystoneclient"]
+duplicity = ["b2", "b2sdk", "boto", "boto3", "gdata", "jottalib", "paramiko", "pexpect", "PyDrive", "PyDrive2", "python-swiftclient", "requests-oauthlib", "duplicity", "dropbox", "python-keystoneclient","python-novaclient"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
