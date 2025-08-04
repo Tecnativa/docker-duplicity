@@ -7,7 +7,7 @@ import logging
 import re
 import smtplib
 import sys
-from datetime import datetime
+from datetime import UTC, datetime
 from email.mime.text import MIMEText
 from email.utils import formatdate
 from os import environ, path
@@ -24,7 +24,7 @@ logging.root.name = "jobrunner"
 
 # Get expected periodicity from this script's placement
 periodicity = path.basename(path.dirname(path.abspath(__file__)))
-logging.info("%s UTC - Running %s jobs", datetime.utcnow(), periodicity)
+logging.info("%s UTC - Running %s jobs", datetime.now(UTC), periodicity)
 # Get email settings
 smtp_host = environ.get("SMTP_HOST")
 smtp_port = environ.get("SMTP_PORT")
