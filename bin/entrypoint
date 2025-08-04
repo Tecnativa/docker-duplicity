@@ -19,5 +19,10 @@ if [ -n "$PGHOST" ]; then
     psql --version && pg_dump --version
 fi
 
+# Create needed .ssh files
+mkdir -p /root/.ssh && touch /root/.ssh/known_hosts
+chmod 700 /root/.ssh
+chmod 644 /root/.ssh/known_hosts
+
 # Continue work
 exec "$@"
