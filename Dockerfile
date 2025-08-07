@@ -1,4 +1,4 @@
-FROM python:3.13.5-slim AS builder
+FROM python:3.13.6-slim AS builder
 
 WORKDIR /app
 ADD pyproject.toml poetry.lock ./
@@ -9,7 +9,7 @@ RUN poetry self add poetry-plugin-export
 # Test comment
 RUN poetry export --extras duplicity --output /app/requirements.txt
 
-FROM python:3.13.5-alpine AS base
+FROM python:3.13.6-alpine AS base
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_HOURLY='0 * * * *' \
