@@ -65,6 +65,8 @@ RUN mkdir -p "$SRC"
 # Preserve cache among containers
 VOLUME [ "/root" ]
 
+RUN mkdir -p /root/.ssh && touch /root/.ssh/known_hosts
+
 # Build dependencies
 COPY --from=builder /app/requirements.txt requirements.txt
 RUN apk add --no-cache --virtual .build \
