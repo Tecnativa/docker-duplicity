@@ -34,7 +34,7 @@ jobs:
           - 3.12
     steps:
       # Prepare environment
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       # Set up and run tests
       - name: Install python
         uses: actions/setup-python@v4
@@ -80,7 +80,7 @@ jobs:
           - s3
     steps:
       # Set up Docker Environment
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v3
         with:
           path: |
