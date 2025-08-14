@@ -69,6 +69,7 @@ VOLUME [ "/root" ]
 COPY --from=builder /app/requirements.txt requirements.txt
 RUN apk add --no-cache --virtual .build \
         build-base \
+        python3-dev \
         krb5-dev \
         libffi-dev \
         librsync-dev \
