@@ -40,6 +40,10 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
+      - name: Install system deps for duplicity build
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsync-dev
       - name: Generate cache key CACHE
         run:
           echo "CACHE=${{ secrets.CACHE_DATE }} ${{ runner.os }} $(python -VV |
