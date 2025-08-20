@@ -35,13 +35,6 @@ ENV CRONTAB_15MIN='*/15 * * * *' \
 ENTRYPOINT [ "/usr/local/bin/entrypoint" ]
 CMD ["/usr/sbin/crond", "-fd8"]
 
-# Link the job runner in all periodicities available
-RUN ln -s /usr/local/bin/jobrunner /etc/periodic/15min/jobrunner
-RUN ln -s /usr/local/bin/jobrunner /etc/periodic/hourly/jobrunner
-RUN ln -s /usr/local/bin/jobrunner /etc/periodic/daily/jobrunner
-RUN ln -s /usr/local/bin/jobrunner /etc/periodic/weekly/jobrunner
-RUN ln -s /usr/local/bin/jobrunner /etc/periodic/monthly/jobrunner
-
 # Runtime dependencies and database clients
 RUN apk add --no-cache \
         ca-certificates \
