@@ -10,6 +10,69 @@ BCK_BIN = "duplicity"
 DEST_MAX_LIMIT = 99
 
 
+def _is_s3_like(s: str) -> bool:
+    """Return True if the string looks like an S3-style URL/scheme."""
+    if not s:
+        return False
+    s = s.lower()
+    return (
+        "s3://" in s
+        or "+s3://" in s
+        or s.startswith("s3+http://")
+        or s.startswith("s3+https://")
+        or s.startswith("boto")  # boto / boto3+s3
+    )
+
+
+def _sanitize_options(opts: str, allow_s3: bool) -> str:
+    """Drop options removed in duplicity>=2 and strip S3 flags if not allowed.
+    Keeps the rest of the string unchanged.
+    """
+    if not opts:
+        return ""
+    # Remove flags that were removed in duplicity 2.0
+    removed = [
+        "--s3-european-buckets",
+        "--s3-use-new-style",
+        "--s3-use-multiprocessing",
+        "--s3-multipart-max-timeout",
+        "--exclude-filelist-stdin",
+        "--exclude-globbing-filelist",
+        "--gio",
+        "--include-filelist-stdin",
+        "--include-globbing-filelist",
+        "--old-filenames",
+        "--short-filenames",
+    ]
+    for flag in removed:
+        opts = re.sub(
+            rf"(?:^|\s){re.escape(flag)}(?:\s+\S+|=\S+)?(?=\s|$)",
+            " ",
+            opts,
+        )
+    if not allow_s3:
+        # Drop any --s3-*
+        opts = re.sub(r"(?:^|\s)--s3-[^\s=]+(?:=[^\s]+|\s+\S+)?", " ", opts)
+    return " ".join(opts.split())
+
+
+def _strip_orphan_values(opts: str) -> str:
+    """Quita valores sueltos que ya no están precedidos por una flag.
+    Mantiene pares válidos '--flag valor' y '--flag=valor'.
+    """
+    if not opts:
+        return ""
+    tokens = opts.split()
+    cleaned = []
+    for tok in tokens:
+        if tok.startswith("-"):
+            cleaned.append(tok)
+        else:
+            if cleaned and cleaned[-1].startswith("-"):
+                cleaned.append(tok)
+    return " ".join(cleaned)
+
+
 def _set_env(index):
     uri = os.environ.get(f"DST_{index}")
     if not uri:
@@ -45,11 +108,13 @@ def _set_env(index):
     )
 
     # Set valid duplicity params
-    cparams = ""
-    if uri.startswith("boto"):
-        cparams = f"{options} {options_extra} {options_extra_s3}"
-    else:
-        cparams = f"{options} {options_extra}"
+    is_s3 = _is_s3_like(uri)
+    cparams = f"{options} {options_extra}"
+    if is_s3:
+        cparams = f"{cparams} {options_extra_s3}"
+    # Remove obsolete options and strip S3 flags when not targeting S3
+    cparams = _sanitize_options(cparams, allow_s3=is_s3)
+    cparams = _strip_orphan_values(cparams)
     return (uri, cparams)
 
 
@@ -120,6 +185,12 @@ else:
         stderr=subprocess.STDOUT,
         text=True,
     )
-    command = f"{BCK_BIN} {options} {options_extra} {' '.join(sys.argv[1:])}"
+    # Sanitize options based on whether the destination looks like S3.
+    # Prefer DST env var; fallback to argv if not set.
+    dst_uri = os.environ.get("DST")
+    allow_s3 = _is_s3_like(dst_uri or " ".join(sys.argv[1:]))
+    safe_opts = _sanitize_options(f"{options} {options_extra}", allow_s3=allow_s3)
+    safe_opts = _strip_orphan_values(safe_opts)
+    command = f"{BCK_BIN} {safe_opts} {' '.join(sys.argv[1:])}"
     print(f"Executing: {command}")
     subprocess.check_call(command, shell=True)
