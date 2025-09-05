@@ -15,7 +15,7 @@
 - [Available images](#available-images)
 - [Tags](#tags)
 - [Environment variables available](#environment-variables-available)
-  - [`CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`](#crontab_15minhourlydailyweeklymonthly)
+  - [`CRONTAB_{PERIOD_NAME}`](#crontab_period_name)
   - [`DBS_TO_{INCLUDE,EXCLUDE}`](#dbs_to_includeexclude)
   - [`DST`](#dst)
   - [`EMAIL_FROM`](#email_from)
@@ -99,31 +99,31 @@ branch. Each individual git released version is also tagged (e.g. `:0.1.0`)
 Apart from the [environment variables that Duplicity uses by default][env], you have
 others specific for this image.
 
-### `CRONTAB_{15MIN,HOURLY,DAILY,WEEKLY,MONTHLY}`
+### `CRONTAB_{PERIOD_NAME}`
 
 Define the cron schedule to run jobs under such circumstances.
 
-Possibly non-obvious [defaults][dockerfile]:
+**Possibly non-obvious [defaults][crontabs]:**
 
-- Daily: 2 AM, from Monday to Saturday
-- Weekly: 1 AM, on Sundays
-- Monthly: 5 AM, 1st day of month
+|                                   |                                     |
+| :-------------------------------- | :---------------------------------- |
+| `CRONTAB_15MIN='*/15 * * * *'`    | Every 15 minutes                    |
+| `CRONTAB_HOURLY='0 * * * *'`      | Every hour                          |
+| `CRONTAB_DAILY='0 2 * * MON-SAT'` | Every day at 2am                    |
+| `CRONTAB_WEEKLY='0 1 * * SUN'`    | Every Sunday at 1am                 |
+| `CRONTAB_MONTHLY='0 5 1 * *'`     | Every month at 5am on the first day |
+
+Additionally, you may define new periodicities with environment variables beginning with
+`CRONTAB_`.
+
+For instance, if you have two jobs to run daily, but do not want them running at the
+same time, you could add `CRONTAB_DAILY2='0 3 * * MON-SAT'`
 
 Hours are expressed in UTC.
 
 **If you define any of these variables wrongly, your cron might not work!**
 
 You can use online tools such as https://crontab.guru to make it easy.
-
-If you set these values in `.env` file, don't use quotes:
-
-```
-CRONTAB_15MIN=*/15 * * * *
-CRONTAB_HOURLY=0 * * * *
-CRONTAB_DAILY=0 2 * * MON-SAT
-CRONTAB_WEEKLY=0 1 * * SUN
-CRONTAB_MONTHLY=0 5 1 * *
-```
 
 ### `DBS_TO_{INCLUDE,EXCLUDE}`
 
@@ -476,6 +476,8 @@ The `restore` process uses the first destination defined.
 
 [alpine]: https://alpinelinux.org/
 [dockerfile]: https://github.com/Tecnativa/docker-duplicity/blob/master/Dockerfile
+[crontabs]:
+  https://github.com/Tecnativa/docker-duplicity/blob/20609c98c0e4cfa849066327c8a139d2c96577aa/Dockerfile#L14
 [duplicity]: https://duplicity.gitlab.io
 [flavors]: #prebuilt-flavors
 [gitlab-ce]: https://hub.docker.com/r/gitlab/gitlab-ce/
