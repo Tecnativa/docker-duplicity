@@ -2727,14 +2727,14 @@ files = [
 
 [[package]]
 name = "python-keystoneclient"
-version = "5.5.0"
+version = "5.7.0"
 description = "Client Library for OpenStack Identity"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "python-keystoneclient-5.5.0.tar.gz", hash = "sha256:c2f5934f95576936c98e45bf599ad48bcb0ac451593e5f8344ebf52cb0f411f5"},
-    {file = "python_keystoneclient-5.5.0-py3-none-any.whl", hash = "sha256:52fe7eb35c7345387c2488eb0b95f28a1d73edcad1ac3d8d80cf8ce6a7c9a8ee"},
+    {file = "python_keystoneclient-5.7.0-py3-none-any.whl", hash = "sha256:2ec19994ba8b8b16fe6cf4ac45c3f2180a22e203d1b3aa977a34a0160caae0b6"},
+    {file = "python_keystoneclient-5.7.0.tar.gz", hash = "sha256:8ce7bf1c8cddca6d7140fc76918b44eddf1d64040a60cb8ff7059136104d4ceb"},
 ]
 
 [package.dependencies]
