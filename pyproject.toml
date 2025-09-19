@@ -35,7 +35,7 @@ urllib3 = ">=2.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.2"
-black = "^25.1"
+black = "^25.9"
 flake8 = "^7.3.0"
 plumbum = "^1.9.0"
 pytest-xdist = "^3.8.0"
