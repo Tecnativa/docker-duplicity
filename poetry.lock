@@ -54,53 +54,47 @@ test = ["dateparser (==1.*)", "pre-commit", "pytest", "pytest-cov", "pytest-mock
 
 [[package]]
 name = "atom"
-version = "0.11.0"
+version = "0.12.1"
 description = "Memory efficient Python objects"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "atom-0.11.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:e659a8ed71ac5713416ff2712fc1cdf97c2e46f12e1cd26f728bf0e6e493ac65"},
-    {file = "atom-0.11.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:50cc9d83552e30b61840011d36d22e3d0b0a8b75703bd1ad29f4982c3dab0e9c"},
-    {file = "atom-0.11.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:73dc0557db3b2fbab7e99c58fc7a9abf7c641fa17fab57a90b19d899bf042b11"},
-    {file = "atom-0.11.0-cp310-cp310-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:bf1c4cb5d38f6efbc8447603e68f8170df16697a30b60a43705411ee345ca15b"},
-    {file = "atom-0.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:97919b5ba6af6e69d13162aa7cc168d33c6d52165f1d475264ae25a88b011d6a"},
-    {file = "atom-0.11.0-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:0ca119298e95dae7c511b370cb53ce1b04b11fcbdd7316560400eb0cea14a442"},
-    {file = "atom-0.11.0-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:1e79cbb5806e1d18c28abd37eaff277324056b93ebb221bc758312710aa72d61"},
-    {file = "atom-0.11.0-cp310-cp310-win32.whl", hash = "sha256:8fff3d993f67ece9343fab42544dab40e2a48cc25f702fe6abf1682001a4dc6e"},
-    {file = "atom-0.11.0-cp310-cp310-win_amd64.whl", hash = "sha256:a1e6026006708d23640adb396c04b20df0c55be8d52647f201c4c0667e875b59"},
-    {file = "atom-0.11.0-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:1b02d0a94bdcce09f19dd85ac9b0ad29536fb5fc7edb5541fb51c68ef52658f0"},
-    {file = "atom-0.11.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:0e2ce814e5f8fe04c92414f34a3e684f1bb8da174fe64101cfa5eae95a8c7430"},
-    {file = "atom-0.11.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:866146b29c48cce7f3ade19fe1309249183c235749b8c293dc71c75c892fc2ec"},
-    {file = "atom-0.11.0-cp311-cp311-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:ccdb3fff5b1b8da4c1a0899781c1188385dca464ed560186b56efac6b2f923f0"},
-    {file = "atom-0.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:92e342cd53ec4b3d434efec212b5978b757d2f69fcc8d5bda19521bd293976d4"},
-    {file = "atom-0.11.0-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:ca011e37da631e385d2e5a64c545ae0f047d8632b67e19d9cd5ff68565620ac3"},
-    {file = "atom-0.11.0-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:b06dbba17eae816967fc591a08e5b7da69496c5eaf0d8e366e3663dd018628a2"},
-    {file = "atom-0.11.0-cp311-cp311-win32.whl", hash = "sha256:fa94614b6510594c856f009fcccf6c41e6aed5412080669663228059b23c6fe8"},
-    {file = "atom-0.11.0-cp311-cp311-win_amd64.whl", hash = "sha256:46e1c335034e182def22df3df8fe9293ab78404d13a109b4f0a08f4c112cb1bf"},
-    {file = "atom-0.11.0-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:da02c3d392a171ffec52e1bcd2d07f77e434a0dff5ae822facc43766e402f1aa"},
-    {file = "atom-0.11.0-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:48c787cfad181627d685996f8ff393335d794b4e26bcad8d807d22f57fc0ef29"},
-    {file = "atom-0.11.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:87f0a78838693a8562951e04519a02451c9f448c5bcaf94feaea9e45ca4d1418"},
-    {file = "atom-0.11.0-cp312-cp312-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:9cf734b401a4df71168e0353be19affc96e874c10b59f9f95b5fb7f0cf7a459b"},
-    {file = "atom-0.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:490fa0554f5622df877dc03e53a6ab2498621bca982b4eb7ff2ce6d5a87c3f6d"},
-    {file = "atom-0.11.0-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:4f9c56cf6bc426fa026d759ea8b6ccbae2acb42f10ecb26ddaad23005ae82975"},
-    {file = "atom-0.11.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:9cbbf93ff9e94bea3fa1f7f002a40ab51cfd0eee86bc6407ccbf5fce215952d1"},
-    {file = "atom-0.11.0-cp312-cp312-win32.whl", hash = "sha256:a89a8bdd7bfc6edbbcb708a2325aea4e23f0366333351bfde539ac42a7106308"},
-    {file = "atom-0.11.0-cp312-cp312-win_amd64.whl", hash = "sha256:dbad81f4f1d764640a9d2a3f10976be784eaf620263f57c820754e8732f2d11f"},
-    {file = "atom-0.11.0-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:990cda87ab56d2d1a40613541bfe9e7781bd89793f74d240c2005414698643a8"},
-    {file = "atom-0.11.0-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:54bfc590b3936009223656be9b2f57b4b63badbad7e199c4aa5429567dd6860d"},
-    {file = "atom-0.11.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:9eac0b77b9a4d02a5683f290e36b002e576d05a4c600ffe9e828a580061a032d"},
-    {file = "atom-0.11.0-cp313-cp313-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:d17a920ad0114322199b1183bf06002be0279fd9114eee6919c36e3ce680416d"},
-    {file = "atom-0.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:41fffd0dda8880a6ba125ad7086dda9dc106589ca02a8e92809903b4841e95ac"},
-    {file = "atom-0.11.0-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:a978fab1db34161f540c4b0f01357e758ffc9fdfac55142ac01e1c463550b47a"},
-    {file = "atom-0.11.0-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:6b9b22392d4f0be5e3800a5b963205ceaf4852b0e5dc088c74a39d6e3b388941"},
-    {file = "atom-0.11.0-cp313-cp313-win32.whl", hash = "sha256:550c7b8e1523742ed6305528e93bff20cf73bfadc1da56d1ba6c16606bc2603e"},
-    {file = "atom-0.11.0-cp313-cp313-win_amd64.whl", hash = "sha256:8f4375848249cb3a64072c156d0bed9d41f85e2390f13b06b44774ef2fa0a832"},
-    {file = "atom-0.11.0.tar.gz", hash = "sha256:4ab93fc3cc7b6a078253b116e9f6235d2913eb9bb49adbc31a258e1017f2aee0"},
+    {file = "atom-0.12.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:e05016c55b85856359cae80d656887c429baf111f5b1127a60e28fe00c0f9e3c"},
+    {file = "atom-0.12.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:e8b8b29edfdd45bbdf6088f15d150bad628260fe72c2a30337c19d0588f3388f"},
+    {file = "atom-0.12.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:3850f6a30fc28c1a790797059ca51d7d12a31bffd3ab275899f8593b5b4455eb"},
+    {file = "atom-0.12.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:85a70cc6e0782c33b80e61ec9342d049aa2443519b19e86b7a8d3e43d2c1fa87"},
+    {file = "atom-0.12.1-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:2c1859c65b50bf7a2da21cd2f538be1d0a9c74e8bc6bf118b09ae917d8fbcec8"},
+    {file = "atom-0.12.1-cp310-cp310-win_amd64.whl", hash = "sha256:a0fd007793f95ea873886197cebd264e310ae47e817f869ff8f983f6566ca99f"},
+    {file = "atom-0.12.1-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:d54dbe4bf884b008ba7823bc111e886ceb94fa7313550e4ab3af1d2ef28f5a6c"},
+    {file = "atom-0.12.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:44dd6682f3da09bfdf93cfeb5f58162b537cfdf758bbcdf3826ac1a818d2f405"},
+    {file = "atom-0.12.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:870d2d82d4065d01574a12c08637607b1e12d94234ab2105aadfb0077b7722ec"},
+    {file = "atom-0.12.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:e65ffdf223e56e0984739db8a412cdef3dec59ba74906c10d3bf602641826f31"},
+    {file = "atom-0.12.1-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:78761ffa7073a3835e0f2cd1c241ef82b1d1ee5271d2a4145a346d71637b9c56"},
+    {file = "atom-0.12.1-cp311-cp311-win_amd64.whl", hash = "sha256:0d4b9d731ab292181720bbccf3fa8cc6b5d57588143f6d4da880c7f905c7c6e5"},
+    {file = "atom-0.12.1-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:f46f6803c90c642c80ccfb02cb9073846322112654c7fd556082c881a66684e5"},
+    {file = "atom-0.12.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:e0cea5810447d4276c7c4962fda40b24d649955e02ac9506286dec049a9997ba"},
+    {file = "atom-0.12.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:d0a0617926382468eba8e110167664e9fd853e3e5a14518481d3113397286b57"},
+    {file = "atom-0.12.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0d65b94c28df91ae69715eb88d089d0107ad15862bdcf37fa23f886285b0660d"},
+    {file = "atom-0.12.1-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:01b16567b269251b484fd802f1dec5f98204b9895cfbe1b6badb34fed3a0dd15"},
+    {file = "atom-0.12.1-cp312-cp312-win_amd64.whl", hash = "sha256:1cf59341a97b819a7b8ac72bd826f44404dde35224ee25a4cb9b77e8c275aa32"},
+    {file = "atom-0.12.1-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:f346ffb778ec899bb3d0d10f050e68ca92d3222b0432efd5505c936b20cf9fb3"},
+    {file = "atom-0.12.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:b6648f4f0037e1de4c67676eb888926bf87668c9c68821130034405dc0b699ce"},
+    {file = "atom-0.12.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:d91ba7f89cb89874460557b53e5062f61fbe180b640d83e53b063975697b309c"},
+    {file = "atom-0.12.1-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:aa89149f591777bcf1a9185b0bc799969da88133615fc599a165cb784ccfa113"},
+    {file = "atom-0.12.1-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:3c4c481426f9948a3060be662338f52da09ca10ad52fe27268a89a41df3c7ace"},
+    {file = "atom-0.12.1-cp313-cp313-win_amd64.whl", hash = "sha256:d4fba4708fd297da848f81e69f2d7fdd7f1778a0d3b7fe0de9b0b1af66318180"},
+    {file = "atom-0.12.1-cp314-cp314-macosx_10_13_universal2.whl", hash = "sha256:1287bf91e0a74598b2ea7a99d5174131abe097d8303804d7608959b63f4539e0"},
+    {file = "atom-0.12.1-cp314-cp314-macosx_10_13_x86_64.whl", hash = "sha256:88495b8eceb89efcbe1255eec49013954eec160a8156ae415a570d3466577ae6"},
+    {file = "atom-0.12.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:055e63705882ab068a07eb61c44283c7b6c142c253574a8ef421f08618c7a8ab"},
+    {file = "atom-0.12.1-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:d0cdd971f82b0ef2bfdec6054706ed3d4535cc482c360d063b2710fb8636108e"},
+    {file = "atom-0.12.1-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:f8f69ef4305a52e9bc331acd31be664b82ae3112a75858237214673d2aeef1c8"},
+    {file = "atom-0.12.1-cp314-cp314-win_amd64.whl", hash = "sha256:ca1930b40a2874b16e470acf58aa23df09e1593c7b5b5d9577939333475d3c27"},
+    {file = "atom-0.12.1.tar.gz", hash = "sha256:2cbfb77939da28879a5432e3b201ac026be85c789c4e96de246a6f6a9f4be57a"},
 ]
 
 [package.dependencies]
-typing-extensions = {version = "*", markers = "python_version < \"3.11\""}
+typing_extensions = {version = "*", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "attrs"
@@ -4121,4 +4115,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.15"
-content-hash = "0e4a02db807009bc8b65d7a847ae1e290709dcf361d837f64e3a9d95d084168c"
+content-hash = "637d4e562211f7382db9ac8a483871da368ae1d57f016f0a6caab36dd057dacf"
