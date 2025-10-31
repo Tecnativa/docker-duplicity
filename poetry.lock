@@ -2400,24 +2400,21 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "plumbum"
-version = "1.9.0"
+version = "1.10.0"
 description = "Plumbum: shell combinators library"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "plumbum-1.9.0-py3-none-any.whl", hash = "sha256:9fd0d3b0e8d86e4b581af36edf3f3bbe9d1ae15b45b8caab28de1bcb27aaa7f5"},
-    {file = "plumbum-1.9.0.tar.gz", hash = "sha256:e640062b72642c3873bd5bdc3effed75ba4d3c70ef6b6a7b907357a84d909219"},
+    {file = "plumbum-1.10.0-py3-none-any.whl", hash = "sha256:9583d737ac901c474d99d030e4d5eec4c4e6d2d7417b1cf49728cf3be34f6dc8"},
+    {file = "plumbum-1.10.0.tar.gz", hash = "sha256:f8cbf0ecec0b73ff4e349398b65112a9e3f9300e7dc019001217dcc148d5c97c"},
 ]
 
 [package.dependencies]
 pywin32 = {version = "*", markers = "platform_system == \"Windows\" and platform_python_implementation != \"PyPy\""}
 
 [package.extras]
-dev = ["coverage[toml]", "paramiko", "psutil", "pytest (>=6.0)", "pytest-cov", "pytest-mock", "pytest-timeout"]
-docs = ["sphinx (>=4.0.0)", "sphinx-rtd-theme (>=1.0.0)"]
 ssh = ["paramiko"]
-test = ["coverage[toml]", "paramiko", "psutil", "pytest (>=6.0)", "pytest-cov", "pytest-mock", "pytest-timeout"]
 
 [[package]]
 name = "ply"
@@ -4115,4 +4112,4 @@ duplicity = ["PyDrive", "PyDrive2", "b2", "b2sdk", "boto", "boto3", "dropbox", "
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.15"
-content-hash = "019a626ca512d0e2f37f45b6ea5a078cf10e6ad73c8d0bfc01d3378f71ab1607"
+content-hash = "e4b90411d230d4db8e86b7d96deb796a9af33c5eb215a53a4ae8cc2f549b8c3e"
