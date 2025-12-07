@@ -1,4 +1,4 @@
-FROM python:3.13.7-slim AS builder
+FROM python:3.14.1-slim AS builder
 
 WORKDIR /app
 ADD pyproject.toml poetry.lock ./
@@ -9,7 +9,7 @@ RUN poetry self add poetry-plugin-export
 # Test comment
 RUN poetry export --extras duplicity --output /app/requirements.txt
 
-FROM python:3.13.7-alpine AS base
+FROM python:3.14.1-alpine AS base
 
 ENV CRONTAB_15MIN='*/15 * * * *' \
     CRONTAB_HOURLY='0 * * * *' \
@@ -99,7 +99,7 @@ ENV JOB_500_WHAT='dup full $SRC $DST' \
 
 FROM base AS postgres
 
-ENV DB_VERSION="latest" \
+ENV DB_VERSION="18" \
     APK_POSTGRES_DIR="/opt/postgresql-client-collection"
 
 RUN apk add --no-cache grep libpq postgresql-common
@@ -117,8 +117,7 @@ RUN set -eux; \
         "$APK_POSTGRES_DIR/15" \
         "$APK_POSTGRES_DIR/16" \
         "$APK_POSTGRES_DIR/17" \
-        "$APK_POSTGRES_DIR/18" \
-        "$APK_POSTGRES_DIR/latest"; \
+        "$APK_POSTGRES_DIR/18"; \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.8/main" > psql_repos; \
     apk fetch --no-cache --repositories-file psql_repos postgresql-client -o "$APK_POSTGRES_DIR/10"; \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.10/main" > psql_repos; \
@@ -137,7 +136,6 @@ RUN set -eux; \
     apk fetch --no-cache --repositories-file psql_repos postgresql17-client -o "$APK_POSTGRES_DIR/17"; \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.23/main" > psql_repos; \
     apk fetch --no-cache --repositories-file psql_repos postgresql18-client -o "$APK_POSTGRES_DIR/18"; \
-    apk fetch --no-cache postgresql-client -o "$APK_POSTGRES_DIR/latest"; \
     rm psql_repos;
 
 ENV JOB_200_WHAT set -euo pipefail; psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | grep --null-data -E \"\$DBS_TO_INCLUDE\" | grep --null-data --invert-match -E \"\$DBS_TO_EXCLUDE\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
