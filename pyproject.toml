@@ -31,7 +31,7 @@ pyyaml = "6.0.3"
 lxml = "6.0.2"
 requests = "^2.32.5"
 poetry-plugin-export = "^1.9.0"
-urllib3 = ">=2.0"
+urllib3 = ">=2.6.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.2"
