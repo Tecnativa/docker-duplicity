@@ -2,6 +2,7 @@ import logging
 import re
 
 import pytest
+from plumbum import ProcessExecutionError
 from plumbum.cmd import docker
 
 _logger = logging.getLogger(__name__)
@@ -148,7 +149,7 @@ def test_postgres_restore(
         # Backup
         exc("/etc/periodic/daily/jobrunner")
         exc("rm", "-rf", "/mnt/backup/src")
-        with pytest.raises(Exception):
+        with pytest.raises(ProcessExecutionError):
             output = exc("ls", "/mnt/backup/src")
         exc("restore")
         # Check restored files. Output looks like this:
@@ -263,7 +264,7 @@ def test_postgres_multi_restore(
         # Backup
         exc("/etc/periodic/daily/jobrunner")
         exc("rm", "-rf", "/mnt/backup/src")
-        with pytest.raises(Exception):
+        with pytest.raises(ProcessExecutionError):
             output = exc("ls", "/mnt/backup/src")
         exc("restore")
         # Check restored files. Output looks like this:

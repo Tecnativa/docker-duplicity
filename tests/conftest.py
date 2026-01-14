@@ -13,7 +13,7 @@ _logger = logging.getLogger(__name__)
 
 def pytest_configure():
     pytest.MIN_PG = "10"
-    pytest.MAX_PG = "15"
+    pytest.MAX_PG = "18"
 
 
 def pytest_addoption(parser):
