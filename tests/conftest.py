@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from contextlib import contextmanager
 from pathlib import Path
 from time import sleep
@@ -35,6 +36,13 @@ def pytest_addoption(parser):
 def image(request):
     """Get image name. Builds it if needed."""
     image_name = request.config.getoption("--image")
+
+    # If running under pytest-xdist, make image tags unique per worker to avoid
+    # concurrent "image already exists" collisions during docker build/export.
+    worker_id = os.environ.get("PYTEST_XDIST_WORKER")
+    if worker_id and worker_id != "master":
+        image_name = f"{image_name}-{worker_id}"
+
     if request.config.getoption("--prebuild"):
         for tag in [
             "docker-s3",
@@ -57,8 +65,6 @@ def image(request):
             ]
             retcode, stdout, stderr = build.run()
             _logger.log(
-                # Pytest prints warnings if a test fails, so this is a warning if
-                # the build succeeded, to allow debugging the build logs
                 logging.ERROR if retcode else logging.WARNING,
                 "Build logs for COMMAND: %s\nEXIT CODE:%d\nSTDOUT:%s\nSTDERR:%s",
                 build.bound_command(),
@@ -101,6 +107,31 @@ def container_factory(image):
     return _container
 
 
+def _normalize_inspect_ip(container_info: dict) -> dict:
+    """Ensure container_info['NetworkSettings']['IPAddress'] exists.
+
+    Newer Docker versions (and user-defined networks) may leave
+    NetworkSettings.IPAddress empty / absent. The per-network IP lives in
+    NetworkSettings.Networks[<name>].IPAddress.
+    """
+    ns = container_info.get("NetworkSettings") or {}
+    # If IPAddress is already present and non-empty, keep it.
+    ip = ns.get("IPAddress")
+    if ip:
+        return container_info
+
+    networks = ns.get("Networks") or {}
+    for net_data in networks.values():
+        cand = (net_data or {}).get("IPAddress")
+        if cand:
+            ns["IPAddress"] = cand
+            container_info["NetworkSettings"] = ns
+            return container_info
+
+    # No IP found; leave as-is (tests will fail with clearer error later).
+    return container_info
+
+
 @pytest.fixture
 def postgres_factory():
     """Give a running postgres container ID."""
@@ -116,6 +147,7 @@ def postgres_factory():
             f"postgres:{dbver or pytest.MIN_PG}-alpine",
         ).strip()
         container_info = json.loads(docker("container", "inspect", container_id))[0]
+        container_info = _normalize_inspect_ip(container_info)
         for attempt in range(10):
             _logger.debug("Attempt %d of waiting for postgres to start.", attempt)
             try:
