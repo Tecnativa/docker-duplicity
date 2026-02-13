@@ -2,8 +2,8 @@ FROM python:3.14.1-slim AS builder
 
 WORKDIR /app
 ADD pyproject.toml poetry.lock ./
-RUN pip install --no-cache-dir poetry==2.0.1
-RUN poetry self add poetry-plugin-export
+RUN pip install --no-cache-dir poetry==2.1.1
+RUN poetry self add "poetry-plugin-export==1.10.0"
 
 # Build a requirements.txt file matching poetry.lock, that pip understands
 # Test comment
