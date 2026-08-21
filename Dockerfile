@@ -138,7 +138,7 @@ RUN set -eux; \
     apk fetch --no-cache --repositories-file psql_repos postgresql18-client -o "$APK_POSTGRES_DIR/18"; \
     rm psql_repos;
 
-ENV JOB_200_WHAT set -euo pipefail; psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | grep --null-data -E \"\$DBS_TO_INCLUDE\" | grep --null-data --invert-match -E \"\$DBS_TO_EXCLUDE\" | xargs -0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
+ENV JOB_200_WHAT set -euo pipefail; psql -0Atd postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != \'postgres\'\" | { grep --null-data -E \"\$DBS_TO_INCLUDE\" || true; } | { grep --null-data --invert-match -E \"\$DBS_TO_EXCLUDE\" || true; } | xargs -r0tI DB pg_dump --dbname DB --no-owner --no-privileges --file \"\$SRC/DB.sql\"
 ENV JOB_200_WHEN='daily weekly' \
     DBS_TO_INCLUDE='.*' \
     DBS_TO_EXCLUDE='$^' \

@@ -65,6 +65,32 @@ def test_postgres_bin(container_factory, dbver, tag):
 
 @pytest.mark.parametrize("dbver", (None, pytest.MIN_PG, pytest.MAX_PG))
 @pytest.mark.parametrize("tag", ("postgres-multi", "postgres-s3", "postgres"))
+def test_postgres_no_databases(
+    container_factory,
+    postgres_factory,
+    dbver: str,
+    tag: str,
+):
+    """Backing up a deployment with no user databases must succeed (exit 0),
+    not fail with xargs complaining about missing arguments."""
+    with container_factory(tag, dbver) as duplicity_container, postgres_factory(
+        dbver
+    ) as postgres_container:
+        exc = docker[
+            "exec",
+            "--env=PGUSER=postgres",
+            "--env=PGPASSWORD=password",
+            "--env=PASSPHRASE=good",
+            f"--env=PGHOST={postgres_container['NetworkSettings']['IPAddress']}",
+            "--env=DST=file:///mnt/backup/dst",
+            duplicity_container,
+        ]
+        # No user DBs exist; backup must be a no-op success.
+        exc("/etc/periodic/daily/jobrunner", retcode=0)
+
+
+@pytest.mark.parametrize("dbver", (None, pytest.MIN_PG, pytest.MAX_PG))
+@pytest.mark.parametrize("tag", ("postgres-multi", "postgres-s3", "postgres"))
 @pytest.mark.parametrize(
     "dbs_to_include, dbs_to_exclude, dbs_matched",
     (
