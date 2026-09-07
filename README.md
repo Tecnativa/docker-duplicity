@@ -25,6 +25,7 @@
   - [`JOB_*_WHEN`](#job__when)
   - [`JOB_*_HEALTHCHECKS_URL`](#job__healthchecks_url)
   - [`JOB_*_UPTIME_KUMA_URL`](#job__uptime_kuma_url)
+  - [`BATCH_UPTIME_KUMA_URL`](#batch_uptime_kuma_url)
   - [`OPTIONS`](#options)
   - [`OPTIONS_EXTRA`](#options_extra)
   - [`SMTP_HOST`](#smtp_host)
@@ -213,6 +214,15 @@ in the URL. For a job that runs with multiple periodicities, the periodicity can
 added to the env var (e.g. `JOB_200_DAILY_UPTIME_KUMA_URL` or
 `JOB_200_WEEKLY_UPTIME_KUMA_URL`) to specify different URLs for each run.
 Periodicity-specific env vars take precedence over the general one.
+
+### `BATCH_UPTIME_KUMA_URL`
+
+[uptime-kuma](https://github.com/louislam/uptime-kuma) push monitor URL to ping once for
+the whole batch, after all jobs have finished. The ping is `up` with `msg=ok` if all
+jobs succeeded; otherwise it is `down` with `msg` containing the full logs of every job
+(successful and failed). Use this instead of `JOB_*_UPTIME_KUMA_URL` when you want a
+single notification per periodicity run, like the email report. Do not include any query
+parameters in the URL.
 
 ### `OPTIONS`
 
